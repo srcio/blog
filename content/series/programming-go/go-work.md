@@ -1,5 +1,5 @@
 ---
-title: "# Go1.18 - 工作区模式"
+title: "Go1.18 - 工作区模式"
 date: 2022-09-28T18:25:05+08:00
 draft: false
 tags: ["Golang"]
