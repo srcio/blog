@@ -12,7 +12,7 @@
     <language>zh</language>
     <lastBuildDate>Wed, 28 Sep 2022 18:25:05 +0800</lastBuildDate><atom:link href="https://blog.srcio.cn/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title># Go1.18 - 工作区模式</title>
+      <title>Go1.18 - 工作区模式</title>
       <link>https://blog.srcio.cn/series/programming-go/go-work/</link>
       <pubDate>Wed, 28 Sep 2022 18:25:05 +0800</pubDate>
       
