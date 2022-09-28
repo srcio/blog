@@ -2,18 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://blog.srcio.cn/series/programming-go/go-work/</loc>
+    <lastmod>2022-09-28T18:25:05+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.srcio.cn/series/programming-kubernetes/</loc>
+    <lastmod>2022-09-28T18:24:19+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.srcio.cn/series/programming-go/</loc>
+    <lastmod>2022-09-28T18:23:19+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.srcio.cn/tags/golang/</loc>
+    <lastmod>2022-09-28T18:25:05+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.srcio.cn/</loc>
+    <lastmod>2022-09-28T18:25:05+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.srcio.cn/tags/</loc>
+    <lastmod>2022-09-28T18:25:05+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.srcio.cn/series/</loc>
+    <lastmod>2022-09-28T18:25:05+08:00</lastmod>
+  </url><url>
     <loc>https://blog.srcio.cn/archives/</loc>
   </url><url>
     <loc>https://blog.srcio.cn/search/</loc>
   </url><url>
     <loc>https://blog.srcio.cn/categories/</loc>
   </url><url>
-    <loc>https://blog.srcio.cn/</loc>
-  </url><url>
     <loc>https://blog.srcio.cn/posts/</loc>
-  </url><url>
-    <loc>https://blog.srcio.cn/tags/</loc>
-  </url><url>
-    <loc>https://blog.srcio.cn/series/</loc>
   </url>
 </urlset>

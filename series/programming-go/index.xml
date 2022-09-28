@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>博客</title>
-    <link>https://blog.srcio.cn/</link>
-    <description>Recent content on 博客</description>
+    <title>Golang 编程 on 博客</title>
+    <link>https://blog.srcio.cn/series/programming-go/</link>
+    <description>Recent content in Golang 编程 on 博客</description>
     <image>
       <url>https://blog.srcio.cn/cover.png</url>
       <link>https://blog.srcio.cn/cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Wed, 28 Sep 2022 18:25:05 +0800</lastBuildDate><atom:link href="https://blog.srcio.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 28 Sep 2022 18:23:19 +0800</lastBuildDate><atom:link href="https://blog.srcio.cn/series/programming-go/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title># Go1.18 - 工作区模式</title>
       <link>https://blog.srcio.cn/series/programming-go/go-work/</link>
@@ -26,8 +26,6 @@ mkdir greeting vim greeting/hello.go package greeting import &amp;#34;fmt&amp;#3
 cd .. mkdir service-a cd service-a go mod init github.com/srcio/service-a 因为 service-a 需要依赖本地开发的 service-b 类库，所以我们需要在 go.mod 中引入 service-a ：
 vim go.mod module github.com/srcio/service-a go 1.</description>
     </item>
-    
-    
     
   </channel>
 </rss>

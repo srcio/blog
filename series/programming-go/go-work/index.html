@@ -1,0 +1,249 @@
+<!doctype html><html lang=zh dir=" auto">
+<head>
+<link rel=stylesheet href=/fontawesome/css/all.min.css crossorigin=anonymous><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title># Go1.18 - 工作区模式 | 博客</title>
+<meta name=keywords content="Golang">
+<meta name=description content="安装最新的Go1.18版本，它为你提供了工作区模式，帮助你轻松依赖本地类库。
+例如，你开发一个新项目，分了两个 go module，分别为 service-a 和 service-b，service-a 依赖了service-b ，现在项目还处于开发阶段，我们都是这么处理的。
+创建项目目录：
+mkdir service cd service 创建 service-b 模块:
+mkdir service-b cd service-b go mod init github.com/srcio/service-b 编写 service-b 模块代码：
+mkdir greeting vim greeting/hello.go package greeting import &#34;fmt&#34; func Hello(name string){ fmt.Println(&#34;Hello, &#34; + name) } 继续创建 service-a 模块：
+cd .. mkdir service-a cd service-a go mod init github.com/srcio/service-a 因为 service-a 需要依赖本地开发的 service-b 类库，所以我们需要在 go.mod 中引入 service-a ：
+vim go.mod module github.com/srcio/service-a go 1.">
+<meta name=author content="丁鹏">
+<link rel=canonical href=https://blog.srcio.cn/series/programming-go/go-work/>
+<meta name=google-site-verification content="XYZabc">
+<meta name=yandex-verification content="XYZabc">
+<meta name=msvalidate.01 content="XYZabc">
+<link crossorigin=anonymous href=/assets/css/stylesheet.749babd10a1bb02f4d49b97f7453ffb5f3d413e906c29237cfbd722ed89c91a7.css integrity="sha256-dJur0QobsC9NSbl/dFP/tfPUE+kGwpI3z71yLtickac=" rel="preload stylesheet" as=style>
+<script defer crossorigin=anonymous src=/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG+9vmJ0cTS+ovo0FeA=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://blog.srcio.cn/images/blog.png>
+<link rel=icon type=image/png sizes=16x16 href=https://blog.srcio.cn/images/blog.png>
+<link rel=icon type=image/png sizes=32x32 href=https://blog.srcio.cn/images/blog.png>
+<link rel=apple-touch-icon href=https://blog.srcio.cn/images/blog.png>
+<link rel=mask-icon href=https://blog.srcio.cn/images/blog.png>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript><style>@media screen and (min-width:769px){.post-content input[type=checkbox]:checked~label>img{transform:scale(1.6);cursor:zoom-out;position:relative;z-index:999}.post-content img.zoomCheck{transition:transform .15s ease;z-index:999;cursor:zoom-in}}</style>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="# Go1.18 - 工作区模式">
+<meta property="og:description" content="安装最新的Go1.18版本，它为你提供了工作区模式，帮助你轻松依赖本地类库。
+例如，你开发一个新项目，分了两个 go module，分别为 service-a 和 service-b，service-a 依赖了service-b ，现在项目还处于开发阶段，我们都是这么处理的。
+创建项目目录：
+mkdir service cd service 创建 service-b 模块:
+mkdir service-b cd service-b go mod init github.com/srcio/service-b 编写 service-b 模块代码：
+mkdir greeting vim greeting/hello.go package greeting import &#34;fmt&#34; func Hello(name string){ fmt.Println(&#34;Hello, &#34; + name) } 继续创建 service-a 模块：
+cd .. mkdir service-a cd service-a go mod init github.com/srcio/service-a 因为 service-a 需要依赖本地开发的 service-b 类库，所以我们需要在 go.mod 中引入 service-a ：
+vim go.mod module github.com/srcio/service-a go 1.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.srcio.cn/series/programming-go/go-work/"><meta property="og:image" content="https://blog.srcio.cn/cover.png"><meta property="article:section" content="series">
+<meta property="article:published_time" content="2022-09-28T18:25:05+08:00">
+<meta property="article:modified_time" content="2022-09-28T18:25:05+08:00"><meta property="og:site_name" content="博客">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://blog.srcio.cn/cover.png">
+<meta name=twitter:title content="# Go1.18 - 工作区模式">
+<meta name=twitter:description content="安装最新的Go1.18版本，它为你提供了工作区模式，帮助你轻松依赖本地类库。
+例如，你开发一个新项目，分了两个 go module，分别为 service-a 和 service-b，service-a 依赖了service-b ，现在项目还处于开发阶段，我们都是这么处理的。
+创建项目目录：
+mkdir service cd service 创建 service-b 模块:
+mkdir service-b cd service-b go mod init github.com/srcio/service-b 编写 service-b 模块代码：
+mkdir greeting vim greeting/hello.go package greeting import &#34;fmt&#34; func Hello(name string){ fmt.Println(&#34;Hello, &#34; + name) } 继续创建 service-a 模块：
+cd .. mkdir service-a cd service-a go mod init github.com/srcio/service-a 因为 service-a 需要依赖本地开发的 service-b 类库，所以我们需要在 go.mod 中引入 service-a ：
+vim go.mod module github.com/srcio/service-a go 1.">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"系列","item":"https://blog.srcio.cn/series/"},{"@type":"ListItem","position":2,"name":"Golang 编程","item":"https://blog.srcio.cn/series/programming-go/"},{"@type":"ListItem","position":3,"name":"# Go1.18 - 工作区模式","item":"https://blog.srcio.cn/series/programming-go/go-work/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"# Go1.18 - 工作区模式","name":"# Go1.18 - 工作区模式","description":"安装最新的Go1.18版本，它为你提供了工作区模式，帮助你轻松依赖本地类库。\n例如，你开发一个新项目，分了两个 go module，分别为 service-a 和 service-b，service-a 依赖了service-b ，现在项目还处于开发阶段，我们都是这么处理的。\n创建项目目录：\nmkdir service cd service 创建 service-b 模块:\nmkdir service-b cd service-b go mod init github.com/srcio/service-b 编写 service-b 模块代码：\nmkdir greeting vim greeting/hello.go package greeting import \u0026#34;fmt\u0026#34; func Hello(name string){ fmt.Println(\u0026#34;Hello, \u0026#34; + name) } 继续创建 service-a 模块：\ncd .. mkdir service-a cd service-a go mod init github.com/srcio/service-a 因为 service-a 需要依赖本地开发的 service-b 类库，所以我们需要在 go.mod 中引入 service-a ：\nvim go.mod module github.com/srcio/service-a go 1.","keywords":["Golang"],"articleBody":"安装最新的Go1.18版本，它为你提供了工作区模式，帮助你轻松依赖本地类库。\n例如，你开发一个新项目，分了两个 go module，分别为 service-a 和 service-b，service-a 依赖了service-b ，现在项目还处于开发阶段，我们都是这么处理的。\n创建项目目录：\nmkdir service cd service 创建 service-b 模块:\nmkdir service-b cd service-b go mod init github.com/srcio/service-b 编写 service-b 模块代码：\nmkdir greeting vim greeting/hello.go package greeting import \"fmt\" func Hello(name string){ fmt.Println(\"Hello, \" + name) } 继续创建 service-a 模块：\ncd .. mkdir service-a cd service-a go mod init github.com/srcio/service-a 因为 service-a 需要依赖本地开发的 service-b 类库，所以我们需要在 go.mod 中引入 service-a ：\nvim go.mod module github.com/srcio/service-a go 1.18 require( github.com/srcio/service-b v1.0.0 ) replace( github.com/srcio/service-a v1.0.0 = ../service-b ) 然后，编写主函数代码：\nvim main.go package main import( \"github.com/srcio/service-b/greeting\" ) func main(){ greeting.Hello() } 在上述的整个过程中，你会发现，我们引用了本地的代码类库 github.com/srcio/service-b v1.0.0 = ../service-b。而且，如果此时别的开发者和你一起协作开发 service-a module的时候，他是无法引用到这个类库的（除非他本地也同步了../service-b）。\n现在你就可以通过 go work 来解决这种烦恼了。\n首先，你要做的是回到module的外面，然后执行 go work init 命令：\ncd .. go work init service-a go work init service-b 此时，你会发现，目录下多了个go.work文件，查看该文件内容：\n$ cat go.work go 1.18 use( ./service-a ./service-b ) module 依赖的类库目录就在 use 块中，此时，你可以删除 service-a目录下 go.mod 中的 replace 块，然后运行 main 函数了：\ncd service-a \u0026\u0026 go run main.go # 或者你可以直接在工作区目录运行 go run service-a/main.go 如果你的主项目依赖多个本地类库，那么你可以使用如下命令添加\ngo work use service-c go work use service-d 最后，你可以通过 go help work，了解更多。\n","wordCount":"165","inLanguage":"zh","datePublished":"2022-09-28T18:25:05+08:00","dateModified":"2022-09-28T18:25:05+08:00","author":[{"@type":"Person","name":"丁鹏"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.srcio.cn/series/programming-go/go-work/"},"publisher":{"@type":"Organization","name":"博客","logo":{"@type":"ImageObject","url":"https://blog.srcio.cn/images/blog.png"}}}</script>
+</head>
+<body id="
+    top">
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://blog.srcio.cn/ accesskey=h title="博客 (Alt + H)">
+<img src=https://blog.srcio.cn/images/blog.png alt aria-label=logo height=25>博客</a>
+<div class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</div>
+</div>
+<ul id=menu>
+<li>
+<a href=https://blog.srcio.cn/ title=主页>
+<span>
+<i class="fa-solid fa-home"></i>
+主页</span>
+</a>
+</li>
+<li>
+<a href=https://blog.srcio.cn/posts/ title=文章>
+<span>
+<i class="fa-solid fa-feather"></i>
+文章</span>
+</a>
+</li>
+<li>
+<a href=https://blog.srcio.cn/series/ title=系列>
+<span>
+<i class="fa-solid fa-swatchbook"></i>
+系列</span>
+</a>
+</li>
+<li>
+<a href=https://blog.srcio.cn/tags/ title=标签>
+<span>
+<i class="fa-solid fa-tags"></i>
+标签</span>
+</a>
+</li>
+<li>
+<a href=https://blog.srcio.cn/archives/ title=归档>
+<span>
+<i class="fa-solid fa-folder-minus"></i>
+归档</span>
+</a>
+</li>
+<li>
+<a href=https://blog.srcio.cn/search/ title=" (Alt + /)" accesskey=/>
+<span>
+<i class="fa-solid fa-magnifying-glass"></i>
+</span>
+</a>
+</li>
+</ul>
+</nav>
+</header><main class=main>
+<article class=post-single>
+<header class=post-header>
+<div class=breadcrumbs><a href=/>主页</a>&nbsp;<i class="fa-solid fa-angle-right"></i>&nbsp;
+<a href=https://blog.srcio.cn/series/>系列</a>&nbsp;<i class="fa-solid fa-angle-right"></i>&nbsp;
+<a href=https://blog.srcio.cn/series/programming-go/>Golang 编程</a>&nbsp;<i class="fa-solid fa-angle-right"></i>&nbsp;<span># Go1.18 - 工作区模式</span>
+</div>
+<h1 class=post-title>
+# Go1.18 - 工作区模式
+</h1>
+<div class=post-meta><span class=meta-item>
+<span>
+<i class="fa-solid fa-calendar-day"></i>&nbsp;
+2022-9-28
+</span>
+</span>&nbsp;·&nbsp;
+<span class=meta-item>
+<span>
+<i class="fa-solid fa-clock"></i>&nbsp;1 分钟</span>
+</span>&nbsp;·&nbsp;
+<span class=meta-item>
+<span>
+<i class="fa-solid fa-chart-simple"></i></i>&nbsp;165 字</span>
+</span>
+&nbsp;·&nbsp;
+<span class=meta-item>
+<span>
+<i class="fa-solid fa-user"></i></i>&nbsp;丁鹏
+</span>
+</span><span class=meta-item>
+&nbsp;·&nbsp;<i class="fa-solid fa-book-open-reader"></i>&nbsp;<span id=busuanzi_value_page_pv></span>
+</span>&nbsp;&nbsp;|&nbsp;&nbsp;<a href=https://github.com/srcio/blog/edit/master/content/series/programming-go/go-work.md rel="noopener noreferrer" target=_blank>
+<i class="fa-regular fa-pen-to-square"></i>&nbsp;编辑</a>
+</div>
+</header>
+<div class=post-content><p>安装最新的Go1.18版本，它为你提供了工作区模式，帮助你轻松依赖本地类库。</p>
+<p>例如，你开发一个新项目，分了两个 go module，分别为 <code>service-a</code> 和 <code>service-b</code>，<code>service-a</code> 依赖了<code>service-b</code> ，现在项目还处于开发阶段，我们都是这么处理的。</p>
+<p>创建项目目录：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>mkdir service
+<span class=nb>cd</span> service
+</code></pre></div><p>创建 <code>service-b</code> 模块:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>mkdir service-b
+<span class=nb>cd</span> service-b
+go mod init github.com/srcio/service-b
+</code></pre></div><p>编写 <code>service-b</code> 模块代码：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>mkdir greeting
+vim greeting/hello.go
+</code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>greeting</span>
+
+<span class=kn>import</span> <span class=s>&#34;fmt&#34;</span>
+
+<span class=kd>func</span> <span class=nf>Hello</span><span class=p>(</span><span class=nx>name</span> <span class=kt>string</span><span class=p>){</span>
+    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Hello, &#34;</span> <span class=o>+</span> <span class=nx>name</span><span class=p>)</span> 
+<span class=p>}</span>
+</code></pre></div><p>继续创建 <code>service-a</code> 模块：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=nb>cd</span> ..
+mkdir service-a
+<span class=nb>cd</span> service-a
+go mod init github.com/srcio/service-a
+</code></pre></div><p>因为 <code>service-a</code> 需要依赖本地开发的 <code>service-b</code> 类库，所以我们需要在 go.mod 中引入 <code>service-a</code> ：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>vim go.mod
+</code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=nx>module</span> <span class=nx>github</span><span class=p>.</span><span class=nx>com</span><span class=o>/</span><span class=nx>srcio</span><span class=o>/</span><span class=nx>service</span><span class=o>-</span><span class=nx>a</span>
+
+<span class=k>go</span> <span class=mf>1.18</span>
+
+<span class=nf>require</span><span class=p>(</span>
+    <span class=nx>github</span><span class=p>.</span><span class=nx>com</span><span class=o>/</span><span class=nx>srcio</span><span class=o>/</span><span class=nx>service</span><span class=o>-</span><span class=nx>b</span> <span class=nx>v1</span><span class=mf>.0.0</span>
+<span class=p>)</span>
+
+<span class=nf>replace</span><span class=p>(</span>
+    <span class=nx>github</span><span class=p>.</span><span class=nx>com</span><span class=o>/</span><span class=nx>srcio</span><span class=o>/</span><span class=nx>service</span><span class=o>-</span><span class=nx>a</span> <span class=nx>v1</span><span class=mf>.0.0</span> <span class=p>=&gt;</span> <span class=p>..</span><span class=o>/</span><span class=nx>service</span><span class=o>-</span><span class=nx>b</span>
+<span class=p>)</span>
+</code></pre></div><p>然后，编写主函数代码：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>vim main.go
+</code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>main</span>
+<span class=kn>import</span><span class=p>(</span>
+    <span class=s>&#34;github.com/srcio/service-b/greeting&#34;</span>
+<span class=p>)</span>
+
+<span class=kd>func</span> <span class=nf>main</span><span class=p>(){</span>
+    <span class=nx>greeting</span><span class=p>.</span><span class=nf>Hello</span><span class=p>()</span>
+<span class=p>}</span>
+</code></pre></div><p>在上述的整个过程中，你会发现，我们引用了本地的代码类库 <code>github.com/srcio/service-b v1.0.0 => ../service-b</code>。而且，如果此时别的开发者和你一起协作开发 <code>service-a</code> module的时候，他是无法引用到这个类库的（除非他本地也同步了<code>../service-b</code>）。</p>
+<p>现在你就可以通过 <code>go work</code> 来解决这种烦恼了。</p>
+<p>首先，你要做的是回到module的外面，然后执行 <code>go work init</code> 命令：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=nb>cd</span> ..
+go work init service-a
+go work init service-b
+</code></pre></div><p>此时，你会发现，目录下多了个<code>go.work</code>文件，查看该文件内容：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>$ cat go.work
+go 1.18
+
+use<span class=o>(</span>
+    ./service-a
+    ./service-b
+<span class=o>)</span>
+</code></pre></div><p>module 依赖的类库目录就在 <code>use</code> 块中，此时，你可以删除 <code>service-a</code>目录下 <code>go.mod</code> 中的 <code>replace</code> 块，然后运行 main 函数了：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=nb>cd</span> service-a <span class=o>&amp;&amp;</span> go run main.go
+<span class=c1># 或者你可以直接在工作区目录运行 go run service-a/main.go</span>
+</code></pre></div><p>如果你的主项目依赖多个本地类库，那么你可以使用如下命令添加</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>go work use service-c
+go work use service-d
+</code></pre></div><p>最后，你可以通过 <code>go help work</code>，了解更多。</p>
+</div>
+<footer class=post-footer>
+<ul class=post-tags>
+<li><a href=https://blog.srcio.cn/tags/golang/><i class="fa-solid fa-tag"></i>&nbsp;Golang</a></li>
+</ul>
+</footer>
+<div class=giscus_comments><script src=https://giscus.app/client.js data-repo=srcio/blog data-repo-id=R_kgDOIFWX7A data-category=General data-category-id=DIC_kwDOIFWX7M4CRrSg data-mapping=pathname data-strict=0 data-reactions-enabled=1 data-emit-metadata=0 data-input-position=top data-theme=light data-lang=zh-CN crossorigin=anonymous async></script>
+</div>
+<script>document.querySelector("div.giscus_comments > script").setAttribute("data-theme",localStorage.getItem("pref-theme")?localStorage.getItem("pref-theme"):window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"),document.querySelector("#theme-toggle").addEventListener("click",()=>{let a=document.querySelector("iframe.giscus-frame");a&&a.contentWindow.postMessage({giscus:{setConfig:{theme:localStorage.getItem("pref-theme")?localStorage.getItem("pref-theme")==="dark"?"light":"dark":document.body.className.includes("dark")?"light":"dark"}}},"https://giscus.app")})</script>
+</article>
+</main>
+<script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script>
+<footer class=footer>
+<span>&copy; 2022 博客 · 丁鹏</span>
+<span><a href=https://beian.miit.gov.cn/>湘ICP备2022019990号</a></span>
+<span>
+📈 本站共计<span id=busuanzi_value_site_pv style=color:#87cefa>0</span>次访问
+<span id=busuanzi_value_site_uv style=color:#87cefa>0</span>位访客
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+<script>document.querySelectorAll('pre > code').forEach(b=>{const c=b.parentNode.parentNode,a=document.createElement('button');a.classList.add('copy-code'),a.innerHTML='<i class="fa-regular fa-copy"></i>';function d(){a.innerHTML='<i class="fa-solid fa-check"></i>',setTimeout(()=>{a.innerHTML='<i class="fa-regular fa-copy"></i>'},2e3)}a.addEventListener('click',e=>{if('clipboard'in navigator){navigator.clipboard.writeText(b.textContent),d();return}const a=document.createRange();a.selectNodeContents(b);const c=window.getSelection();c.removeAllRanges(),c.addRange(a);try{document.execCommand('copy'),d()}catch(a){}c.removeRange(a)}),c.classList.contains("highlight")?c.appendChild(a):c.parentNode.firstChild==c||(b.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?b.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(a):b.parentNode.appendChild(a))})</script></body>
+</html>
