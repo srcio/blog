@@ -112,7 +112,7 @@ params:
     distance: 1000
     threshold: 0.4
     minMatchCharLength: 0
-    keys: ["srcio", "blog", "dingpeng", "kubernetes", "go"]
+    keys:  ["title", "permalink", "summary", "content"]
 menu:
   main:
     - identifier: search
