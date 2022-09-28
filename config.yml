@@ -1,0 +1,163 @@
+baseURL: "https://blog.srcio.cn/"
+languageCode: zh
+title: "博客"
+paginate: 10
+# theme: ""
+defaultContentLanguage: zh
+
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+googleAnalytics: UA-123-45
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+params:
+  env: production # to enable google analytics, opengraph, twitter-cards and schema.
+  title: "博客"
+  description: "博客 · 丁鹏"
+  keywords: [Blog, Portfolio]
+  author: ["丁鹏"]
+  images: ["cover.png"]
+  DateFormat: "2006-1-2"
+  timeZone: "UTC"
+  defaultTheme: auto # dark, light
+  disableThemeToggle: false
+
+  ShowReadingTime: true
+  ShowShareButtons: false
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: true
+  ShowRssButtonInSectionTermList: false
+  ShowAllPagesInArchive: true
+  UseHugoToc: true
+  disableSpecial1stPost: false
+  disableScrollToTop: false
+  comments: true
+  hidemeta: false
+  hideSummary: false
+  showtoc: true
+  tocopen: false
+
+  mainSections:
+    - posts
+    - series
+
+  assets:
+    disableHLJS: false # to disable highlight.js
+    # disableFingerprinting: true
+    favicon: "/images/blog.png"
+    favicon16x16: "/images/blog.png"
+    favicon32x32: "/images/blog.png"
+    apple_touch_icon: "/images/blog.png"
+    safari_pinned_tab: "/images/blog.png"
+
+  label:
+    text: "博客"
+    icon: /images/blog.png
+    iconHeight: 25
+
+  # profile-mode
+  profileMode:
+    enabled: false # needs to be explicitly set
+    title: "丁鹏"
+    subtitle: "集中起来的意志可以击穿顽石。"
+    imageUrl: "/images/profile.jpg"
+    imageWidth: 120
+    imageHeight: 120
+    imageTitle: dp
+    buttons:
+      - name: 👏 欢迎进入我的博客 🔜
+        url: /posts
+  homeInfoParams:
+    Content: 集中起来的意志可以击穿顽石。
+
+  socialIcons:
+    - name: github
+      url: "https://github.com/srcio"
+    - name: email
+      url: "mailto:me@srcio.cn"
+
+  analytics:
+    google:
+      SiteVerificationTag: "XYZabc"
+    bing:
+      SiteVerificationTag: "XYZabc"
+    yandex:
+      SiteVerificationTag: "XYZabc"
+
+  cover:
+    hidden: true # hide everywhere but not in structured data
+    hiddenInList: true # hide on list pages and home
+    hiddenInSingle: true # hide on single page
+    # linkFullImages: true
+
+  editPost:
+    URL: "https://github.com/srcio/blog/edit/master/content"
+    Text: "编辑" # edit text
+    appendFilePath: true # to append file path to Edit link
+
+  # for search
+  # https://fusejs.io/api/options.html
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: ["srcio", "blog", "dingpeng", "kubernetes", "go"]
+menu:
+  main:
+    - identifier: search
+      # name: 搜索
+      pre: magnifying-glass
+      url: /search/
+      weight: 40
+    - identifier: home
+      name: 主页
+      pre: home
+      url: /
+      weight: 1
+    - identifier: posts
+      name: 文章
+      pre: feather
+      url: /posts/
+      weight: 2
+    - identifier: series
+      name: 系列
+      pre: swatchbook
+      url: /series/
+      weight: 3
+    - identifier: tags
+      name: 标签
+      pre: tags
+      url: /tags/
+      weight: 20
+    - identifier: archives
+      name: 归档
+      pre: folder-minus
+      url: /archives/
+      weight: 30
+
+pygmentsUseClasses: true
+markup:
+  highlight:
+    noClasses: false
+    anchorLineNos: false
+    codeFences: true
+    guessSyntax: true
+    lineNos: false
+    # style: monokai
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON # is necessary
