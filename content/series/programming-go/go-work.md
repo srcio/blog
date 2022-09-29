@@ -6,7 +6,7 @@ tags: ["Golang"]
 weight: 1
 ---
 
-安装最新的Go1.18版本，它为你提供了工作区模式，帮助你轻松依赖本地类库。
+安装的 Go1.18 或更新版本，它为你提供了工作区模式（Workspace mode），帮助你更好做 go 模块之间依赖的管理。
 
 
 例如，你开发一个新项目，分了两个 go module，分别为 `service-a` 和 `service-b`，`service-a` 依赖了`service-b` ，现在项目还处于开发阶段，我们都是这么处理的。
