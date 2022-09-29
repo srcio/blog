@@ -5,14 +5,14 @@
   <a class="prev" href="{{ .Permalink }}">
     <strong class="title"><i class="fa-solid fa-backward"></i>&nbsp;{{ i18n "prev_page" }}</strong>
     <br>
-    <span>{{- .Name -}}</span>
+    {{- .Name -}}
   </a>
   {{- end }}
   {{- with $pages.Prev . }}
   <a class="next" href="{{ .Permalink }}">
     <strong class="title">{{ i18n "next_page" }}&nbsp;<i class="fa-solid fa-forward"></i></strong>
     <br>
-    <span>{{- .Name -}}</span>
+    {{- .Name -}}
   </a>
   {{- end }}
 </nav>

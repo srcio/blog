@@ -4,12 +4,11 @@
     {{- if site.Copyright }}
     <span>{{ site.Copyright | markdownify }}</span>
     {{- else }}
-    <span>&copy; {{ now.Year }} {{ site.Title }} · 丁鹏</span>
+    <span>&copy; {{ now.Year }} <a href="{{ `` | absLangURL }}">{{ site.Title }} · 丁鹏</a></span>
     <span><a href="https://beian.miit.gov.cn/">湘ICP备2022019990号</a></span>
     {{- end }}
     <span>
-        📈 本站共计<span id="busuanzi_value_site_pv" style="color:lightskyblue">0</span>次访问
-        <span id="busuanzi_value_site_uv" style="color: lightskyblue;">0</span>位访客
+        📈 本站共计：<a id="busuanzi_value_site_pv">0</a> 次访问 & <a id="busuanzi_value_site_uv">0</a> 位访客
     </span>
 
 </footer>

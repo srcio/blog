@@ -3,12 +3,11 @@
 
 <head>
     <link rel="stylesheet" href="/fontawesome/css/all.min.css" crossorigin="anonymous">
-</head>{{- partial "head.html" . }}
+    {{- partial "head.html" . }}
 </head>
 
-<body class="
-{{- if (or (ne .Kind `page` ) (eq .Layout `archives`) (eq .Layout `search`)) -}}
-{{- print `list` -}} {{- end -}} {{- if eq site.Params.defaultTheme `dark` -}} {{- print `dark` }} {{- end -}} "
+<body class="{{- if (or (ne .Kind `page` ) (eq .Layout `archives`) (eq .Layout `search`)) -}}
+{{- print `list` -}} {{- end -}} {{- if eq site.Params.defaultTheme `dark` -}} {{- print `dark` }} {{- end -}}"
     id="top">
     {{- partialCached "header.html" . .Page -}}
     <main class="main">

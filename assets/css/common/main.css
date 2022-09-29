@@ -79,12 +79,6 @@ a {
     transition: transform .3s ease-in-out, box-shadow .3s cubic-bezier(.47, 0, .745, .715), border .3s linear .1s;
 }
 
-a:hover:not(.prev):not(.next) {
-    -webkit-transform: translateY(-2px);
-    -moz-transform: translateY(-2px);
-    transform: translateY(-2px);
-}
-
 article.post-entry {
     transition: transform .1s ease-in-out, box-shadow .1s cubic-bezier(.47, 0, .745, .715), border .1s linear .1s;
 }
@@ -104,3 +98,10 @@ article.post-entry:hover {
     border-radius: var(--radius);
     padding: 10px;
 }
+
+a:hover,
+a:hover *{
+    color: #74985D !important;
+}
+
+

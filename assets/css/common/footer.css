@@ -23,11 +23,6 @@
 
 .footer a {
     color: inherit;
-    border-bottom: 1px solid var(--secondary);
-}
-
-.footer a:hover {
-    border-bottom: 1px solid var(--primary);
 }
 
 .top-link {
@@ -47,11 +42,6 @@
 .top-link,
 .top-link svg {
     filter: drop-shadow(0px 0px 0px var(--theme));
-}
-
-.footer a:hover,
-.top-link:hover {
-    color: var(--primary);
 }
 
 .top-link:focus,
