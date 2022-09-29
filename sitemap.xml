@@ -23,12 +23,22 @@
     <loc>https://blog.srcio.cn/series/</loc>
     <lastmod>2022-09-28T18:25:05+08:00</lastmod>
   </url><url>
+    <loc>https://blog.srcio.cn/tags/blog/</loc>
+    <lastmod>2022-09-28T09:02:43+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.srcio.cn/tags/giscus/</loc>
+    <lastmod>2022-09-28T09:02:43+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.srcio.cn/posts/use-giscus/</loc>
+    <lastmod>2022-09-28T09:02:43+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.srcio.cn/posts/</loc>
+    <lastmod>2022-09-28T09:02:43+08:00</lastmod>
+  </url><url>
     <loc>https://blog.srcio.cn/archives/</loc>
   </url><url>
     <loc>https://blog.srcio.cn/search/</loc>
   </url><url>
     <loc>https://blog.srcio.cn/categories/</loc>
-  </url><url>
-    <loc>https://blog.srcio.cn/posts/</loc>
   </url>
 </urlset>

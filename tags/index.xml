@@ -20,5 +20,23 @@
       <description></description>
     </item>
     
+    <item>
+      <title>Blog</title>
+      <link>https://blog.srcio.cn/tags/blog/</link>
+      <pubDate>Wed, 28 Sep 2022 09:02:43 +0800</pubDate>
+      
+      <guid>https://blog.srcio.cn/tags/blog/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Giscus</title>
+      <link>https://blog.srcio.cn/tags/giscus/</link>
+      <pubDate>Wed, 28 Sep 2022 09:02:43 +0800</pubDate>
+      
+      <guid>https://blog.srcio.cn/tags/giscus/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

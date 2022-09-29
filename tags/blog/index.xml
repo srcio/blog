@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>文章 on 博客</title>
-    <link>https://blog.srcio.cn/posts/</link>
-    <description>Recent content in 文章 on 博客</description>
+    <title>Blog on 博客</title>
+    <link>https://blog.srcio.cn/tags/blog/</link>
+    <description>Recent content in Blog on 博客</description>
     <image>
       <url>https://blog.srcio.cn/cover.png</url>
       <link>https://blog.srcio.cn/cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Wed, 28 Sep 2022 09:02:43 +0800</lastBuildDate><atom:link href="https://blog.srcio.cn/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 28 Sep 2022 09:02:43 +0800</lastBuildDate><atom:link href="https://blog.srcio.cn/tags/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>使用 Giscus 作为博客评论系统</title>
       <link>https://blog.srcio.cn/posts/use-giscus/</link>
