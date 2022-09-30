@@ -63,18 +63,6 @@ params:
     icon: /images/blog.png
     iconHeight: 25
 
-  # profile-mode
-  profileMode:
-    enabled: false # needs to be explicitly set
-    title: "丁鹏"
-    subtitle: "集中起来的意志可以击穿顽石。"
-    imageUrl: "/images/profile.jpg"
-    imageWidth: 120
-    imageHeight: 120
-    imageTitle: dp
-    buttons:
-      - name: 👏 欢迎进入我的博客 🔜
-        url: /posts
   homeInfoParams:
     Content: 集中起来的意志可以击穿顽石。
 
@@ -150,11 +138,6 @@ pygmentsUseClasses: true
 markup:
   highlight:
     noClasses: false
-    anchorLineNos: false
-    codeFences: true
-    guessSyntax: true
-    lineNos: false
-    # style: monokai
 
 outputs:
   home:
