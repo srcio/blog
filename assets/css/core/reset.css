@@ -13,6 +13,11 @@ a {
     color:var(--secondary)
 }
 
+a:hover,
+a:hover *{
+    color: var(--primary) !important;
+}
+
 button,
 body,
 h1,

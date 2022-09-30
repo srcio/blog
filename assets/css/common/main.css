@@ -98,10 +98,3 @@ article.post-entry:hover {
     border-radius: var(--radius);
     padding: 10px;
 }
-
-a:hover,
-a:hover *{
-    color: #74985D !important;
-}
-
-

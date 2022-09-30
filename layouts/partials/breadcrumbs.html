@@ -3,7 +3,7 @@
     {{- $url := replace .Parent.Permalink (printf "%s" site.BaseURL) "" }}
     {{- $lang_url := strings.TrimPrefix (printf "%s/" .Lang) $url -}}
     
-    <a href="/">主页</a>&nbsp;<i class="fa-solid fa-angle-right"></i>&nbsp;
+    <a href="/">主页&nbsp;</a><i class="fa-solid fa-angle-right"></i>
     {{- $scratch := newScratch }}
     {{- range $index, $element := split $lang_url "/" }}
 
@@ -11,9 +11,9 @@
     {{- $bc_pg := site.GetPage ($scratch.Get "path") -}}
 
     {{- if (and ($bc_pg) (gt (len . ) 0))}}
-    <a href="{{ $bc_pg.Permalink }}">{{ $bc_pg.Name }}</a>&nbsp;<i class="fa-solid fa-angle-right"></i>&nbsp;
+    <a href="{{ $bc_pg.Permalink }}">&nbsp;{{ $bc_pg.Name }}&nbsp;</a><i class="fa-solid fa-angle-right"></i>
     {{- end }}
     {{- end -}}
-    <span>{{.Title}}</span>
+    <span>&nbsp;{{.Title}}</span>
 </div>
 {{- end -}}

@@ -8,20 +8,18 @@
 {{- end }}
 
 {{- if (.Param "ShowReadingTime") -}}
-&nbsp;·&nbsp;
-<span class="meta-item">
+&nbsp;·&nbsp;<span class="meta-item">
     <span>
-        <i class='fa-solid fa-clock'></i>&nbsp;
+        &nbsp;<i class='fa-solid fa-clock'></i>&nbsp;
         {{- i18n "read_time" .ReadingTime | default (printf "%d min" .ReadingTime) -}}
     </span>
 </span>
 {{- end }}
 
 {{- if (.Param "ShowWordCount") -}}
-&nbsp;·&nbsp;
-<span class="meta-item">
+&nbsp;·&nbsp;<span class="meta-item">
     <span>
-        <i class="fa-solid fa-chart-simple"></i></i>&nbsp;
+        &nbsp;<i class="fa-solid fa-chart-simple"></i></i>&nbsp;
         {{- i18n "words" .WordCount | default (printf "%d words" .WordCount) -}}
     </span>
 </span>
@@ -31,18 +29,17 @@
 {{- $author := (.Params.author | default site.Params.author) }}
 {{- $author_type := (printf "%T" $author) }}
 {{- if (or (eq $author_type "[]string") (eq $author_type "[]interface {}")) }}
-&nbsp;·&nbsp;
-<span class="meta-item">
+&nbsp;·&nbsp;<span class="meta-item">
     <span>
-        <i class="fa-solid fa-user"></i></i>&nbsp;
+        &nbsp;<i class="fa-solid fa-user"></i></i>&nbsp;
         {{- (delimit $author ", " ) }}
     </span>
 </span>
 {{- else }}
-&nbsp;·&nbsp;
-<span class="meta-item">
+
+&nbsp;·&nbsp;<span class="meta-item">
     <span>
-        <i class="fa-solid fa-chart-simple"></i></i>&nbsp;
+        &nbsp;<i class="fa-solid fa-chart-simple"></i></i>&nbsp;
         {{- $author }}
     </span>
 </span>
