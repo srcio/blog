@@ -58,7 +58,7 @@ pre {
     background: rgba(78, 78, 78, 0.8);
     border-radius: var(--radius);
     padding: 0 5px;
-    font-size: 18px;
+    font-size: 16px;
     user-select: none;
 }
 
@@ -76,7 +76,14 @@ code {
 }
 
 a {
-    transition: transform .3s ease-in-out, box-shadow .3s cubic-bezier(.47, 0, .745, .715), border .3s linear .1s;
+    color:var(--secondary);
+    text-decoration: none;
+    transition: transform .3s ease-in-out, box-shadow .3s cubic-bezier(.47, 0, .745, .715);
+}
+
+a:hover,
+a:hover *{
+    color: var(--primary) !important;
 }
 
 article.post-entry {

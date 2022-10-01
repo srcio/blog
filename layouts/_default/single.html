@@ -15,8 +15,8 @@
         {{- if not (.Param "hideMeta") }}
         <div class="post-meta">
             {{- partial "post_meta.html" . -}}
-            &nbsp;·&nbsp;<span class="meta-item">
-                &nbsp;<i class="fa-solid fa-book-open-reader"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            <span class="meta-item">
+                &nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-book-open-reader"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
             </span>
             {{- partial "translation_list.html" . -}}
             {{- partial "edit_post.html" . -}}

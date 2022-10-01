@@ -2,18 +2,15 @@
 <div class="breadcrumbs">
     {{- $url := replace .Parent.Permalink (printf "%s" site.BaseURL) "" }}
     {{- $lang_url := strings.TrimPrefix (printf "%s/" .Lang) $url -}}
-    
-    <a href="/">主页&nbsp;</a><i class="fa-solid fa-angle-right"></i>
+    <p><a href="/">主页</a>
     {{- $scratch := newScratch }}
     {{- range $index, $element := split $lang_url "/" }}
-
     {{- $scratch.Add "path" (printf "%s/" $element )}}
     {{- $bc_pg := site.GetPage ($scratch.Get "path") -}}
-
     {{- if (and ($bc_pg) (gt (len . ) 0))}}
-    <a href="{{ $bc_pg.Permalink }}">&nbsp;{{ $bc_pg.Name }}&nbsp;</a><i class="fa-solid fa-angle-right"></i>
+    <a href="{{ $bc_pg.Permalink }}"><i class="fa-solid fa-angle-right"></i>&nbsp;{{ $bc_pg.Name }}</a>
     {{- end }}
     {{- end -}}
-    <span>&nbsp;{{.Title}}</span>
-</div>
+    &nbsp;<span><i class="fa-solid fa-angle-right"></i>&nbsp;{{.Title}}</span></p>
+    </div>
 {{- end -}}

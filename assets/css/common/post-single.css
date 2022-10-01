@@ -17,16 +17,9 @@
 .breadcrumbs {
     color: var(--secondary);
     font-size: 14px;
-    display: inline;
-    flex-wrap: wrap;
+    /* display: inline;
+    flex-wrap: wrap; */
 }
-
-/* .breadcrumbs a{
-    color: var(--secondary)!important;
-    font-size: 14px!important;
-    display: inline;
-    flex-wrap: wrap;
-} */
 
 .post-meta{
     color: var(--secondary);
@@ -77,11 +70,6 @@
 
 .post-content h6 {
     font-size: 12px;
-}
-
-.post-content a,
-.toc a:hover {
-    box-shadow: 0 1px 0;
 }
 
 .post-content a code {
@@ -202,7 +190,7 @@
 .post-content code {
     margin: auto 4px;
     padding: 4px 6px;
-    font-size: 0.78em;
+    font-size: 85%;
     line-height: 1.5;
     background: var(--code-bg);
     border-radius: 8px;
@@ -222,7 +210,8 @@
 .post-content blockquote {
     margin: 20px 0;
     padding: 0 14px;
-    border-inline-start: 3px solid var(--primary);
+    border-inline-start: 3px solid var(--secondary);
+    color: var(--secondary);
 }
 
 .post-content hr {
@@ -263,16 +252,10 @@
 }
 
 .toc {
-    margin: 0 2px 20px 2px;
-    /* border: 1px solid var(--border); */
     background: var(--code-bg);
     border-radius: var(--radius);
     padding: 10px;
     font-size: 16px;
-    position: fixed;
-    width: 280px;
-    left: 10px;
-    top: calc(var(--header-height) + var(--gap) * 3);
 }
 
 .dark .toc {
