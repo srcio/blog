@@ -40,6 +40,11 @@
 button#theme-toggle {
     font-size: 26px;
     margin: auto 4px;
+    color: var(--secondary);
+}
+
+button#theme-toggle:hover {
+    color: var(--primary);
 }
 
 body.dark #moon {

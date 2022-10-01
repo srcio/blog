@@ -1,7 +1,7 @@
 {{- if not .Date.IsZero -}}
 <span class="meta-item">
     <span>
-        <i class="fa-solid fa-calendar-day"></i>&nbsp;
+        <i class="fa-solid fa-calendar-day"></i>
         {{ .Date | time.Format (default "January 2, 2006" site.Params.DateFormat) }}
     </span>
 </span>
