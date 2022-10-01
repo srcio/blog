@@ -2,7 +2,8 @@
 title: "foobar"
 date: {{ .Date }}
 draft: false
-tags: ["foobar"]
+tags: 
+  - foobar
 weight: 1
 ---
 
