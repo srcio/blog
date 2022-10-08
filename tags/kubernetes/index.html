@@ -12,7 +12,7 @@
 <meta name=google-site-verification content="XYZabc">
 <meta name=yandex-verification content="XYZabc">
 <meta name=msvalidate.01 content="XYZabc">
-<link crossorigin=anonymous href=/assets/css/stylesheet.acef08f41736d9c51a13f4a61106e4430c295f4d7449d29ad48e3df7b6975107.css integrity="sha256-rO8I9Bc22cUaE/SmEQbkQwwpX010SdKa1I4997aXUQc=" rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.3d4f89feedcdef574ababcd3bae880bb5402eab679fb6ee113c9fcf5dee8e959.css integrity="sha256-PU+J/u3N71dKurzTuuiAu1QC6rZ5+27hE8n89d7o6Vk=" rel="preload stylesheet" as=style>
 <link rel=icon href=https://blog.srcio.cn/images/blog.png>
 <link rel=icon type=image/png sizes=16x16 href=https://blog.srcio.cn/images/blog.png>
 <link rel=icon type=image/png sizes=32x32 href=https://blog.srcio.cn/images/blog.png>
@@ -92,6 +92,69 @@
 </header>
 <article class="post-entry tag-entry">
 <header class=entry-header>
+<h2>构造 rest.Config 实例
+</h2>
+</header>
+<div class=entry-content>
+<p>本节介绍几种构造 rest.Config 实例的场景或者方法。
+rest.Config 可以帮助我们构建各种类型的 Kubernetes 客户端实例，从而访问 Kubernetes APIServer。
+通过 kubeconfig 文件构造 程序通过读取 kubeconfig 文件来构造一个 rest.Config 对象。
+package main import ( "k8s.io/client-go/rest" "k8s.io/client-go/tools/clientcmd" ) func KubeConfig() *rest.Config { config, err := clientcmd.BuildConfigFromFlags("", clientcmd.RecommendedHomeFile) if err != nil { panic(err) } return config } 通过 Secret 资源构造 通过将程序部署在 Kubernetes 集群中，使用 Pod 所配置的 ServiceAccount（默认：default）账号构造 rest.Config 对象。
+运行的 Pod 内都会存储一个
+每个 ServiceAccount 都有一个对应的 Secret，这个 Secret 包含了对集群的操作权限。
+package main import ( "k8s.io/client-go/rest" ) func KubeConfig() *rest....</p>
+</div>
+<footer class=entry-footer><span class=meta-item>
+<span>
+<i class="fa-solid fa-calendar-day"></i>
+2022-10-1
+</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-clock"></i>&nbsp;2 分钟</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-chart-simple"></i></i>&nbsp;221 字</span>
+</span>
+<span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-user"></i></i>&nbsp;丁鹏
+</span>
+</span></footer>
+<a class=entry-link aria-label="post link to 构造 rest.Config 实例" href=https://blog.srcio.cn/series/programming-kubernetes/rest-config/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>构造 Kubernetes 客户端实例
+</h2>
+</header>
+<div class=entry-content>
+<p>本节介绍 Golang 程序如何通过 rest.Config 实例获取各种类型的 Kubernetes 客户端实例。 通过客户端访问 Kubernetes 中的 API 资源实例。
+Clientset 获取 *kubernetes.Clientset
+推荐使用该客户端实例去操作 K8s API 资源。 package main import ( "k8s.io/client-go/kubernetes" "k8s.io/client-go/rest" ) func Clientset(config *rest.Config) *kubernetes.Clientset { client, err := kubernetes.NewForConfig(config) if err != nil { panic(err) } return client } 获取 *rest.RESTClient
+可以通过该客户端实例获取内置的以及自定义的 K8s API 资源。 package main import "k8s.io/client-go/rest" func RESTClient(config *rest.Config) *rest.RESTClient { client, err := rest.RESTClientFor(config) if err != nil { panic(err) } return client } DiscoveryClient DiscoveryClient 动态客户端，通过动态指定 GVR 来操作任意的 Kubernetes 资源（内置资源 + CR）...</p>
+</div>
+<footer class=entry-footer><span class=meta-item>
+<span>
+<i class="fa-solid fa-calendar-day"></i>
+2022-10-1
+</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-clock"></i>&nbsp;2 分钟</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-chart-simple"></i></i>&nbsp;284 字</span>
+</span>
+<span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-user"></i></i>&nbsp;丁鹏
+</span>
+</span></footer>
+<a class=entry-link aria-label="post link to 构造 Kubernetes 客户端实例" href=https://blog.srcio.cn/series/programming-kubernetes/kube-client/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
 <h2>Kubernetes API 设计
 </h2>
 </header>
@@ -160,36 +223,32 @@ GVR
 </article>
 <article class="post-entry tag-entry">
 <header class=entry-header>
-<h2>构造 rest.Config 实例
+<h2>使用 client-gen 生成 clientset 代码
 </h2>
 </header>
 <div class=entry-content>
-<p>本节介绍几种构造 rest.Config 实例的场景或者方法。
-rest.Config 可以帮助我们构建各种类型的 Kubernetes 客户端实例，从而访问 Kubernetes APIServer。
-通过 kubeconfig 文件构造 程序通过读取 kubeconfig 文件来构造一个 rest.Config 对象。
-package main import ( "k8s.io/client-go/rest" "k8s.io/client-go/tools/clientcmd" ) func KubeConfig() *rest.Config { config, err := clientcmd.BuildConfigFromFlags("", clientcmd.RecommendedHomeFile) if err != nil { panic(err) } return config } 通过 Secret 资源构造 通过将程序部署在 Kubernetes 集群中，使用 Pod 所配置的 ServiceAccount（默认：default）账号构造 rest.Config 对象。
-运行的 Pod 内都会存储一个
-每个 ServiceAccount 都有一个对应的 Secret，这个 Secret 包含了对集群的操作权限。
-package main import ( "k8s.io/client-go/rest" ) func KubeConfig() *rest....</p>
+<p>本页是这篇Kubernetes 文档中一些内容摘要。
+大致分为 3 个步骤：
+为 API 类型结构做 tag 标签 在 API 类型例如 pkg/apis/${Group}/${Version}/types.go 中的 Pod 结构体上打标签，支持的标签： // +genclient：生成客户端函数（包括 Create, Update, Delete, DeleteCollection, Get, List, Update, Patch, Watch，如果 API 类型结构中包括 .Status 字段，还会额外生成 UpdateStatus 函数）； // +genclient:nonNamespaced：指定 API 类型是集群级别而不是命名空间级别的，生成的客户端函数都没有命名空间； // +genclient:onlyVerbs=create,get：只生成 Create, Get 客户端函数； // +genclient:skipVerbs=watch：生成除了 Watch 之外的所有其他客户端函数； // +genclient:noStatus：即使 API 类型结构包含 .Status 字段，也不生成 UpdateStatus 客户端函数； 有些情况下，可能你想要额外生成非标准的客户端函数，例如子资源函数，那么你需要使用下列这些 tag 标签： // +genclient:method=Scale,verb=update,subresource=scale,input=k8s.io/api/extensions/v1beta1.Scale,result=k8s.io/api/extensions/v1beta1.Scale：该例中使用标签，将会自动生成 Scale(string, *v1beta.Scale) *v1beta.Scale 客户端函数，里面配置了子资源函数的输入和输出参数。 另外，以下的 tag 标签也影响着客户端代码的生成： // +groupName=policy....</p>
 </div>
 <footer class=entry-footer><span class=meta-item>
 <span>
 <i class="fa-solid fa-calendar-day"></i>
-2022-10-1
+2022-10-8
 </span>
 </span><span class=meta-item>
 <span>
-&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-clock"></i>&nbsp;2 分钟</span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-clock"></i>&nbsp;1 分钟</span>
 </span><span class=meta-item>
 <span>
-&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-chart-simple"></i></i>&nbsp;221 字</span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-chart-simple"></i></i>&nbsp;103 字</span>
 </span>
 <span class=meta-item>
 <span>
 &nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-user"></i></i>&nbsp;丁鹏
 </span>
 </span></footer>
-<a class=entry-link aria-label="post link to 构造 rest.Config 实例" href=https://blog.srcio.cn/series/programming-kubernetes/rest-config/></a>
+<a class=entry-link aria-label="post link to 使用 client-gen 生成 clientset 代码" href=https://blog.srcio.cn/series/programming-kubernetes/client-gen-usage/></a>
 </article>
 </main>
 <script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script>

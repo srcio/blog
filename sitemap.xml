@@ -2,17 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://blog.srcio.cn/series/programming-go/gen-cert/</loc>
+    <lastmod>2022-10-08T17:13:58+08:00</lastmod>
+  </url><url>
     <loc>https://blog.srcio.cn/series/programming-go/mtls/</loc>
     <lastmod>2022-10-02T01:49:13+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.srcio.cn/series/programming-kubernetes/api-design/</loc>
-    <lastmod>2022-10-02T01:28:03+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.srcio.cn/series/programming-kubernetes/operator/</loc>
-    <lastmod>2022-10-02T01:12:34+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.srcio.cn/series/programming-kubernetes/kube-client/</loc>
-    <lastmod>2022-10-01T23:39:15+08:00</lastmod>
   </url><url>
     <loc>https://blog.srcio.cn/series/programming-kubernetes/rest-config/</loc>
     <lastmod>2022-10-01T23:28:02+08:00</lastmod>
@@ -26,23 +20,32 @@
     <loc>https://blog.srcio.cn/series/programming-go/</loc>
     <lastmod>2022-09-28T18:23:19+08:00</lastmod>
   </url><url>
-    <loc>https://blog.srcio.cn/tags/golang/</loc>
-    <lastmod>2022-10-02T01:49:13+08:00</lastmod>
+    <loc>https://blog.srcio.cn/series/programming-kubernetes/kube-client/</loc>
+    <lastmod>2022-10-01T23:39:15+08:00</lastmod>
   </url><url>
-    <loc>https://blog.srcio.cn/</loc>
-    <lastmod>2022-10-02T01:49:13+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.srcio.cn/tags/</loc>
-    <lastmod>2022-10-02T01:49:13+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.srcio.cn/series/</loc>
-    <lastmod>2022-10-02T01:49:13+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.srcio.cn/tags/kubernetes/</loc>
+    <loc>https://blog.srcio.cn/series/programming-kubernetes/api-design/</loc>
     <lastmod>2022-10-02T01:28:03+08:00</lastmod>
   </url><url>
-    <loc>https://blog.srcio.cn/tags/foobar/</loc>
-    <lastmod>2022-10-01T23:39:15+08:00</lastmod>
+    <loc>https://blog.srcio.cn/series/programming-kubernetes/operator/</loc>
+    <lastmod>2022-10-02T01:12:34+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.srcio.cn/series/programming-kubernetes/client-gen-usage/</loc>
+    <lastmod>2022-10-08T17:37:07+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.srcio.cn/tags/kubernetes/</loc>
+    <lastmod>2022-10-08T17:37:07+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.srcio.cn/</loc>
+    <lastmod>2022-10-08T17:37:07+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.srcio.cn/tags/</loc>
+    <lastmod>2022-10-08T17:37:07+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.srcio.cn/series/</loc>
+    <lastmod>2022-10-08T17:37:07+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.srcio.cn/tags/golang/</loc>
+    <lastmod>2022-10-08T17:13:58+08:00</lastmod>
   </url><url>
     <loc>https://blog.srcio.cn/tags/blog/</loc>
     <lastmod>2022-09-28T09:02:43+08:00</lastmod>

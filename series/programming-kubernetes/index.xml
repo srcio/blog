@@ -12,6 +12,33 @@
     <language>zh</language>
     <lastBuildDate>Wed, 28 Sep 2022 18:24:19 +0800</lastBuildDate><atom:link href="https://blog.srcio.cn/series/programming-kubernetes/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>构造 rest.Config 实例</title>
+      <link>https://blog.srcio.cn/series/programming-kubernetes/rest-config/</link>
+      <pubDate>Sat, 01 Oct 2022 23:28:02 +0800</pubDate>
+      
+      <guid>https://blog.srcio.cn/series/programming-kubernetes/rest-config/</guid>
+      <description>本节介绍几种构造 rest.Config 实例的场景或者方法。
+rest.Config 可以帮助我们构建各种类型的 Kubernetes 客户端实例，从而访问 Kubernetes APIServer。
+通过 kubeconfig 文件构造 程序通过读取 kubeconfig 文件来构造一个 rest.Config 对象。
+package main import ( &amp;#34;k8s.io/client-go/rest&amp;#34; &amp;#34;k8s.io/client-go/tools/clientcmd&amp;#34; ) func KubeConfig() *rest.Config { config, err := clientcmd.BuildConfigFromFlags(&amp;#34;&amp;#34;, clientcmd.RecommendedHomeFile) if err != nil { panic(err) } return config } 通过 Secret 资源构造 通过将程序部署在 Kubernetes 集群中，使用 Pod 所配置的 ServiceAccount（默认：default）账号构造 rest.Config 对象。
+ 运行的 Pod 内都会存储一个
+每个 ServiceAccount 都有一个对应的 Secret，这个 Secret 包含了对集群的操作权限。
+ package main import ( &amp;#34;k8s.io/client-go/rest&amp;#34; ) func KubeConfig() *rest.</description>
+    </item>
+    
+    <item>
+      <title>构造 Kubernetes 客户端实例</title>
+      <link>https://blog.srcio.cn/series/programming-kubernetes/kube-client/</link>
+      <pubDate>Sat, 01 Oct 2022 23:39:15 +0800</pubDate>
+      
+      <guid>https://blog.srcio.cn/series/programming-kubernetes/kube-client/</guid>
+      <description>本节介绍 Golang 程序如何通过 rest.Config 实例获取各种类型的 Kubernetes 客户端实例。 通过客户端访问 Kubernetes 中的 API 资源实例。
+Clientset  获取 *kubernetes.Clientset
+推荐使用该客户端实例去操作 K8s API 资源。  package main import ( &amp;#34;k8s.io/client-go/kubernetes&amp;#34; &amp;#34;k8s.io/client-go/rest&amp;#34; ) func Clientset(config *rest.Config) *kubernetes.Clientset { client, err := kubernetes.NewForConfig(config) if err != nil { panic(err) } return client } 获取 *rest.RESTClient
+可以通过该客户端实例获取内置的以及自定义的 K8s API 资源。  package main import &amp;#34;k8s.io/client-go/rest&amp;#34; func RESTClient(config *rest.Config) *rest.RESTClient { client, err := rest.RESTClientFor(config) if err != nil { panic(err) } return client } DiscoveryClient DiscoveryClient 动态客户端，通过动态指定 GVR 来操作任意的 Kubernetes 资源（内置资源 + CR）</description>
+    </item>
+    
+    <item>
       <title>Kubernetes API 设计</title>
       <link>https://blog.srcio.cn/series/programming-kubernetes/api-design/</link>
       <pubDate>Sun, 02 Oct 2022 01:28:03 +0800</pubDate>
@@ -44,27 +71,12 @@ GVR
     </item>
     
     <item>
-      <title>foobar</title>
-      <link>https://blog.srcio.cn/series/programming-kubernetes/kube-client/</link>
-      <pubDate>Sat, 01 Oct 2022 23:39:15 +0800</pubDate>
+      <title>使用 client-gen 生成 clientset 代码</title>
+      <link>https://blog.srcio.cn/series/programming-kubernetes/client-gen-usage/</link>
+      <pubDate>Sat, 08 Oct 2022 17:37:07 +0800</pubDate>
       
-      <guid>https://blog.srcio.cn/series/programming-kubernetes/kube-client/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>构造 rest.Config 实例</title>
-      <link>https://blog.srcio.cn/series/programming-kubernetes/rest-config/</link>
-      <pubDate>Sat, 01 Oct 2022 23:28:02 +0800</pubDate>
-      
-      <guid>https://blog.srcio.cn/series/programming-kubernetes/rest-config/</guid>
-      <description>本节介绍几种构造 rest.Config 实例的场景或者方法。
-rest.Config 可以帮助我们构建各种类型的 Kubernetes 客户端实例，从而访问 Kubernetes APIServer。
-通过 kubeconfig 文件构造 程序通过读取 kubeconfig 文件来构造一个 rest.Config 对象。
-package main import ( &amp;#34;k8s.io/client-go/rest&amp;#34; &amp;#34;k8s.io/client-go/tools/clientcmd&amp;#34; ) func KubeConfig() *rest.Config { config, err := clientcmd.BuildConfigFromFlags(&amp;#34;&amp;#34;, clientcmd.RecommendedHomeFile) if err != nil { panic(err) } return config } 通过 Secret 资源构造 通过将程序部署在 Kubernetes 集群中，使用 Pod 所配置的 ServiceAccount（默认：default）账号构造 rest.Config 对象。
- 运行的 Pod 内都会存储一个
-每个 ServiceAccount 都有一个对应的 Secret，这个 Secret 包含了对集群的操作权限。
- package main import ( &amp;#34;k8s.io/client-go/rest&amp;#34; ) func KubeConfig() *rest.</description>
+      <guid>https://blog.srcio.cn/series/programming-kubernetes/client-gen-usage/</guid>
+      <description>使用 client-gen 生成 clientset 代码</description>
     </item>
     
   </channel>
