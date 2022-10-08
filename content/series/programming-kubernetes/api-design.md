@@ -4,7 +4,7 @@ date: 2022-10-02T01:28:03+08:00
 draft: false
 tags: 
   - Kubernetes
-weight: 1
+weight: 20
 ---
 
 
