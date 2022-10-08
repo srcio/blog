@@ -10,7 +10,83 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Wed, 28 Sep 2022 18:25:05 +0800</lastBuildDate><atom:link href="https://blog.srcio.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 02 Oct 2022 01:49:13 +0800</lastBuildDate><atom:link href="https://blog.srcio.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang 实现双向认证</title>
+      <link>https://blog.srcio.cn/series/programming-go/mtls/</link>
+      <pubDate>Sun, 02 Oct 2022 01:49:13 +0800</pubDate>
+      
+      <guid>https://blog.srcio.cn/series/programming-go/mtls/</guid>
+      <description>TLS 传输层安全协议（TLS），在互联网上，通常是由服务器单向的向客户端提供证书，以证明其身份。
+mTLS 双向 TLS 认证，是指在客户端和服务器之间使用双行加密通道，mTLS 是云原生应用中常用的通信安全协议。
+使用双向TLS连接的主要目的是当服务器应该只接受来自有限的允许的客户端的 TLS 连接时。例如，一个组织希望将服务器的 TLS 连接限制为只来自该组织的合法合作伙伴或客户。显然，为客户端添加IP白名单不是一个好的安全实践，因为IP可能被欺骗。
+为了简化 mTLS 握手的过程，我们这样简单梳理：
+  客户端发送访问服务器上受保护信息的请求；
+  服务器向客户端提供公钥证书；
+  客户端通过使用 CA 的公钥来验证服务器公钥证书的数字签名，以验证服务器的证书；
+  如果步骤 3 成功，客户机将其客户端公钥证书发送到服务器；
+  服务器使用步骤 3 中相同的方法验证客户机的证书；
+  如果成功，服务器将对受保护信息的访问权授予客户机。
+  代码实现 需要实现客户端验证服务端的公钥证书，服务端验证客户端的公钥证书。
+生成证书 echo &amp;#39;清理并生成目录&amp;#39; OUT=./certs DAYS=365 RSALEN=2048 CN=srcio rm -rf ${OUT}/* mkdir ${OUT} &amp;gt;&amp;gt; /dev/null 2&amp;gt;&amp;amp;1 cd ${OUT} echo &amp;#39;生成CA的私钥&amp;#39; openssl genrsa -out ca.key ${RSALEN} &amp;gt;&amp;gt; /dev/null 2&amp;gt;&amp;amp;1 echo &amp;#39;生成CA的签名证书&amp;#39; openssl req -new \ -x509 \ -key ca.</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes API 设计</title>
+      <link>https://blog.srcio.cn/series/programming-kubernetes/api-design/</link>
+      <pubDate>Sun, 02 Oct 2022 01:28:03 +0800</pubDate>
+      
+      <guid>https://blog.srcio.cn/series/programming-kubernetes/api-design/</guid>
+      <description>术语 Group
+API 资源置于某个分组下，组作为相关功能的集合。一个组包含一个或多个版本。
+Version
+API 资源的版本，API 资源版本是会不断迭代的。
+Kind
+API 资源的的类型，用于存储 API 资源的描述信息或状态等。同一个 Kind 的 API 资源可以有多个版本，随着版本的不断迭代，Kind 代表的资源的会有字段内容的更改。
+GVK
+Group/Version/Kind，例如 Deployment：
+apiVersion:apps/v1kind:Deploymentmetadata:- name:deploy-1... 上面的代码示例描述了一个 API 资源对象，这个资源对象：
+ Group 是 apps Version 是 v1 Kind 是 Deployment。   Resource
+代表 API 资源，与 GVK 一对一的关系。
+GVR
+可以将 GVK 比作是一个类，GVR 就是这个 GVK 类的实例。
+当我们以 REST 的方式向发起 API 资源的请求是，请求 URL 格式一般类似这样：/api/apps/v1/deployments，里面就包含了三个上面提到的术语概念：
+ /apps：请求资源所在的组（Group） /v1：请求资源的版本（Version） /deployments：请求的资源的名称（Resource）  </description>
+    </item>
+    
+    <item>
+      <title>Kuberentes Operator&#34;</title>
+      <link>https://blog.srcio.cn/series/programming-kubernetes/operator/</link>
+      <pubDate>Sun, 02 Oct 2022 01:12:34 +0800</pubDate>
+      
+      <guid>https://blog.srcio.cn/series/programming-kubernetes/operator/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>foobar</title>
+      <link>https://blog.srcio.cn/series/programming-kubernetes/kube-client/</link>
+      <pubDate>Sat, 01 Oct 2022 23:39:15 +0800</pubDate>
+      
+      <guid>https://blog.srcio.cn/series/programming-kubernetes/kube-client/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>构造 rest.Config 实例</title>
+      <link>https://blog.srcio.cn/series/programming-kubernetes/rest-config/</link>
+      <pubDate>Sat, 01 Oct 2022 23:28:02 +0800</pubDate>
+      
+      <guid>https://blog.srcio.cn/series/programming-kubernetes/rest-config/</guid>
+      <description>本节介绍几种构造 rest.Config 实例的场景或者方法。
+rest.Config 可以帮助我们构建各种类型的 Kubernetes 客户端实例，从而访问 Kubernetes APIServer。
+通过 kubeconfig 文件构造 程序通过读取 kubeconfig 文件来构造一个 rest.Config 对象。
+package main import ( &amp;#34;k8s.io/client-go/rest&amp;#34; &amp;#34;k8s.io/client-go/tools/clientcmd&amp;#34; ) func KubeConfig() *rest.Config { config, err := clientcmd.BuildConfigFromFlags(&amp;#34;&amp;#34;, clientcmd.RecommendedHomeFile) if err != nil { panic(err) } return config } 通过 Secret 资源构造 通过将程序部署在 Kubernetes 集群中，使用 Pod 所配置的 ServiceAccount（默认：default）账号构造 rest.Config 对象。
+ 运行的 Pod 内都会存储一个
+每个 ServiceAccount 都有一个对应的 Secret，这个 Secret 包含了对集群的操作权限。
+ package main import ( &amp;#34;k8s.io/client-go/rest&amp;#34; ) func KubeConfig() *rest.</description>
+    </item>
+    
     <item>
       <title>Go1.18 - 工作区模式</title>
       <link>https://blog.srcio.cn/series/programming-go/go-work/</link>

@@ -1,0 +1,408 @@
+<!doctype html><html lang=zh dir=auto>
+<head>
+<link rel=stylesheet href=/fontawesome/css/all.min.css crossorigin=anonymous><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>Golang 实现双向认证 | 博客</title>
+<meta name=keywords content="Golang">
+<meta name=description content="TLS 传输层安全协议（TLS），在互联网上，通常是由服务器单向的向客户端提供证书，以证明其身份。
+mTLS 双向 TLS 认证，是指在客户端和服务器之间使用双行加密通道，mTLS 是云原生应用中常用的通信安全协议。
+使用双向TLS连接的主要目的是当服务器应该只接受来自有限的允许的客户端的 TLS 连接时。例如，一个组织希望将服务器的 TLS 连接限制为只来自该组织的合法合作伙伴或客户。显然，为客户端添加IP白名单不是一个好的安全实践，因为IP可能被欺骗。
+为了简化 mTLS 握手的过程，我们这样简单梳理：
+  客户端发送访问服务器上受保护信息的请求；
+  服务器向客户端提供公钥证书；
+  客户端通过使用 CA 的公钥来验证服务器公钥证书的数字签名，以验证服务器的证书；
+  如果步骤 3 成功，客户机将其客户端公钥证书发送到服务器；
+  服务器使用步骤 3 中相同的方法验证客户机的证书；
+  如果成功，服务器将对受保护信息的访问权授予客户机。
+  代码实现 需要实现客户端验证服务端的公钥证书，服务端验证客户端的公钥证书。
+生成证书 echo '清理并生成目录' OUT=./certs DAYS=365 RSALEN=2048 CN=srcio rm -rf ${OUT}/* mkdir ${OUT} >> /dev/null 2>&1 cd ${OUT} echo '生成CA的私钥' openssl genrsa -out ca.key ${RSALEN} >> /dev/null 2>&1 echo '生成CA的签名证书' openssl req -new \ -x509 \ -key ca.">
+<meta name=author content="丁鹏">
+<link rel=canonical href=https://blog.srcio.cn/series/programming-go/mtls/>
+<meta name=google-site-verification content="XYZabc">
+<meta name=yandex-verification content="XYZabc">
+<meta name=msvalidate.01 content="XYZabc">
+<link crossorigin=anonymous href=/assets/css/stylesheet.acef08f41736d9c51a13f4a61106e4430c295f4d7449d29ad48e3df7b6975107.css integrity="sha256-rO8I9Bc22cUaE/SmEQbkQwwpX010SdKa1I4997aXUQc=" rel="preload stylesheet" as=style>
+<script defer crossorigin=anonymous src=/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG+9vmJ0cTS+ovo0FeA=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://blog.srcio.cn/images/blog.png>
+<link rel=icon type=image/png sizes=16x16 href=https://blog.srcio.cn/images/blog.png>
+<link rel=icon type=image/png sizes=32x32 href=https://blog.srcio.cn/images/blog.png>
+<link rel=apple-touch-icon href=https://blog.srcio.cn/images/blog.png>
+<link rel=mask-icon href=https://blog.srcio.cn/images/blog.png>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript><style>@media screen and (min-width:769px){.post-content input[type=checkbox]:checked~label>img{transform:scale(1.6);cursor:zoom-out;position:relative;z-index:999}.post-content img.zoomCheck{transition:transform .15s ease;z-index:999;cursor:zoom-in}}</style>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="Golang 实现双向认证">
+<meta property="og:description" content="TLS 传输层安全协议（TLS），在互联网上，通常是由服务器单向的向客户端提供证书，以证明其身份。
+mTLS 双向 TLS 认证，是指在客户端和服务器之间使用双行加密通道，mTLS 是云原生应用中常用的通信安全协议。
+使用双向TLS连接的主要目的是当服务器应该只接受来自有限的允许的客户端的 TLS 连接时。例如，一个组织希望将服务器的 TLS 连接限制为只来自该组织的合法合作伙伴或客户。显然，为客户端添加IP白名单不是一个好的安全实践，因为IP可能被欺骗。
+为了简化 mTLS 握手的过程，我们这样简单梳理：
+  客户端发送访问服务器上受保护信息的请求；
+  服务器向客户端提供公钥证书；
+  客户端通过使用 CA 的公钥来验证服务器公钥证书的数字签名，以验证服务器的证书；
+  如果步骤 3 成功，客户机将其客户端公钥证书发送到服务器；
+  服务器使用步骤 3 中相同的方法验证客户机的证书；
+  如果成功，服务器将对受保护信息的访问权授予客户机。
+  代码实现 需要实现客户端验证服务端的公钥证书，服务端验证客户端的公钥证书。
+生成证书 echo '清理并生成目录' OUT=./certs DAYS=365 RSALEN=2048 CN=srcio rm -rf ${OUT}/* mkdir ${OUT} >> /dev/null 2>&1 cd ${OUT} echo '生成CA的私钥' openssl genrsa -out ca.key ${RSALEN} >> /dev/null 2>&1 echo '生成CA的签名证书' openssl req -new \ -x509 \ -key ca.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.srcio.cn/series/programming-go/mtls/"><meta property="og:image" content="https://blog.srcio.cn/cover.png"><meta property="article:section" content="series">
+<meta property="article:published_time" content="2022-10-02T01:49:13+08:00">
+<meta property="article:modified_time" content="2022-10-02T01:49:13+08:00"><meta property="og:site_name" content="博客">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://blog.srcio.cn/cover.png">
+<meta name=twitter:title content="Golang 实现双向认证">
+<meta name=twitter:description content="TLS 传输层安全协议（TLS），在互联网上，通常是由服务器单向的向客户端提供证书，以证明其身份。
+mTLS 双向 TLS 认证，是指在客户端和服务器之间使用双行加密通道，mTLS 是云原生应用中常用的通信安全协议。
+使用双向TLS连接的主要目的是当服务器应该只接受来自有限的允许的客户端的 TLS 连接时。例如，一个组织希望将服务器的 TLS 连接限制为只来自该组织的合法合作伙伴或客户。显然，为客户端添加IP白名单不是一个好的安全实践，因为IP可能被欺骗。
+为了简化 mTLS 握手的过程，我们这样简单梳理：
+  客户端发送访问服务器上受保护信息的请求；
+  服务器向客户端提供公钥证书；
+  客户端通过使用 CA 的公钥来验证服务器公钥证书的数字签名，以验证服务器的证书；
+  如果步骤 3 成功，客户机将其客户端公钥证书发送到服务器；
+  服务器使用步骤 3 中相同的方法验证客户机的证书；
+  如果成功，服务器将对受保护信息的访问权授予客户机。
+  代码实现 需要实现客户端验证服务端的公钥证书，服务端验证客户端的公钥证书。
+生成证书 echo '清理并生成目录' OUT=./certs DAYS=365 RSALEN=2048 CN=srcio rm -rf ${OUT}/* mkdir ${OUT} >> /dev/null 2>&1 cd ${OUT} echo '生成CA的私钥' openssl genrsa -out ca.key ${RSALEN} >> /dev/null 2>&1 echo '生成CA的签名证书' openssl req -new \ -x509 \ -key ca.">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"系列","item":"https://blog.srcio.cn/series/"},{"@type":"ListItem","position":2,"name":"Golang 编程","item":"https://blog.srcio.cn/series/programming-go/"},{"@type":"ListItem","position":3,"name":"Golang 实现双向认证","item":"https://blog.srcio.cn/series/programming-go/mtls/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Golang 实现双向认证","name":"Golang 实现双向认证","description":"TLS 传输层安全协议（TLS），在互联网上，通常是由服务器单向的向客户端提供证书，以证明其身份。\nmTLS 双向 TLS 认证，是指在客户端和服务器之间使用双行加密通道，mTLS 是云原生应用中常用的通信安全协议。\n使用双向TLS连接的主要目的是当服务器应该只接受来自有限的允许的客户端的 TLS 连接时。例如，一个组织希望将服务器的 TLS 连接限制为只来自该组织的合法合作伙伴或客户。显然，为客户端添加IP白名单不是一个好的安全实践，因为IP可能被欺骗。\n为了简化 mTLS 握手的过程，我们这样简单梳理：\n  客户端发送访问服务器上受保护信息的请求；\n  服务器向客户端提供公钥证书；\n  客户端通过使用 CA 的公钥来验证服务器公钥证书的数字签名，以验证服务器的证书；\n  如果步骤 3 成功，客户机将其客户端公钥证书发送到服务器；\n  服务器使用步骤 3 中相同的方法验证客户机的证书；\n  如果成功，服务器将对受保护信息的访问权授予客户机。\n  代码实现 需要实现客户端验证服务端的公钥证书，服务端验证客户端的公钥证书。\n生成证书 echo \u0026#39;清理并生成目录\u0026#39; OUT=./certs DAYS=365 RSALEN=2048 CN=srcio rm -rf ${OUT}/* mkdir ${OUT} \u0026gt;\u0026gt; /dev/null 2\u0026gt;\u0026amp;1 cd ${OUT} echo \u0026#39;生成CA的私钥\u0026#39; openssl genrsa -out ca.key ${RSALEN} \u0026gt;\u0026gt; /dev/null 2\u0026gt;\u0026amp;1 echo \u0026#39;生成CA的签名证书\u0026#39; openssl req -new \\ -x509 \\ -key ca.","keywords":["Golang"],"articleBody":"TLS 传输层安全协议（TLS），在互联网上，通常是由服务器单向的向客户端提供证书，以证明其身份。\nmTLS 双向 TLS 认证，是指在客户端和服务器之间使用双行加密通道，mTLS 是云原生应用中常用的通信安全协议。\n使用双向TLS连接的主要目的是当服务器应该只接受来自有限的允许的客户端的 TLS 连接时。例如，一个组织希望将服务器的 TLS 连接限制为只来自该组织的合法合作伙伴或客户。显然，为客户端添加IP白名单不是一个好的安全实践，因为IP可能被欺骗。\n为了简化 mTLS 握手的过程，我们这样简单梳理：\n  客户端发送访问服务器上受保护信息的请求；\n  服务器向客户端提供公钥证书；\n  客户端通过使用 CA 的公钥来验证服务器公钥证书的数字签名，以验证服务器的证书；\n  如果步骤 3 成功，客户机将其客户端公钥证书发送到服务器；\n  服务器使用步骤 3 中相同的方法验证客户机的证书；\n  如果成功，服务器将对受保护信息的访问权授予客户机。\n  代码实现 需要实现客户端验证服务端的公钥证书，服务端验证客户端的公钥证书。\n生成证书 echo '清理并生成目录' OUT=./certs DAYS=365 RSALEN=2048 CN=srcio rm -rf ${OUT}/* mkdir ${OUT}  /dev/null 2\u00261 cd ${OUT} echo '生成CA的私钥' openssl genrsa -out ca.key ${RSALEN}  /dev/null 2\u00261 echo '生成CA的签名证书' openssl req -new \\ -x509 \\ -key ca.key \\ -subj \"/CN=${CN}\" \\ -out ca.crt echo '' echo '生成server端私钥' openssl genrsa -out server.key ${RSALEN}  /dev/null 2\u00261 echo '生成server端自签名' openssl req -new \\ -key server.key \\ -subj \"/CN=${CN}\" \\ -out server.csr echo '签发server端证书' openssl x509 -req -sha256 \\ -in server.csr \\ -CA ca.crt -CAkey ca.key -CAcreateserial \\ -out server.crt -text  /dev/null 2\u00261 echo '删除server端自签名证书' rm server.csr echo '' echo '生成client私钥' openssl genrsa -out client.key ${RSALEN}  /dev/null 2\u00261 echo '生成client自签名' openssl req -new \\  -subj \"/CN=${CN}\" \\  -key client.key \\  -out client.csr echo '签发client证书' openssl x509 -req -sha256\\  -CA ca.crt -CAkey ca.key -CAcreateserial\\  -days ${DAYS}\\  -in client.csr\\  -out client.crt\\  -text  /dev/null 2\u00261 echo '删除client端自签名' rm client.csr echo '' echo '删除临时文件' rm ca.srl echo '' echo '完成'% 服务端 package main import ( \"crypto/tls\" \"crypto/x509\" \"fmt\" \"log\" \"net/http\" \"os\" \"time\" ) var ( caCert = \"../../certs/ca.crt\" serverCert = \"../../certs/server.crt\" serverKey = \"../../certs/server.key\" ) type mtlsHandler struct { } func (m *mtlsHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) { fmt.Fprintln(w, \"Hello World! \", time.Now()) } func main() { pool := x509.NewCertPool() caCertBytes, err := os.ReadFile(caCert) if err != nil { panic(err) } pool.AppendCertsFromPEM(caCertBytes) server := \u0026http.Server{ Addr: \":8443\", Handler: \u0026mtlsHandler{}, TLSConfig: \u0026tls.Config{ ClientCAs: pool, ClientAuth: tls.RequireAndVerifyClientCert, // 需要客户端证书 \t}, } log.Println(\"server started...\") log.Fatalln(server.ListenAndServeTLS(serverCert, serverKey)) } 客户端 package main import ( \"crypto/tls\" \"crypto/x509\" \"fmt\" \"io\" \"net/http\" \"os\" ) var ( caCert = \"../../certs/ca.crt\" clientCert = \"../../certs/client.crt\" clientKey = \"../../certs/client.key\" ) func main() { pool := x509.NewCertPool() caCertBytes, err := os.ReadFile(caCert) if err != nil { panic(err) } pool.AppendCertsFromPEM(caCertBytes) clientCertBytes, err := tls.LoadX509KeyPair(clientCert, clientKey) if err != nil { panic(err) } tr := \u0026http.Transport{ TLSClientConfig: \u0026tls.Config{ RootCAs: pool, Certificates: []tls.Certificate{clientCertBytes}, InsecureSkipVerify: true, }, } client := http.Client{ Transport: tr, } r, err := client.Get(\"https://127.0.0.1:8443\") // server \tif err != nil { panic(err) } defer r.Body.Close() b, err := io.ReadAll(r.Body) if err != nil { panic(err) } fmt.Println(string(b)) } ","wordCount":"370","inLanguage":"zh","datePublished":"2022-10-02T01:49:13+08:00","dateModified":"2022-10-02T01:49:13+08:00","author":[{"@type":"Person","name":"丁鹏"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.srcio.cn/series/programming-go/mtls/"},"publisher":{"@type":"Organization","name":"博客","logo":{"@type":"ImageObject","url":"https://blog.srcio.cn/images/blog.png"}}}</script>
+</head>
+<body id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://blog.srcio.cn/ accesskey=h title="博客 (Alt + H)">
+<img src=https://blog.srcio.cn/images/blog.png alt aria-label=logo height=25>博客</a>
+<div class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</div>
+</div>
+<ul id=menu>
+<li>
+<a href=https://blog.srcio.cn/ title=主页>
+<span>
+<i class="fa-solid fa-home"></i>&nbsp;主页</span>
+</a>
+</li>
+<li>
+<a href=https://blog.srcio.cn/posts/ title=文章>
+<span>
+<i class="fa-solid fa-feather"></i>&nbsp;文章</span>
+</a>
+</li>
+<li>
+<a href=https://blog.srcio.cn/series/ title=系列>
+<span>
+<i class="fa-solid fa-swatchbook"></i>&nbsp;系列</span>
+</a>
+</li>
+<li>
+<a href=https://blog.srcio.cn/tags/ title=标签>
+<span>
+<i class="fa-solid fa-tags"></i>&nbsp;标签</span>
+</a>
+</li>
+<li>
+<a href=https://blog.srcio.cn/archives/ title=归档>
+<span>
+<i class="fa-solid fa-folder-minus"></i>&nbsp;归档</span>
+</a>
+</li>
+<li>
+<a href=https://blog.srcio.cn/search/ title>
+<span>
+<i class="fa-solid fa-magnifying-glass"></i>&nbsp;</span>
+</a>
+</li>
+</ul>
+</nav>
+</header><main class=main>
+<article class=post-single>
+<header class=post-header>
+<div class=breadcrumbs><p><a href=/>主页</a>
+<a href=https://blog.srcio.cn/series/><i class="fa-solid fa-angle-right"></i>&nbsp;系列</a>
+<a href=https://blog.srcio.cn/series/programming-go/><i class="fa-solid fa-angle-right"></i>&nbsp;Golang 编程</a>&nbsp;<span><i class="fa-solid fa-angle-right"></i>&nbsp;Golang 实现双向认证</span></p>
+</div>
+<h1 class=post-title>
+Golang 实现双向认证
+</h1>
+<div class=post-meta><span class=meta-item>
+<span>
+<i class="fa-solid fa-calendar-day"></i>
+2022-10-2
+</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-clock"></i>&nbsp;2 分钟</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-chart-simple"></i></i>&nbsp;370 字</span>
+</span>
+<span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-user"></i></i>&nbsp;丁鹏
+</span>
+</span><span class=meta-item>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-book-open-reader"></i>&nbsp;<span id=busuanzi_value_page_pv></span>
+</span>&nbsp;&nbsp;|&nbsp;&nbsp;<a href=https://github.com/srcio/blog/edit/master/content/series/programming-go/mtls.md rel="noopener noreferrer" target=_blank>
+<i class="fa-regular fa-pen-to-square"></i>&nbsp;编辑</a>
+</div>
+</header> <div class=toc>
+<details>
+<summary accesskey=c title="(Alt + C)">
+<span class=details>&nbsp;目录</span>
+</summary>
+<div class=inner><nav id=TableOfContents>
+<ul>
+<li><a href=#tls>TLS</a></li>
+<li><a href=#mtls>mTLS</a></li>
+<li><a href=#代码实现>代码实现</a>
+<ul>
+<li><a href=#生成证书>生成证书</a></li>
+<li><a href=#服务端>服务端</a></li>
+<li><a href=#客户端>客户端</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</details>
+</div>
+<div class=post-content><h2 id=tls>TLS<a hidden class=anchor aria-hidden=true href=#tls>#</a></h2>
+<p>传输层安全协议（TLS），在互联网上，通常是由服务器单向的向客户端提供证书，以证明其身份。</p>
+<h2 id=mtls>mTLS<a hidden class=anchor aria-hidden=true href=#mtls>#</a></h2>
+<p>双向 TLS 认证，是指在客户端和服务器之间使用双行加密通道，mTLS 是云原生应用中常用的通信安全协议。</p>
+<p>使用双向TLS连接的主要目的是当服务器应该只接受来自有限的允许的客户端的 TLS 连接时。例如，一个组织希望将服务器的 TLS 连接限制为只来自该组织的合法合作伙伴或客户。显然，为客户端添加IP白名单不是一个好的安全实践，因为IP可能被欺骗。</p>
+<p>为了简化 mTLS 握手的过程，我们这样简单梳理：</p>
+<ol>
+<li>
+<p>客户端发送访问服务器上受保护信息的请求；</p>
+</li>
+<li>
+<p>服务器向客户端提供公钥证书；</p>
+</li>
+<li>
+<p>客户端通过使用 CA 的公钥来验证服务器公钥证书的数字签名，以验证服务器的证书；</p>
+</li>
+<li>
+<p>如果步骤 3 成功，客户机将其客户端公钥证书发送到服务器；</p>
+</li>
+<li>
+<p>服务器使用步骤 3 中相同的方法验证客户机的证书；</p>
+</li>
+<li>
+<p>如果成功，服务器将对受保护信息的访问权授予客户机。</p>
+</li>
+</ol>
+<h2 id=代码实现>代码实现<a hidden class=anchor aria-hidden=true href=#代码实现>#</a></h2>
+<p>需要实现客户端验证服务端的公钥证书，服务端验证客户端的公钥证书。</p>
+<h3 id=生成证书>生成证书<a hidden class=anchor aria-hidden=true href=#生成证书>#</a></h3>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=nb>echo</span> <span class=s1>&#39;清理并生成目录&#39;</span>
+
+<span class=nv>OUT</span><span class=o>=</span>./certs
+<span class=nv>DAYS</span><span class=o>=</span><span class=m>365</span>
+<span class=nv>RSALEN</span><span class=o>=</span><span class=m>2048</span>
+<span class=nv>CN</span><span class=o>=</span>srcio
+
+rm -rf <span class=si>${</span><span class=nv>OUT</span><span class=si>}</span>/*
+mkdir <span class=si>${</span><span class=nv>OUT</span><span class=si>}</span>  &gt;&gt; /dev/null 2&gt;<span class=p>&amp;</span><span class=m>1</span>
+
+<span class=nb>cd</span> <span class=si>${</span><span class=nv>OUT</span><span class=si>}</span>
+
+
+<span class=nb>echo</span> <span class=s1>&#39;生成CA的私钥&#39;</span>
+openssl genrsa -out ca.key <span class=si>${</span><span class=nv>RSALEN</span><span class=si>}</span> &gt;&gt; /dev/null 2&gt;<span class=p>&amp;</span><span class=m>1</span>
+
+<span class=nb>echo</span> <span class=s1>&#39;生成CA的签名证书&#39;</span>
+openssl req -new <span class=se>\
+</span><span class=se></span>-x509 <span class=se>\
+</span><span class=se></span>-key ca.key <span class=se>\
+</span><span class=se></span>-subj <span class=s2>&#34;/CN=</span><span class=si>${</span><span class=nv>CN</span><span class=si>}</span><span class=s2>&#34;</span> <span class=se>\
+</span><span class=se></span>-out ca.crt
+
+<span class=nb>echo</span> <span class=s1>&#39;&#39;</span>
+<span class=nb>echo</span> <span class=s1>&#39;生成server端私钥&#39;</span>
+openssl genrsa -out server.key <span class=si>${</span><span class=nv>RSALEN</span><span class=si>}</span> &gt;&gt; /dev/null 2&gt;<span class=p>&amp;</span><span class=m>1</span>
+
+<span class=nb>echo</span> <span class=s1>&#39;生成server端自签名&#39;</span>
+openssl req -new <span class=se>\
+</span><span class=se></span>-key server.key <span class=se>\
+</span><span class=se></span>-subj <span class=s2>&#34;/CN=</span><span class=si>${</span><span class=nv>CN</span><span class=si>}</span><span class=s2>&#34;</span> <span class=se>\
+</span><span class=se></span>-out server.csr
+
+<span class=nb>echo</span> <span class=s1>&#39;签发server端证书&#39;</span>
+openssl x509 -req  -sha256 <span class=se>\
+</span><span class=se></span>-in server.csr <span class=se>\
+</span><span class=se></span>-CA ca.crt -CAkey ca.key -CAcreateserial <span class=se>\
+</span><span class=se></span>-out server.crt -text &gt;&gt; /dev/null 2&gt;<span class=p>&amp;</span><span class=m>1</span>
+
+<span class=nb>echo</span> <span class=s1>&#39;删除server端自签名证书&#39;</span>
+rm server.csr
+
+<span class=nb>echo</span> <span class=s1>&#39;&#39;</span>
+<span class=nb>echo</span> <span class=s1>&#39;生成client私钥&#39;</span>
+openssl genrsa -out client.key <span class=si>${</span><span class=nv>RSALEN</span><span class=si>}</span>  &gt;&gt; /dev/null 2&gt;<span class=p>&amp;</span><span class=m>1</span>
+
+<span class=nb>echo</span> <span class=s1>&#39;生成client自签名&#39;</span>
+openssl req -new <span class=se>\
+</span><span class=se></span>    -subj <span class=s2>&#34;/CN=</span><span class=si>${</span><span class=nv>CN</span><span class=si>}</span><span class=s2>&#34;</span> <span class=se>\
+</span><span class=se></span>    -key client.key <span class=se>\
+</span><span class=se></span>    -out client.csr
+<span class=nb>echo</span> <span class=s1>&#39;签发client证书&#39;</span>
+openssl x509 -req -sha256<span class=se>\
+</span><span class=se></span> -CA ca.crt -CAkey ca.key -CAcreateserial<span class=se>\
+</span><span class=se></span> -days  <span class=si>${</span><span class=nv>DAYS</span><span class=si>}</span><span class=se>\
+</span><span class=se></span> -in client.csr<span class=se>\
+</span><span class=se></span> -out client.crt<span class=se>\
+</span><span class=se></span> -text &gt;&gt; /dev/null 2&gt;<span class=p>&amp;</span><span class=m>1</span>
+<span class=nb>echo</span> <span class=s1>&#39;删除client端自签名&#39;</span>
+rm client.csr
+
+<span class=nb>echo</span> <span class=s1>&#39;&#39;</span>
+<span class=nb>echo</span> <span class=s1>&#39;删除临时文件&#39;</span>
+rm ca.srl
+
+<span class=nb>echo</span> <span class=s1>&#39;&#39;</span>
+<span class=nb>echo</span> <span class=s1>&#39;完成&#39;</span>%  
+</code></pre></div><h3 id=服务端>服务端<a hidden class=anchor aria-hidden=true href=#服务端>#</a></h3>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>main</span>
+
+<span class=kn>import</span> <span class=p>(</span>
+	<span class=s>&#34;crypto/tls&#34;</span>
+	<span class=s>&#34;crypto/x509&#34;</span>
+	<span class=s>&#34;fmt&#34;</span>
+	<span class=s>&#34;log&#34;</span>
+	<span class=s>&#34;net/http&#34;</span>
+	<span class=s>&#34;os&#34;</span>
+	<span class=s>&#34;time&#34;</span>
+<span class=p>)</span>
+
+<span class=kd>var</span> <span class=p>(</span>
+	<span class=nx>caCert</span>     <span class=p>=</span> <span class=s>&#34;../../certs/ca.crt&#34;</span>
+	<span class=nx>serverCert</span> <span class=p>=</span> <span class=s>&#34;../../certs/server.crt&#34;</span>
+	<span class=nx>serverKey</span>  <span class=p>=</span> <span class=s>&#34;../../certs/server.key&#34;</span>
+<span class=p>)</span>
+
+<span class=kd>type</span> <span class=nx>mtlsHandler</span> <span class=kd>struct</span> <span class=p>{</span>
+<span class=p>}</span>
+
+<span class=kd>func</span> <span class=p>(</span><span class=nx>m</span> <span class=o>*</span><span class=nx>mtlsHandler</span><span class=p>)</span> <span class=nf>ServeHTTP</span><span class=p>(</span><span class=nx>w</span> <span class=nx>http</span><span class=p>.</span><span class=nx>ResponseWriter</span><span class=p>,</span> <span class=nx>r</span> <span class=o>*</span><span class=nx>http</span><span class=p>.</span><span class=nx>Request</span><span class=p>)</span> <span class=p>{</span>
+	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Fprintln</span><span class=p>(</span><span class=nx>w</span><span class=p>,</span> <span class=s>&#34;Hello World! &#34;</span><span class=p>,</span> <span class=nx>time</span><span class=p>.</span><span class=nf>Now</span><span class=p>())</span>
+<span class=p>}</span>
+
+<span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+	<span class=nx>pool</span> <span class=o>:=</span> <span class=nx>x509</span><span class=p>.</span><span class=nf>NewCertPool</span><span class=p>()</span>
+
+	<span class=nx>caCertBytes</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>os</span><span class=p>.</span><span class=nf>ReadFile</span><span class=p>(</span><span class=nx>caCert</span><span class=p>)</span>
+	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+		<span class=nb>panic</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
+	<span class=p>}</span>
+	<span class=nx>pool</span><span class=p>.</span><span class=nf>AppendCertsFromPEM</span><span class=p>(</span><span class=nx>caCertBytes</span><span class=p>)</span>
+
+	<span class=nx>server</span> <span class=o>:=</span> <span class=o>&amp;</span><span class=nx>http</span><span class=p>.</span><span class=nx>Server</span><span class=p>{</span>
+		<span class=nx>Addr</span><span class=p>:</span>    <span class=s>&#34;:8443&#34;</span><span class=p>,</span>
+		<span class=nx>Handler</span><span class=p>:</span> <span class=o>&amp;</span><span class=nx>mtlsHandler</span><span class=p>{},</span>
+		<span class=nx>TLSConfig</span><span class=p>:</span> <span class=o>&amp;</span><span class=nx>tls</span><span class=p>.</span><span class=nx>Config</span><span class=p>{</span>
+			<span class=nx>ClientCAs</span><span class=p>:</span>  <span class=nx>pool</span><span class=p>,</span>
+			<span class=nx>ClientAuth</span><span class=p>:</span> <span class=nx>tls</span><span class=p>.</span><span class=nx>RequireAndVerifyClientCert</span><span class=p>,</span> <span class=c1>// 需要客户端证书
+</span><span class=c1></span>		<span class=p>},</span>
+	<span class=p>}</span>
+
+	<span class=nx>log</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;server started...&#34;</span><span class=p>)</span>
+	<span class=nx>log</span><span class=p>.</span><span class=nf>Fatalln</span><span class=p>(</span><span class=nx>server</span><span class=p>.</span><span class=nf>ListenAndServeTLS</span><span class=p>(</span><span class=nx>serverCert</span><span class=p>,</span> <span class=nx>serverKey</span><span class=p>))</span>
+<span class=p>}</span>
+</code></pre></div><h3 id=客户端>客户端<a hidden class=anchor aria-hidden=true href=#客户端>#</a></h3>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>main</span>
+
+<span class=kn>import</span> <span class=p>(</span>
+	<span class=s>&#34;crypto/tls&#34;</span>
+	<span class=s>&#34;crypto/x509&#34;</span>
+	<span class=s>&#34;fmt&#34;</span>
+	<span class=s>&#34;io&#34;</span>
+	<span class=s>&#34;net/http&#34;</span>
+	<span class=s>&#34;os&#34;</span>
+<span class=p>)</span>
+
+<span class=kd>var</span> <span class=p>(</span>
+	<span class=nx>caCert</span>     <span class=p>=</span> <span class=s>&#34;../../certs/ca.crt&#34;</span>
+	<span class=nx>clientCert</span> <span class=p>=</span> <span class=s>&#34;../../certs/client.crt&#34;</span>
+	<span class=nx>clientKey</span>  <span class=p>=</span> <span class=s>&#34;../../certs/client.key&#34;</span>
+<span class=p>)</span>
+
+<span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+	<span class=nx>pool</span> <span class=o>:=</span> <span class=nx>x509</span><span class=p>.</span><span class=nf>NewCertPool</span><span class=p>()</span>
+
+	<span class=nx>caCertBytes</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>os</span><span class=p>.</span><span class=nf>ReadFile</span><span class=p>(</span><span class=nx>caCert</span><span class=p>)</span>
+	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+		<span class=nb>panic</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
+	<span class=p>}</span>
+	<span class=nx>pool</span><span class=p>.</span><span class=nf>AppendCertsFromPEM</span><span class=p>(</span><span class=nx>caCertBytes</span><span class=p>)</span>
+
+	<span class=nx>clientCertBytes</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>tls</span><span class=p>.</span><span class=nf>LoadX509KeyPair</span><span class=p>(</span><span class=nx>clientCert</span><span class=p>,</span> <span class=nx>clientKey</span><span class=p>)</span>
+	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+		<span class=nb>panic</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
+	<span class=p>}</span>
+
+	<span class=nx>tr</span> <span class=o>:=</span> <span class=o>&amp;</span><span class=nx>http</span><span class=p>.</span><span class=nx>Transport</span><span class=p>{</span>
+		<span class=nx>TLSClientConfig</span><span class=p>:</span> <span class=o>&amp;</span><span class=nx>tls</span><span class=p>.</span><span class=nx>Config</span><span class=p>{</span>
+			<span class=nx>RootCAs</span><span class=p>:</span>            <span class=nx>pool</span><span class=p>,</span>
+			<span class=nx>Certificates</span><span class=p>:</span>       <span class=p>[]</span><span class=nx>tls</span><span class=p>.</span><span class=nx>Certificate</span><span class=p>{</span><span class=nx>clientCertBytes</span><span class=p>},</span>
+			<span class=nx>InsecureSkipVerify</span><span class=p>:</span> <span class=kc>true</span><span class=p>,</span>
+		<span class=p>},</span>
+	<span class=p>}</span>
+
+	<span class=nx>client</span> <span class=o>:=</span> <span class=nx>http</span><span class=p>.</span><span class=nx>Client</span><span class=p>{</span>
+		<span class=nx>Transport</span><span class=p>:</span> <span class=nx>tr</span><span class=p>,</span>
+	<span class=p>}</span>
+
+	<span class=nx>r</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>client</span><span class=p>.</span><span class=nf>Get</span><span class=p>(</span><span class=s>&#34;https://127.0.0.1:8443&#34;</span><span class=p>)</span> <span class=c1>// server
+</span><span class=c1></span>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+		<span class=nb>panic</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
+	<span class=p>}</span>
+	<span class=k>defer</span> <span class=nx>r</span><span class=p>.</span><span class=nx>Body</span><span class=p>.</span><span class=nf>Close</span><span class=p>()</span>
+
+	<span class=nx>b</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>io</span><span class=p>.</span><span class=nf>ReadAll</span><span class=p>(</span><span class=nx>r</span><span class=p>.</span><span class=nx>Body</span><span class=p>)</span>
+	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+		<span class=nb>panic</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
+	<span class=p>}</span>
+
+	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nb>string</span><span class=p>(</span><span class=nx>b</span><span class=p>))</span>
+<span class=p>}</span>
+</code></pre></div>
+</div>
+<footer class=post-footer>
+<ul class=post-tags>
+<li><a href=https://blog.srcio.cn/tags/golang/><i class="fa-solid fa-tag"></i>&nbsp;Golang</a></li>
+</ul>
+<nav class=paginav>
+<a class=next href=https://blog.srcio.cn/series/programming-kubernetes/api-design/>
+<strong class=title>下一页&nbsp;<i class="fa-solid fa-forward"></i></strong>
+<br>Kubernetes API 设计</a>
+</nav>
+</footer>
+<div class=giscus_comments><script src=https://giscus.app/client.js data-repo=srcio/blog data-repo-id=R_kgDOIFWX7A data-category=General data-category-id=DIC_kwDOIFWX7M4CRrSg data-mapping=pathname data-strict=0 data-reactions-enabled=1 data-emit-metadata=0 data-input-position=top data-theme=light data-lang=zh-CN crossorigin=anonymous async></script>
+</div>
+<script>document.querySelector("div.giscus_comments > script").setAttribute("data-theme",localStorage.getItem("pref-theme")?localStorage.getItem("pref-theme"):window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"),document.querySelector("#theme-toggle").addEventListener("click",()=>{let a=document.querySelector("iframe.giscus-frame");a&&a.contentWindow.postMessage({giscus:{setConfig:{theme:localStorage.getItem("pref-theme")?localStorage.getItem("pref-theme")==="dark"?"light":"dark":document.body.className.includes("dark")?"light":"dark"}}},"https://giscus.app")})</script>
+</article>
+</main>
+<script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script>
+<footer class=footer>
+<span>&copy; 2022 <a href=https://blog.srcio.cn/>博客 · 丁鹏</a></span>
+<span><a href=https://beian.miit.gov.cn/>湘ICP备2022019990号</a></span>
+<span>
+📈 本站共计：<a id=busuanzi_value_site_pv>0</a> 次访问 & <a id=busuanzi_value_site_uv>0</a> 位访客
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+<script>document.querySelectorAll('pre > code').forEach(b=>{const c=b.parentNode.parentNode,a=document.createElement('button');a.classList.add('copy-code'),a.innerHTML='<i class="fa-regular fa-copy"></i>';function d(){a.innerHTML='<i class="fa-solid fa-check"></i>',setTimeout(()=>{a.innerHTML='<i class="fa-regular fa-copy"></i>'},2e3)}a.addEventListener('click',e=>{if('clipboard'in navigator){navigator.clipboard.writeText(b.textContent),d();return}const a=document.createRange();a.selectNodeContents(b);const c=window.getSelection();c.removeAllRanges(),c.addRange(a);try{document.execCommand('copy'),d()}catch(a){}c.removeRange(a)}),c.classList.contains("highlight")?c.appendChild(a):c.parentNode.firstChild==c||(b.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?b.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(a):b.parentNode.appendChild(a))})</script></body>
+</html>

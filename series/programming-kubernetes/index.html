@@ -12,7 +12,7 @@
 <meta name=google-site-verification content="XYZabc">
 <meta name=yandex-verification content="XYZabc">
 <meta name=msvalidate.01 content="XYZabc">
-<link crossorigin=anonymous href=/assets/css/stylesheet.5b2f919107773599e9bd959f212a8c2da6a85ee8f9e6d6446d23e214f7dd8338.css integrity="sha256-Wy+RkQd3NZnpvZWfISqMLaaoXuj55tZEbSPiFPfdgzg=" rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.acef08f41736d9c51a13f4a61106e4430c295f4d7449d29ad48e3df7b6975107.css integrity="sha256-rO8I9Bc22cUaE/SmEQbkQwwpX010SdKa1I4997aXUQc=" rel="preload stylesheet" as=style>
 <link rel=icon href=https://blog.srcio.cn/images/blog.png>
 <link rel=icon type=image/png sizes=16x16 href=https://blog.srcio.cn/images/blog.png>
 <link rel=icon type=image/png sizes=32x32 href=https://blog.srcio.cn/images/blog.png>
@@ -91,6 +91,134 @@
 <a href=https://blog.srcio.cn/series/><i class="fa-solid fa-angle-right"></i>&nbsp;系列</a>&nbsp;<span><i class="fa-solid fa-angle-right"></i>&nbsp;Kubernetes 编程</span></p>
 </div>
 </header>
+<article class=post-entry>
+<header class=entry-header>
+<h2>Kubernetes API 设计
+</h2>
+</header>
+<div class=entry-content>
+<p>术语 Group
+API 资源置于某个分组下，组作为相关功能的集合。一个组包含一个或多个版本。
+Version
+API 资源的版本，API 资源版本是会不断迭代的。
+Kind
+API 资源的的类型，用于存储 API 资源的描述信息或状态等。同一个 Kind 的 API 资源可以有多个版本，随着版本的不断迭代，Kind 代表的资源的会有字段内容的更改。
+GVK
+Group/Version/Kind，例如 Deployment：
+apiVersion:apps/v1kind:Deploymentmetadata:- name:deploy-1... 上面的代码示例描述了一个 API 资源对象，这个资源对象：
+Group 是 apps Version 是 v1 Kind 是 Deployment。 Resource
+代表 API 资源，与 GVK 一对一的关系。
+GVR
+可以将 GVK 比作是一个类，GVR 就是这个 GVK 类的实例。
+当我们以 REST 的方式向发起 API 资源的请求是，请求 URL 格式一般类似这样：/api/apps/v1/deployments，里面就包含了三个上面提到的术语概念：
+/apps：请求资源所在的组（Group） /v1：请求资源的版本（Version） /deployments：请求的资源的名称（Resource） </p>
+</div>
+<footer class=entry-footer><span class=meta-item>
+<span>
+<i class="fa-solid fa-calendar-day"></i>
+2022-10-2
+</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-clock"></i>&nbsp;1 分钟</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-chart-simple"></i></i>&nbsp;58 字</span>
+</span>
+<span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-user"></i></i>&nbsp;丁鹏
+</span>
+</span></footer>
+<a class=entry-link aria-label="post link to Kubernetes API 设计" href=https://blog.srcio.cn/series/programming-kubernetes/api-design/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>Kuberentes Operator"
+</h2>
+</header>
+<div class=entry-content>
+<p></p>
+</div>
+<footer class=entry-footer><span class=meta-item>
+<span>
+<i class="fa-solid fa-calendar-day"></i>
+2022-10-2
+</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-clock"></i>&nbsp;0 分钟</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-chart-simple"></i></i>&nbsp;0 字</span>
+</span>
+<span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-user"></i></i>&nbsp;丁鹏
+</span>
+</span></footer>
+<a class=entry-link aria-label='post link to Kuberentes Operator"' href=https://blog.srcio.cn/series/programming-kubernetes/operator/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>foobar
+</h2>
+</header>
+<div class=entry-content>
+<p></p>
+</div>
+<footer class=entry-footer><span class=meta-item>
+<span>
+<i class="fa-solid fa-calendar-day"></i>
+2022-10-1
+</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-clock"></i>&nbsp;0 分钟</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-chart-simple"></i></i>&nbsp;0 字</span>
+</span>
+<span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-user"></i></i>&nbsp;丁鹏
+</span>
+</span></footer>
+<a class=entry-link aria-label="post link to foobar" href=https://blog.srcio.cn/series/programming-kubernetes/kube-client/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>构造 rest.Config 实例
+</h2>
+</header>
+<div class=entry-content>
+<p>本节介绍几种构造 rest.Config 实例的场景或者方法。
+rest.Config 可以帮助我们构建各种类型的 Kubernetes 客户端实例，从而访问 Kubernetes APIServer。
+通过 kubeconfig 文件构造 程序通过读取 kubeconfig 文件来构造一个 rest.Config 对象。
+package main import ( "k8s.io/client-go/rest" "k8s.io/client-go/tools/clientcmd" ) func KubeConfig() *rest.Config { config, err := clientcmd.BuildConfigFromFlags("", clientcmd.RecommendedHomeFile) if err != nil { panic(err) } return config } 通过 Secret 资源构造 通过将程序部署在 Kubernetes 集群中，使用 Pod 所配置的 ServiceAccount（默认：default）账号构造 rest.Config 对象。
+运行的 Pod 内都会存储一个
+每个 ServiceAccount 都有一个对应的 Secret，这个 Secret 包含了对集群的操作权限。
+package main import ( "k8s.io/client-go/rest" ) func KubeConfig() *rest....</p>
+</div>
+<footer class=entry-footer><span class=meta-item>
+<span>
+<i class="fa-solid fa-calendar-day"></i>
+2022-10-1
+</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-clock"></i>&nbsp;2 分钟</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-chart-simple"></i></i>&nbsp;221 字</span>
+</span>
+<span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-user"></i></i>&nbsp;丁鹏
+</span>
+</span></footer>
+<a class=entry-link aria-label="post link to 构造 rest.Config 实例" href=https://blog.srcio.cn/series/programming-kubernetes/rest-config/></a>
+</article>
 </main>
 <script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script>
 <footer class=footer>

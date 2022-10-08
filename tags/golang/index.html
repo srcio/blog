@@ -12,7 +12,7 @@
 <meta name=google-site-verification content="XYZabc">
 <meta name=yandex-verification content="XYZabc">
 <meta name=msvalidate.01 content="XYZabc">
-<link crossorigin=anonymous href=/assets/css/stylesheet.5b2f919107773599e9bd959f212a8c2da6a85ee8f9e6d6446d23e214f7dd8338.css integrity="sha256-Wy+RkQd3NZnpvZWfISqMLaaoXuj55tZEbSPiFPfdgzg=" rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.acef08f41736d9c51a13f4a61106e4430c295f4d7449d29ad48e3df7b6975107.css integrity="sha256-rO8I9Bc22cUaE/SmEQbkQwwpX010SdKa1I4997aXUQc=" rel="preload stylesheet" as=style>
 <link rel=icon href=https://blog.srcio.cn/images/blog.png>
 <link rel=icon type=image/png sizes=16x16 href=https://blog.srcio.cn/images/blog.png>
 <link rel=icon type=image/png sizes=32x32 href=https://blog.srcio.cn/images/blog.png>
@@ -90,6 +90,44 @@
 <a href=https://blog.srcio.cn/tags/><i class="fa-solid fa-angle-right"></i>&nbsp;标签</a>&nbsp;<span><i class="fa-solid fa-angle-right"></i>&nbsp;Golang</span></p>
 </div>
 </header>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>Golang 实现双向认证
+</h2>
+</header>
+<div class=entry-content>
+<p>TLS 传输层安全协议（TLS），在互联网上，通常是由服务器单向的向客户端提供证书，以证明其身份。
+mTLS 双向 TLS 认证，是指在客户端和服务器之间使用双行加密通道，mTLS 是云原生应用中常用的通信安全协议。
+使用双向TLS连接的主要目的是当服务器应该只接受来自有限的允许的客户端的 TLS 连接时。例如，一个组织希望将服务器的 TLS 连接限制为只来自该组织的合法合作伙伴或客户。显然，为客户端添加IP白名单不是一个好的安全实践，因为IP可能被欺骗。
+为了简化 mTLS 握手的过程，我们这样简单梳理：
+客户端发送访问服务器上受保护信息的请求；
+服务器向客户端提供公钥证书；
+客户端通过使用 CA 的公钥来验证服务器公钥证书的数字签名，以验证服务器的证书；
+如果步骤 3 成功，客户机将其客户端公钥证书发送到服务器；
+服务器使用步骤 3 中相同的方法验证客户机的证书；
+如果成功，服务器将对受保护信息的访问权授予客户机。
+代码实现 需要实现客户端验证服务端的公钥证书，服务端验证客户端的公钥证书。
+生成证书 echo '清理并生成目录' OUT=./certs DAYS=365 RSALEN=2048 CN=srcio rm -rf ${OUT}/* mkdir ${OUT} >> /dev/null 2>&1 cd ${OUT} echo '生成CA的私钥' openssl genrsa -out ca.key ${RSALEN} >> /dev/null 2>&1 echo '生成CA的签名证书' openssl req -new \ -x509 \ -key ca....</p>
+</div>
+<footer class=entry-footer><span class=meta-item>
+<span>
+<i class="fa-solid fa-calendar-day"></i>
+2022-10-2
+</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-clock"></i>&nbsp;2 分钟</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-chart-simple"></i></i>&nbsp;370 字</span>
+</span>
+<span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-user"></i></i>&nbsp;丁鹏
+</span>
+</span></footer>
+<a class=entry-link aria-label="post link to Golang 实现双向认证" href=https://blog.srcio.cn/series/programming-go/mtls/></a>
+</article>
 <article class="post-entry tag-entry">
 <header class=entry-header>
 <h2>Go1.18 - 工作区模式

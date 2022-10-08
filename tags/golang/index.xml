@@ -10,7 +10,27 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Wed, 28 Sep 2022 18:25:05 +0800</lastBuildDate><atom:link href="https://blog.srcio.cn/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 02 Oct 2022 01:49:13 +0800</lastBuildDate><atom:link href="https://blog.srcio.cn/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang 实现双向认证</title>
+      <link>https://blog.srcio.cn/series/programming-go/mtls/</link>
+      <pubDate>Sun, 02 Oct 2022 01:49:13 +0800</pubDate>
+      
+      <guid>https://blog.srcio.cn/series/programming-go/mtls/</guid>
+      <description>TLS 传输层安全协议（TLS），在互联网上，通常是由服务器单向的向客户端提供证书，以证明其身份。
+mTLS 双向 TLS 认证，是指在客户端和服务器之间使用双行加密通道，mTLS 是云原生应用中常用的通信安全协议。
+使用双向TLS连接的主要目的是当服务器应该只接受来自有限的允许的客户端的 TLS 连接时。例如，一个组织希望将服务器的 TLS 连接限制为只来自该组织的合法合作伙伴或客户。显然，为客户端添加IP白名单不是一个好的安全实践，因为IP可能被欺骗。
+为了简化 mTLS 握手的过程，我们这样简单梳理：
+  客户端发送访问服务器上受保护信息的请求；
+  服务器向客户端提供公钥证书；
+  客户端通过使用 CA 的公钥来验证服务器公钥证书的数字签名，以验证服务器的证书；
+  如果步骤 3 成功，客户机将其客户端公钥证书发送到服务器；
+  服务器使用步骤 3 中相同的方法验证客户机的证书；
+  如果成功，服务器将对受保护信息的访问权授予客户机。
+  代码实现 需要实现客户端验证服务端的公钥证书，服务端验证客户端的公钥证书。
+生成证书 echo &amp;#39;清理并生成目录&amp;#39; OUT=./certs DAYS=365 RSALEN=2048 CN=srcio rm -rf ${OUT}/* mkdir ${OUT} &amp;gt;&amp;gt; /dev/null 2&amp;gt;&amp;amp;1 cd ${OUT} echo &amp;#39;生成CA的私钥&amp;#39; openssl genrsa -out ca.key ${RSALEN} &amp;gt;&amp;gt; /dev/null 2&amp;gt;&amp;amp;1 echo &amp;#39;生成CA的签名证书&amp;#39; openssl req -new \ -x509 \ -key ca.</description>
+    </item>
+    
     <item>
       <title>Go1.18 - 工作区模式</title>
       <link>https://blog.srcio.cn/series/programming-go/go-work/</link>
