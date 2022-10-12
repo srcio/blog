@@ -15,7 +15,7 @@ Clientset  获取 *kubernetes.Clientset
 <meta name=google-site-verification content="XYZabc">
 <meta name=yandex-verification content="XYZabc">
 <meta name=msvalidate.01 content="XYZabc">
-<link crossorigin=anonymous href=/assets/css/stylesheet.f6aa4c86852eacc22466a6e0435dc0f355c21ffabe012b3dbc334c087707b373.css integrity="sha256-9qpMhoUurMIkZqbgQ13A81XCH/q+ASs9vDNMCHcHs3M=" rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.286be1a589d50517ba1646c90dc5bf8e27516f8b1ac6a0daa28e56593bf6d0d1.css integrity="sha256-KGvhpYnVBRe6FkbJDcW/jidRb4saxqDaoo5WWTv20NE=" rel="preload stylesheet" as=style>
 <script defer crossorigin=anonymous src=/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG+9vmJ0cTS+ovo0FeA=" onload=hljs.initHighlightingOnLoad()></script>
 <link rel=icon href=https://blog.srcio.cn/images/blog.png>
 <link rel=icon type=image/png sizes=16x16 href=https://blog.srcio.cn/images/blog.png>
@@ -45,7 +45,7 @@ Clientset  获取 *kubernetes.Clientset
 推荐使用该客户端实例去操作 K8s API 资源。  package main import ( &#34;k8s.io/client-go/kubernetes&#34; &#34;k8s.io/client-go/rest&#34; ) func Clientset(config *rest.Config) *kubernetes.Clientset { client, err := kubernetes.NewForConfig(config) if err != nil { panic(err) } return client } 获取 *rest.RESTClient
 可以通过该客户端实例获取内置的以及自定义的 K8s API 资源。  package main import &#34;k8s.io/client-go/rest&#34; func RESTClient(config *rest.Config) *rest.RESTClient { client, err := rest.RESTClientFor(config) if err != nil { panic(err) } return client } DiscoveryClient DiscoveryClient 动态客户端，通过动态指定 GVR 来操作任意的 Kubernetes 资源（内置资源 + CR）">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"系列","item":"https://blog.srcio.cn/series/"},{"@type":"ListItem","position":2,"name":"Kubernetes 编程","item":"https://blog.srcio.cn/series/programming-kubernetes/"},{"@type":"ListItem","position":3,"name":"构造 Kubernetes 客户端实例","item":"https://blog.srcio.cn/series/programming-kubernetes/kube-client/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"构造 Kubernetes 客户端实例","name":"构造 Kubernetes 客户端实例","description":"本节介绍 Golang 程序如何通过 rest.Config 实例获取各种类型的 Kubernetes 客户端实例。 通过客户端访问 Kubernetes 中的 API 资源实例。\nClientset  获取 *kubernetes.Clientset\n推荐使用该客户端实例去操作 K8s API 资源。  package main import ( \u0026#34;k8s.io/client-go/kubernetes\u0026#34; \u0026#34;k8s.io/client-go/rest\u0026#34; ) func Clientset(config *rest.Config) *kubernetes.Clientset { client, err := kubernetes.NewForConfig(config) if err != nil { panic(err) } return client } 获取 *rest.RESTClient\n可以通过该客户端实例获取内置的以及自定义的 K8s API 资源。  package main import \u0026#34;k8s.io/client-go/rest\u0026#34; func RESTClient(config *rest.Config) *rest.RESTClient { client, err := rest.RESTClientFor(config) if err != nil { panic(err) } return client } DiscoveryClient DiscoveryClient 动态客户端，通过动态指定 GVR 来操作任意的 Kubernetes 资源（内置资源 + CR）","keywords":["Kubernetes"],"articleBody":"本节介绍 Golang 程序如何通过 rest.Config 实例获取各种类型的 Kubernetes 客户端实例。 通过客户端访问 Kubernetes 中的 API 资源实例。\nClientset  获取 *kubernetes.Clientset\n推荐使用该客户端实例去操作 K8s API 资源。  package main import ( \"k8s.io/client-go/kubernetes\" \"k8s.io/client-go/rest\" ) func Clientset(config *rest.Config) *kubernetes.Clientset { client, err := kubernetes.NewForConfig(config) if err != nil { panic(err) } return client } 获取 *rest.RESTClient\n可以通过该客户端实例获取内置的以及自定义的 K8s API 资源。  package main import \"k8s.io/client-go/rest\" func RESTClient(config *rest.Config) *rest.RESTClient { client, err := rest.RESTClientFor(config) if err != nil { panic(err) } return client } DiscoveryClient DiscoveryClient 动态客户端，通过动态指定 GVR 来操作任意的 Kubernetes 资源（内置资源 + CR）\n 使用嵌套的 map[string]interface{} 结构存储资源数据； 可以利用反射机制序列化成为特定资源实体； 灵活性更高，但无法做强数据类型检查和验证。  使用 DiscoveryClient 获取到的资源对象为 runtime.Object，可以通过 [``]\n获取 *discovery.DiscoveryClient 可以通过该客户端实例获取内置的以及自定义的 K8s API 资源。\npackage main import ( \"k8s.io/client-go/discovery\" \"k8s.io/client-go/rest\" ) func DiscoveryClient(config *rest.Config) *discovery.DiscoveryClient { client, err := discovery.NewDiscoveryClientForConfig(config) if err != nil { panic(err) } return client } 使用 *discovery.DiscoveryClient DynamicClient 获取 dynamic.Interface\npackage client import ( \"k8s.io/client-go/dynamic\" \"k8s.io/client-go/rest\" ) func DynamicClient(config *rest.Config) dynamic.Interface { client, err := dynamic.NewForConfig(config) if err != nil { panic(err) } return client } 获取 runtimecli.Client\n可以通过该客户端实例获取内置的以及自定义的 K8s API 资源。 但是如果该客户端实例需要操作自定义 K8s API 资源，New 函数传入的参数 runtimecli.Options 中 Scheme 对象需要调整。  package main import ( \"k8s.io/apimachinery/pkg/runtime\" \"k8s.io/client-go/kubernetes/scheme\" \"k8s.io/client-go/rest\" runtimecli \"sigs.k8s.io/controller-runtime/pkg/client\" // 假设定义了一个 foo CRD，里面包含 register.go 中定义了 AddToScheme 实例 \tfoosv1 \"pkg/apis/foos/v1\" ) func RuntimeClient(config *rest.Config) runtimecli.Client { client, err := runtimecli.New(config, runtimecli.Options{ Scheme: scheme.Scheme, }) if err != nil { panic(err) } return client } func RuntimeClientForCRD(config *rest.Config) runtimecli.Client { crScheme := runtime.NewScheme() foosv1.AddToScheme(scheme.Scheme) client, err := runtimecli.New(config, runtimecli.Options{ Scheme: crScheme, }) if err != nil { panic(err) } return client } 获取 *http.Client\n最原生的客户端，使用该客户端实例操作 K8s API 资源就纯靠自己手工封装了，不太推荐。  package main import ( \"net/http\" \"k8s.io/client-go/rest\" ) func HTTPClient(config *rest.Config) *http.Client { client, err := rest.HTTPClientFor(config) if err != nil { panic(err) } return client } 总结 http.Client = rest.RESTClient = discovery.DiscoveryClient = kubernetes.Clientset\n客户端的定制化越高，使用越高效。但同时对自定义 API 的资源操作的支持就越低。\n","wordCount":"284","inLanguage":"zh","datePublished":"2022-10-01T23:39:15+08:00","dateModified":"2022-10-01T23:39:15+08:00","author":[{"@type":"Person","name":"丁鹏"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.srcio.cn/series/programming-kubernetes/kube-client/"},"publisher":{"@type":"Organization","name":"博客","logo":{"@type":"ImageObject","url":"https://blog.srcio.cn/images/blog.png"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"构造 Kubernetes 客户端实例","name":"构造 Kubernetes 客户端实例","description":"本节介绍 Golang 程序如何通过 rest.Config 实例获取各种类型的 Kubernetes 客户端实例。 通过客户端访问 Kubernetes 中的 API 资源实例。\nClientset  获取 *kubernetes.Clientset\n推荐使用该客户端实例去操作 K8s API 资源。  package main import ( \u0026#34;k8s.io/client-go/kubernetes\u0026#34; \u0026#34;k8s.io/client-go/rest\u0026#34; ) func Clientset(config *rest.Config) *kubernetes.Clientset { client, err := kubernetes.NewForConfig(config) if err != nil { panic(err) } return client } 获取 *rest.RESTClient\n可以通过该客户端实例获取内置的以及自定义的 K8s API 资源。  package main import \u0026#34;k8s.io/client-go/rest\u0026#34; func RESTClient(config *rest.Config) *rest.RESTClient { client, err := rest.RESTClientFor(config) if err != nil { panic(err) } return client } DiscoveryClient DiscoveryClient 动态客户端，通过动态指定 GVR 来操作任意的 Kubernetes 资源（内置资源 + CR）","keywords":["Kubernetes"],"articleBody":"本节介绍 Golang 程序如何通过 rest.Config 实例获取各种类型的 Kubernetes 客户端实例。 通过客户端访问 Kubernetes 中的 API 资源实例。\nClientset  获取 *kubernetes.Clientset\n推荐使用该客户端实例去操作 K8s API 资源。  package main import ( \"k8s.io/client-go/kubernetes\" \"k8s.io/client-go/rest\" ) func Clientset(config *rest.Config) *kubernetes.Clientset { client, err := kubernetes.NewForConfig(config) if err != nil { panic(err) } return client } 获取 *rest.RESTClient\n可以通过该客户端实例获取内置的以及自定义的 K8s API 资源。  package main import \"k8s.io/client-go/rest\" func RESTClient(config *rest.Config) *rest.RESTClient { client, err := rest.RESTClientFor(config) if err != nil { panic(err) } return client } DiscoveryClient DiscoveryClient 动态客户端，通过动态指定 GVR 来操作任意的 Kubernetes 资源（内置资源 + CR）\n 使用嵌套的 map[string]interface{} 结构存储资源数据； 可以利用反射机制序列化成为特定资源实体； 灵活性更高，但无法做强数据类型检查和验证。  使用 DiscoveryClient 获取到的资源对象为 runtime.Object，可以通过 [``]\n获取 DiscoveryClient 可以通过该客户端实例获取内置的以及自定义的 K8s API 资源。\npackage main import ( \"k8s.io/client-go/discovery\" \"k8s.io/client-go/rest\" ) func DiscoveryClient(config *rest.Config) *discovery.DiscoveryClient { client, err := discovery.NewDiscoveryClientForConfig(config) if err != nil { panic(err) } return client } 使用 DiscoveryClient DynamicClient 获取 dynamic.Interface\npackage client import ( \"k8s.io/client-go/dynamic\" \"k8s.io/client-go/rest\" ) func DynamicClient(config *rest.Config) dynamic.Interface { client, err := dynamic.NewForConfig(config) if err != nil { panic(err) } return client } 获取 runtimecli.Client\n可以通过该客户端实例获取内置的以及自定义的 K8s API 资源。 但是如果该客户端实例需要操作自定义 K8s API 资源，New 函数传入的参数 runtimecli.Options 中 Scheme 对象需要调整。  package main import ( \"k8s.io/apimachinery/pkg/runtime\" \"k8s.io/client-go/kubernetes/scheme\" \"k8s.io/client-go/rest\" runtimecli \"sigs.k8s.io/controller-runtime/pkg/client\" // 假设定义了一个 foo CRD，里面包含 register.go 中定义了 AddToScheme 实例 \tfoosv1 \"pkg/apis/foos/v1\" ) func RuntimeClient(config *rest.Config) runtimecli.Client { client, err := runtimecli.New(config, runtimecli.Options{ Scheme: scheme.Scheme, }) if err != nil { panic(err) } return client } func RuntimeClientForCRD(config *rest.Config) runtimecli.Client { crScheme := runtime.NewScheme() foosv1.AddToScheme(scheme.Scheme) client, err := runtimecli.New(config, runtimecli.Options{ Scheme: crScheme, }) if err != nil { panic(err) } return client } 获取 *http.Client\n最原生的客户端，使用该客户端实例操作 K8s API 资源就纯靠自己手工封装了，不太推荐。  package main import ( \"net/http\" \"k8s.io/client-go/rest\" ) func HTTPClient(config *rest.Config) *http.Client { client, err := rest.HTTPClientFor(config) if err != nil { panic(err) } return client } 总结 http.Client = rest.RESTClient = discovery.DiscoveryClient = kubernetes.Clientset\n客户端的定制化越高，使用越高效。但同时对自定义 API 的资源操作的支持就越低。\n","wordCount":"284","inLanguage":"zh","datePublished":"2022-10-01T23:39:15+08:00","dateModified":"2022-10-01T23:39:15+08:00","author":[{"@type":"Person","name":"丁鹏"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.srcio.cn/series/programming-kubernetes/kube-client/"},"publisher":{"@type":"Organization","name":"博客","logo":{"@type":"ImageObject","url":"https://blog.srcio.cn/images/blog.png"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -100,6 +100,7 @@ Clientset  获取 *kubernetes.Clientset
 </nav>
 </header><main class=main>
 <article class=post-single>
+<div class=post-left-article>
 <header class=post-header>
 <div class=breadcrumbs><p><a href=/>主页</a>
 <a href=https://blog.srcio.cn/series/><i class="fa-solid fa-angle-right"></i>&nbsp;系列</a>
@@ -129,27 +130,7 @@ Clientset  获取 *kubernetes.Clientset
 </span>&nbsp;&nbsp;|&nbsp;&nbsp;<a href=https://github.com/srcio/blog/edit/master/content/series/programming-kubernetes/kube-client.md rel="noopener noreferrer" target=_blank>
 <i class="fa-regular fa-pen-to-square"></i>&nbsp;编辑</a>
 </div>
-</header> <div class=toc>
-<details>
-<summary accesskey=c title="(Alt + C)">
-<span class=details>&nbsp;目录</span>
-</summary>
-<div class=inner><nav id=TableOfContents>
-<ul>
-<li><a href=#clientset>Clientset</a></li>
-<li><a href=#discoveryclient>DiscoveryClient</a>
-<ul>
-<li><a href=#获取-discoverydiscoveryclient>获取 <code>*discovery.DiscoveryClient</code></a></li>
-<li><a href=#使用-discoverydiscoveryclient>使用 <code>*discovery.DiscoveryClient</code></a></li>
-</ul>
-</li>
-<li><a href=#dynamicclient>DynamicClient</a></li>
-<li><a href=#总结>总结</a></li>
-</ul>
-</nav>
-</div>
-</details>
-</div>
+</header>
 <div class=post-content><p>本节介绍 Golang 程序如何通过 <code>rest.Config</code> 实例获取各种类型的 Kubernetes 客户端实例。
 通过客户端访问 Kubernetes 中的 API 资源实例。</p>
 <h2 id=clientset>Clientset<a hidden class=anchor aria-hidden=true href=#clientset>#</a></h2>
@@ -194,7 +175,7 @@ Clientset  获取 *kubernetes.Clientset
 <li>灵活性更高，但无法做强数据类型检查和验证。</li>
 </ul>
 <p>使用 DiscoveryClient 获取到的资源对象为 <a href=runtime-object.md><code>runtime.Object</code></a>，可以通过 [``]</p>
-<h3 id=获取-discoverydiscoveryclient>获取 <code>*discovery.DiscoveryClient</code><a hidden class=anchor aria-hidden=true href=#获取-discoverydiscoveryclient>#</a></h3>
+<h3 id=获取-discoveryclient>获取 DiscoveryClient<a hidden class=anchor aria-hidden=true href=#获取-discoveryclient>#</a></h3>
 <p>可以通过该客户端实例获取内置的以及自定义的 K8s API 资源。</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>main</span>
 
@@ -210,7 +191,7 @@ Clientset  获取 *kubernetes.Clientset
 	<span class=p>}</span>
 	<span class=k>return</span> <span class=nx>client</span>
 <span class=p>}</span>
-</code></pre></div><h3 id=使用-discoverydiscoveryclient>使用 <code>*discovery.DiscoveryClient</code><a hidden class=anchor aria-hidden=true href=#使用-discoverydiscoveryclient>#</a></h3>
+</code></pre></div><h3 id=使用-discoveryclient>使用 DiscoveryClient<a hidden class=anchor aria-hidden=true href=#使用-discoveryclient>#</a></h3>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go>
 </code></pre></div><h2 id=dynamicclient>DynamicClient<a hidden class=anchor aria-hidden=true href=#dynamicclient>#</a></h2>
 <p>获取 <code>dynamic.Interface</code></p>
@@ -304,15 +285,51 @@ Clientset  获取 *kubernetes.Clientset
 <div class=giscus_comments><script src=https://giscus.app/client.js data-repo=srcio/blog data-repo-id=R_kgDOIFWX7A data-category=General data-category-id=DIC_kwDOIFWX7M4CRrSg data-mapping=pathname data-strict=0 data-reactions-enabled=1 data-emit-metadata=0 data-input-position=top data-theme=light data-lang=zh-CN crossorigin=anonymous async></script>
 </div>
 <script>document.querySelector("div.giscus_comments > script").setAttribute("data-theme",localStorage.getItem("pref-theme")?localStorage.getItem("pref-theme"):window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"),document.querySelector("#theme-toggle").addEventListener("click",()=>{let a=document.querySelector("iframe.giscus-frame");a&&a.contentWindow.postMessage({giscus:{setConfig:{theme:localStorage.getItem("pref-theme")?localStorage.getItem("pref-theme")==="dark"?"light":"dark":document.body.className.includes("dark")?"light":"dark"}}},"https://giscus.app")})</script>
+</div>
+<div class=post-right-tags><div class=panel>
+<div>
+<p class=panel-title><i class="fa-solid fa-tags"></i>&nbsp; 标签</p>
+<div class=inner>
+<ul>
+<li><a href=https://blog.srcio.cn/tags/kubernetes/>Kubernetes</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class=post-right-toc>
+<div class=panel>
+<div>
+<p class=panel-title><i class="fa-solid fa-bookmark"></i>&nbsp; 目录</p>
+<div class=inner><nav id=TableOfContents>
+<ul>
+<li><a href=#clientset>Clientset</a></li>
+<li><a href=#discoveryclient>DiscoveryClient</a>
+<ul>
+<li><a href=#获取-discoveryclient>获取 DiscoveryClient</a></li>
+<li><a href=#使用-discoveryclient>使用 DiscoveryClient</a></li>
+</ul>
+</li>
+<li><a href=#dynamicclient>DynamicClient</a></li>
+<li><a href=#总结>总结</a></li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+</div>
+<div class=clear_float></div>
 </article>
 </main>
 <script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script>
 <footer class=footer>
-<span>&copy; 2022 <a href=https://blog.srcio.cn/>博客 · 丁鹏</a></span>
+<p>
+<span>&copy;2022 <a href=https://blog.srcio.cn/>博客 · 丁鹏</a></span>
+&nbsp;|&nbsp;
 <span><a href=https://beian.miit.gov.cn/>湘ICP备2022019990号</a></span>
-<span>
-📈 本站共计：<a id=busuanzi_value_site_pv>0</a> 次访问 & <a id=busuanzi_value_site_uv>0</a> 位访客
-</span>
+&nbsp;|&nbsp;
+<span>本站共计 <a id=busuanzi_value_site_pv>0</a> 次访问 & <a id=busuanzi_value_site_uv>0</a> 位访客</span>
+</p>
 </footer>
 <a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
 </a>
