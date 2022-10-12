@@ -1,11 +1,11 @@
 {{- $headers := findRE "<h[1-6].*?>(.|\n])+?</h[1-6]>" .Content -}}
 {{- $has_headers := ge (len $headers) 1 -}}
-{{- if $has_headers -}}
-<div class="toc">
-    <details {{if (.Param "TocOpen") }} open{{ end }}>
-        <summary accesskey="c" title="(Alt + C)">
+<div class="panel">
+    <div>
+        <!-- <summary accesskey="c" title="(Alt + C)">
             <span class="details">&nbsp;{{- i18n "toc" | default "Table of Contents" }}</span>
-        </summary>
+        </summary> -->
+        <p class="panel-title"><i class="fa-solid fa-bookmark"></i>&nbsp; 目录</p>
 
         <div class="inner">
             {{- if (.Param "UseHugoToc") }}
@@ -92,6 +92,5 @@
             </ul>
             {{- end }}
         </div>
-    </details>
+    </div>
 </div>
-{{- end }}

@@ -59,7 +59,7 @@ func RESTClient(config *rest.Config) *rest.RESTClient {
 
 使用 DiscoveryClient 获取到的资源对象为 [`runtime.Object`](runtime-object.md)，可以通过 [``]
 
-### 获取 `*discovery.DiscoveryClient`
+### 获取 DiscoveryClient
 
 可以通过该客户端实例获取内置的以及自定义的 K8s API 资源。
 
@@ -80,7 +80,7 @@ func DiscoveryClient(config *rest.Config) *discovery.DiscoveryClient {
 }
 ```
 
-### 使用 `*discovery.DiscoveryClient`
+### 使用 DiscoveryClient
 
 ```go
 

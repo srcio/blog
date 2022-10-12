@@ -253,42 +253,48 @@
     font-weight: normal;
 }
 
-.toc {
+.panel {
     background: var(--code-bg);
     border-radius: var(--radius);
     padding: 10px;
     font-size: 16px;
 }
 
-.dark .toc {
+.dark .panel {
     background: var(--code-bg);
 }
 
-.toc details summary {
+.panel details summary {
     cursor: zoom-in;
     margin-inline-start: 20px;
 }
 
-.toc details[open] summary {
+.panel details[open] summary {
     cursor: zoom-out;
 }
 
-.toc .details {
+.panel .details {
     display: inline;
     font-weight: 500;
 }
 
-.toc .inner {
+.panel .inner {
     margin: 0 20px;
     padding: 10px 20px;
 }
 
-.toc li ul {
+.panel li ul {
     margin-inline-start: var(--gap);
 }
 
-.toc summary:focus {
+.panel summary:focus {
     outline: 0;
+}
+
+.panel-title{
+    font-weight: 500;
+    padding-left: 20px;
+    color: var(--secondary);
 }
 
 .post-footer {

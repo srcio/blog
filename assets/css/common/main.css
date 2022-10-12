@@ -1,12 +1,13 @@
 .main {
     position: relative;
     min-height: calc(100vh - var(--header-height) - var(--footer-height));
-    max-width: calc(var(--main-width) + var(--gap) * 6);
+    /* max-width: calc(var(--main-width) + var(--gap) * 6); */
+    max-width: calc(var(--nav-width) + var(--gap) * 6);
     margin: auto;
     padding: 10px var(--gap);
 }
 
-.page-header .post-title{
+.page-header .post-title {
     display: none;
 }
 
@@ -76,13 +77,13 @@ code {
 }
 
 a {
-    color:var(--secondary);
+    color: var(--secondary);
     text-decoration: none;
     transition: transform .3s ease-in-out, box-shadow .3s cubic-bezier(.47, 0, .745, .715);
 }
 
 a:hover,
-a:hover *{
+a:hover * {
     color: var(--primary) !important;
 }
 
@@ -101,7 +102,43 @@ article.post-entry:hover {
 }
 
 .giscus_comments {
-    background-color: var(--code-bg);
-    border-radius: var(--radius);
     padding: 10px;
+}
+
+.post-left-article {
+    float: left;
+    width: 100%;
+    margin-right: -300px;
+    padding-right: 300px;
+}
+
+.post-right-tags{
+    float: right;
+    width: 280px;
+    margin: 120px 0px 20px 0px;
+    /* border-radius: 8px; */
+}
+
+.post-right-toc {
+    float: right;
+    width: 280px;
+    position: sticky;
+    top: 80px;
+}
+
+.clear_float {
+    clear: both;
+}
+
+@media (max-width: 768px) {
+    .post-left-article{
+        width: 100%;
+        padding-right: 0px;
+    }
+    .post-right-toc {
+        display: none;
+    }
+    .post-right-tags{
+        display: none;
+    }
 }
