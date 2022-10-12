@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://blog.srcio.cn/series/programming-kubernetes/crd/</loc>
+    <lastmod>2022-10-11T23:50:34+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.srcio.cn/series/programming-go/slice-append/</loc>
+    <lastmod>2022-10-11T14:19:02+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.srcio.cn/posts/docker-compose/</loc>
+    <lastmod>2022-10-10T19:21:58+08:00</lastmod>
+  </url><url>
     <loc>https://blog.srcio.cn/series/programming-go/gen-cert/</loc>
     <lastmod>2022-10-08T17:13:58+08:00</lastmod>
   </url><url>
@@ -32,20 +41,35 @@
     <loc>https://blog.srcio.cn/series/programming-kubernetes/client-gen-usage/</loc>
     <lastmod>2022-10-08T17:37:07+08:00</lastmod>
   </url><url>
+    <loc>https://blog.srcio.cn/tags/crd/</loc>
+    <lastmod>2022-10-11T23:50:34+08:00</lastmod>
+  </url><url>
     <loc>https://blog.srcio.cn/tags/kubernetes/</loc>
-    <lastmod>2022-10-08T17:37:07+08:00</lastmod>
+    <lastmod>2022-10-11T23:50:34+08:00</lastmod>
   </url><url>
     <loc>https://blog.srcio.cn/</loc>
-    <lastmod>2022-10-08T17:37:07+08:00</lastmod>
+    <lastmod>2022-10-11T23:50:34+08:00</lastmod>
   </url><url>
     <loc>https://blog.srcio.cn/tags/</loc>
-    <lastmod>2022-10-08T17:37:07+08:00</lastmod>
+    <lastmod>2022-10-11T23:50:34+08:00</lastmod>
   </url><url>
     <loc>https://blog.srcio.cn/series/</loc>
-    <lastmod>2022-10-08T17:37:07+08:00</lastmod>
+    <lastmod>2022-10-11T23:50:34+08:00</lastmod>
   </url><url>
     <loc>https://blog.srcio.cn/tags/golang/</loc>
-    <lastmod>2022-10-08T17:13:58+08:00</lastmod>
+    <lastmod>2022-10-11T14:19:02+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.srcio.cn/tags/slice/</loc>
+    <lastmod>2022-10-11T14:19:02+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.srcio.cn/tags/docker/</loc>
+    <lastmod>2022-10-10T19:21:58+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.srcio.cn/tags/docker-compose/</loc>
+    <lastmod>2022-10-10T19:21:58+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.srcio.cn/posts/</loc>
+    <lastmod>2022-10-10T19:21:58+08:00</lastmod>
   </url><url>
     <loc>https://blog.srcio.cn/tags/blog/</loc>
     <lastmod>2022-09-28T09:02:43+08:00</lastmod>
@@ -54,9 +78,6 @@
     <lastmod>2022-09-28T09:02:43+08:00</lastmod>
   </url><url>
     <loc>https://blog.srcio.cn/posts/use-giscus/</loc>
-    <lastmod>2022-09-28T09:02:43+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.srcio.cn/posts/</loc>
     <lastmod>2022-09-28T09:02:43+08:00</lastmod>
   </url><url>
     <loc>https://blog.srcio.cn/archives/</loc>

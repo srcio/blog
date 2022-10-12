@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>slice on 博客</title>
+    <link>https://blog.srcio.cn/tags/slice/</link>
+    <description>Recent content in slice on 博客</description>
+    <image>
+      <url>https://blog.srcio.cn/cover.png</url>
+      <link>https://blog.srcio.cn/cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Tue, 11 Oct 2022 14:19:02 +0800</lastBuildDate><atom:link href="https://blog.srcio.cn/tags/slice/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang 切片扩容</title>
+      <link>https://blog.srcio.cn/series/programming-go/slice-append/</link>
+      <pubDate>Tue, 11 Oct 2022 14:19:02 +0800</pubDate>
+      
+      <guid>https://blog.srcio.cn/series/programming-go/slice-append/</guid>
+      <description>Golang 切片扩容</description>
+    </item>
+    
+  </channel>
+</rss>

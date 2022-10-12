@@ -13,7 +13,7 @@
 <meta name=google-site-verification content="XYZabc">
 <meta name=yandex-verification content="XYZabc">
 <meta name=msvalidate.01 content="XYZabc">
-<link crossorigin=anonymous href=/assets/css/stylesheet.3d4f89feedcdef574ababcd3bae880bb5402eab679fb6ee113c9fcf5dee8e959.css integrity="sha256-PU+J/u3N71dKurzTuuiAu1QC6rZ5+27hE8n89d7o6Vk=" rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.f6aa4c86852eacc22466a6e0435dc0f355c21ffabe012b3dbc334c087707b373.css integrity="sha256-9qpMhoUurMIkZqbgQ13A81XCH/q+ASs9vDNMCHcHs3M=" rel="preload stylesheet" as=style>
 <link rel=icon href=https://blog.srcio.cn/images/blog.png>
 <link rel=icon type=image/png sizes=16x16 href=https://blog.srcio.cn/images/blog.png>
 <link rel=icon type=image/png sizes=32x32 href=https://blog.srcio.cn/images/blog.png>
@@ -101,6 +101,99 @@
 </a>
 </p>
 </div>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>CRD 简介
+</h2>
+</header>
+<div class=entry-content>
+<p>CRD 字段校验配置
+apiVersion:apiextensions.k8s.io/v1beta1kind:CustomResourceDefinitionmetadata:name:scalings.control.srcio.iospec:group:control.srcio.ioversions:- name:v1served:truestorage:truescope:Namespacednames:plural:scalingssingular:scalingkind:Scalingvalidation:openAPIV3Schema:properties:spec:required:- targetDeployment- minReplicas- maxReplicas- metricType- step- scaleUp- scaleDownproperties:targetDeployment:type:stringminReplicas:type:integerminimum:0maxReplicas:type:integerminimum:0metricType:type:stringenum:- CPU- MEMORY- REQUESTSstep:type:integerminimum:1scaleUp:type:integerscaleDown:type:integerminimum:0 是否必须 参数类型 枚举范围 数值最大最小 </p>
+</div>
+<footer class=entry-footer><span class=meta-item>
+<span>
+<i class="fa-solid fa-calendar-day"></i>
+2022-10-11
+</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-clock"></i>&nbsp;1 分钟</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-chart-simple"></i></i>&nbsp;18 字</span>
+</span>
+<span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-user"></i></i>&nbsp;丁鹏
+</span>
+</span></footer>
+<a class=entry-link aria-label="post link to CRD 简介" href=https://blog.srcio.cn/series/programming-kubernetes/crd/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>Golang 切片扩容
+</h2>
+</header>
+<div class=entry-content>
+<p>怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？
+在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底层的数组发生了变化，不再是原来的数组结构。 </p>
+</div>
+<footer class=entry-footer><span class=meta-item>
+<span>
+<i class="fa-solid fa-calendar-day"></i>
+2022-10-11
+</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-clock"></i>&nbsp;1 分钟</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-chart-simple"></i></i>&nbsp;12 字</span>
+</span>
+<span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-user"></i></i>&nbsp;丁鹏
+</span>
+</span></footer>
+<a class=entry-link aria-label="post link to Golang 切片扩容" href=https://blog.srcio.cn/series/programming-go/slice-append/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>Docker Compose 实践
+</h2>
+</header>
+<div class=entry-content>
+<p>安装 如果你安装了 Docker Desktop，那么它已经帮你自动安装了 Docker Compose 插件。否则，需要额外安装插件。
+使用一下命令安装或升级 Docker Compose（linux）：
+Ubuntu，Debian： sudo apt update sudo apt install docker-compose-plugin 基于 RPM 发行版: sudo yum update sudo yum install docker-compose-plugin 验证安装版本：
+docker-compose version 常用命令 运行
+docker-compose up 查看运行
+docker-compose ps 停止
+docker-compose stop 启动&重启
+docker-compose start docker-compose restart 退出
+docker-compose down 使用 docker-compose -h 查看更多命令及参数。
+实践 使用 Docker Compose 运行一个简单的 golang web 程序。
+程序初始化 mkdir docker-compose-go-demo cd docker-compose-go-demo go mod init docker-compose-go-demo 创建 main....</p>
+</div>
+<footer class=entry-footer><span class=meta-item>
+<span>
+<i class="fa-solid fa-calendar-day"></i>
+2022-10-10
+</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-clock"></i>&nbsp;1 分钟</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-chart-simple"></i></i>&nbsp;144 字</span>
+</span>
+<span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-user"></i></i>&nbsp;丁鹏
+</span>
+</span></footer>
+<a class=entry-link aria-label="post link to Docker Compose 实践" href=https://blog.srcio.cn/posts/docker-compose/></a>
 </article>
 <article class=post-entry>
 <header class=entry-header>
@@ -331,64 +424,12 @@ GVR
 </span></footer>
 <a class=entry-link aria-label="post link to Kuberentes Operator" href=https://blog.srcio.cn/series/programming-kubernetes/operator/></a>
 </article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>使用 client-gen 生成 clientset 代码
-</h2>
-</header>
-<div class=entry-content>
-<p>本页是这篇Kubernetes 文档中一些内容摘要。
-大致分为 3 个步骤：
-为 API 类型结构做 tag 标签 在 API 类型例如 pkg/apis/${Group}/${Version}/types.go 中的 Pod 结构体上打标签，支持的标签： // +genclient：生成客户端函数（包括 Create, Update, Delete, DeleteCollection, Get, List, Update, Patch, Watch，如果 API 类型结构中包括 .Status 字段，还会额外生成 UpdateStatus 函数）； // +genclient:nonNamespaced：指定 API 类型是集群级别而不是命名空间级别的，生成的客户端函数都没有命名空间； // +genclient:onlyVerbs=create,get：只生成 Create, Get 客户端函数； // +genclient:skipVerbs=watch：生成除了 Watch 之外的所有其他客户端函数； // +genclient:noStatus：即使 API 类型结构包含 .Status 字段，也不生成 UpdateStatus 客户端函数； 有些情况下，可能你想要额外生成非标准的客户端函数，例如子资源函数，那么你需要使用下列这些 tag 标签： // +genclient:method=Scale,verb=update,subresource=scale,input=k8s.io/api/extensions/v1beta1.Scale,result=k8s.io/api/extensions/v1beta1.Scale：该例中使用标签，将会自动生成 Scale(string, *v1beta.Scale) *v1beta.Scale 客户端函数，里面配置了子资源函数的输入和输出参数。 另外，以下的 tag 标签也影响着客户端代码的生成： // +groupName=policy....</p>
-</div>
-<footer class=entry-footer><span class=meta-item>
-<span>
-<i class="fa-solid fa-calendar-day"></i>
-2022-10-8
-</span>
-</span><span class=meta-item>
-<span>
-&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-clock"></i>&nbsp;1 分钟</span>
-</span><span class=meta-item>
-<span>
-&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-chart-simple"></i></i>&nbsp;103 字</span>
-</span>
-<span class=meta-item>
-<span>
-&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-user"></i></i>&nbsp;丁鹏
-</span>
-</span></footer>
-<a class=entry-link aria-label="post link to 使用 client-gen 生成 clientset 代码" href=https://blog.srcio.cn/series/programming-kubernetes/client-gen-usage/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>使用 Giscus 作为博客评论系统
-</h2>
-</header>
-<div class=entry-content>
-<p>Giscus 开源、无广告、永久免费 支持多语言 支持表情反馈 支持懒加载 必要条件 你的博客所用的 GitHub 的仓库必须是 Public，并且开通了 Dicussion 功能； 安装 giscus.app，安装的时候，分配你的博客所用的 GitHub 仓库即可。 当然，如果你的博客没有托管在 Github 上，你也可以单独创建一个 Github 仓库作为开通 giscus 评论。
-使用姿势 在 giscus.app 做自定义配置，填入你的仓库名称，选择主题等，Giscus 会自动帮你生成 javascript 脚本； Hugo 博客目录下，创建 layouts/partials/comments.html 文件，写入获取的脚本： &lt;script src="https://giscus.app/client.js" data-repo="[在此输入仓库]" data-repo-id="[在此输入仓库 ID]" data-category="[在此输入分类名]" data-category-id="[在此输入分类 ID]" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="zh-CN" crossorigin="anonymous" async> &lt;/script> ⚠️注意：为了使下面的 javascript 脚本生效，data-theme 选择 light；或者你可以根据你选择的主题修改下面的 javascript 脚本。
-自动主题 使用一个 div 作为评论区域的容器 &lt;div class="giscus_comments"> {{- partial "comments....</p>
-</div>
-<footer class=entry-footer><span class=meta-item>
-<span>
-<i class="fa-solid fa-calendar-day"></i>
-2022-9-28
-</span>
-</span><span class=meta-item>
-<span>
-&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-clock"></i>&nbsp;1 分钟</span>
-</span><span class=meta-item>
-<span>
-&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-chart-simple"></i></i>&nbsp;130 字</span>
-</span>
-<span class=meta-item>
-<span>
-&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-user"></i></i>&nbsp;丁鹏
-</span>
-</span></footer>
-<a class=entry-link aria-label="post link to 使用 Giscus 作为博客评论系统" href=https://blog.srcio.cn/posts/use-giscus/></a>
-</article>
+<footer class=page-footer>
+<nav class=pagination>
+<a class=next href=https://blog.srcio.cn/page/2/>下一页&nbsp;&nbsp;<i class="fa-solid fa-forward"></i>
+</a>
+</nav>
+</footer>
 </main>
 <script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script>
 <footer class=footer>

@@ -12,6 +12,15 @@
     <language>zh</language>
     <lastBuildDate>Wed, 28 Sep 2022 18:24:19 +0800</lastBuildDate><atom:link href="https://blog.srcio.cn/series/programming-kubernetes/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>CRD 简介</title>
+      <link>https://blog.srcio.cn/series/programming-kubernetes/crd/</link>
+      <pubDate>Tue, 11 Oct 2022 23:50:34 +0800</pubDate>
+      
+      <guid>https://blog.srcio.cn/series/programming-kubernetes/crd/</guid>
+      <description>Kubernetes CRD 简介</description>
+    </item>
+    
+    <item>
       <title>构造 rest.Config 实例</title>
       <link>https://blog.srcio.cn/series/programming-kubernetes/rest-config/</link>
       <pubDate>Sat, 01 Oct 2022 23:28:02 +0800</pubDate>

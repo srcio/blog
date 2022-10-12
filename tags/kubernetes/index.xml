@@ -10,7 +10,16 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sat, 08 Oct 2022 17:37:07 +0800</lastBuildDate><atom:link href="https://blog.srcio.cn/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 11 Oct 2022 23:50:34 +0800</lastBuildDate><atom:link href="https://blog.srcio.cn/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CRD 简介</title>
+      <link>https://blog.srcio.cn/series/programming-kubernetes/crd/</link>
+      <pubDate>Tue, 11 Oct 2022 23:50:34 +0800</pubDate>
+      
+      <guid>https://blog.srcio.cn/series/programming-kubernetes/crd/</guid>
+      <description>Kubernetes CRD 简介</description>
+    </item>
+    
     <item>
       <title>构造 rest.Config 实例</title>
       <link>https://blog.srcio.cn/series/programming-kubernetes/rest-config/</link>

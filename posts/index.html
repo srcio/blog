@@ -12,7 +12,7 @@
 <meta name=google-site-verification content="XYZabc">
 <meta name=yandex-verification content="XYZabc">
 <meta name=msvalidate.01 content="XYZabc">
-<link crossorigin=anonymous href=/assets/css/stylesheet.3d4f89feedcdef574ababcd3bae880bb5402eab679fb6ee113c9fcf5dee8e959.css integrity="sha256-PU+J/u3N71dKurzTuuiAu1QC6rZ5+27hE8n89d7o6Vk=" rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.f6aa4c86852eacc22466a6e0435dc0f355c21ffabe012b3dbc334c087707b373.css integrity="sha256-9qpMhoUurMIkZqbgQ13A81XCH/q+ASs9vDNMCHcHs3M=" rel="preload stylesheet" as=style>
 <link rel=icon href=https://blog.srcio.cn/images/blog.png>
 <link rel=icon type=image/png sizes=16x16 href=https://blog.srcio.cn/images/blog.png>
 <link rel=icon type=image/png sizes=32x32 href=https://blog.srcio.cn/images/blog.png>
@@ -90,6 +90,43 @@
 <header class=page-header><div class=breadcrumbs><p><a href=/>主页</a>&nbsp;<span><i class="fa-solid fa-angle-right"></i>&nbsp;文章</span></p>
 </div>
 </header>
+<article class=post-entry>
+<header class=entry-header>
+<h2>Docker Compose 实践
+</h2>
+</header>
+<div class=entry-content>
+<p>安装 如果你安装了 Docker Desktop，那么它已经帮你自动安装了 Docker Compose 插件。否则，需要额外安装插件。
+使用一下命令安装或升级 Docker Compose（linux）：
+Ubuntu，Debian： sudo apt update sudo apt install docker-compose-plugin 基于 RPM 发行版: sudo yum update sudo yum install docker-compose-plugin 验证安装版本：
+docker-compose version 常用命令 运行
+docker-compose up 查看运行
+docker-compose ps 停止
+docker-compose stop 启动&重启
+docker-compose start docker-compose restart 退出
+docker-compose down 使用 docker-compose -h 查看更多命令及参数。
+实践 使用 Docker Compose 运行一个简单的 golang web 程序。
+程序初始化 mkdir docker-compose-go-demo cd docker-compose-go-demo go mod init docker-compose-go-demo 创建 main....</p>
+</div>
+<footer class=entry-footer><span class=meta-item>
+<span>
+<i class="fa-solid fa-calendar-day"></i>
+2022-10-10
+</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-clock"></i>&nbsp;1 分钟</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-chart-simple"></i></i>&nbsp;144 字</span>
+</span>
+<span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-user"></i></i>&nbsp;丁鹏
+</span>
+</span></footer>
+<a class=entry-link aria-label="post link to Docker Compose 实践" href=https://blog.srcio.cn/posts/docker-compose/></a>
+</article>
 <article class=post-entry>
 <header class=entry-header>
 <h2>使用 Giscus 作为博客评论系统

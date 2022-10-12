@@ -10,7 +10,16 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Wed, 28 Sep 2022 09:02:43 +0800</lastBuildDate><atom:link href="https://blog.srcio.cn/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 10 Oct 2022 19:21:58 +0800</lastBuildDate><atom:link href="https://blog.srcio.cn/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker Compose 实践</title>
+      <link>https://blog.srcio.cn/posts/docker-compose/</link>
+      <pubDate>Mon, 10 Oct 2022 19:21:58 +0800</pubDate>
+      
+      <guid>https://blog.srcio.cn/posts/docker-compose/</guid>
+      <description>Docker Compose 实践</description>
+    </item>
+    
     <item>
       <title>使用 Giscus 作为博客评论系统</title>
       <link>https://blog.srcio.cn/posts/use-giscus/</link>
