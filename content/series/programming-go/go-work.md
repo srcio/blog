@@ -132,7 +132,3 @@ go work use service-d
 ```
 
 最后，你可以通过 `go help work`，了解更多。
-
-
-
-
