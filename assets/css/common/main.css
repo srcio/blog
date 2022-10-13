@@ -104,17 +104,24 @@ article.post-entry:hover {
 .post-left-article {
     float: left;
     width: 100%;
-    /* margin-right: -300px; */
-    /* padding-right: 300px;
-    padding-left: 300px; */
 }
 
 .post-right-toc {
+    position: absolute;
     float: right;
     width: 280px;
+    right: 0px;
+    height: 100%;
+}
+
+.post-right-toc .empty-part{
+    height: 124px;
+    width: 100%;
+}
+
+.post-right-toc .toc-part{
     position: sticky;
-    margin-right: -300px;
-    top: 100px;
+    top: 20px;
 }
 
 .clear_float {
@@ -128,9 +135,6 @@ article.post-entry:hover {
         padding-left:10px
     }
     .post-right-toc {
-        display: none;
-    }
-    .post-right-tags{
         display: none;
     }
 }

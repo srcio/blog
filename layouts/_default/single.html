@@ -64,9 +64,12 @@
         </script>
     </div>
     <div class="post-right-toc">
-        {{- if (.Param "ShowToc") }}
-        {{- partial "toc.html" . }}
-        {{- end }}
+        <div class="empty-part"></div>
+        <div class="toc-part">
+            {{- if (.Param "ShowToc") }}
+            {{- partial "toc.html" . }}
+            {{- end }}
+        </div>
     </div>
     <div class="clear_float"></div>
 </article>
