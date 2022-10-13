@@ -63,13 +63,10 @@
             document.querySelector("div.giscus_comments > script").setAttribute("data-theme", localStorage.getItem("pref-theme") ? localStorage.getItem("pref-theme") : window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"), document.querySelector("#theme-toggle").addEventListener("click", () => { let e = document.querySelector("iframe.giscus-frame"); e && e.contentWindow.postMessage({ giscus: { setConfig: { theme: localStorage.getItem("pref-theme") ? localStorage.getItem("pref-theme") === "dark" ? "light" : "dark" : document.body.className.includes("dark") ? "light" : "dark" } } }, "https://giscus.app") })
         </script>
     </div>
-    <div class="post-right-tags">
-            {{- partial "tags.html" . }}
-    </div>
     <div class="post-right-toc">
-        <!-- {{- if (.Param "ShowToc") }} -->
+        {{- if (.Param "ShowToc") }}
         {{- partial "toc.html" . }}
-        <!-- {{- end }} -->
+        {{- end }}
     </div>
     <div class="clear_float"></div>
 </article>

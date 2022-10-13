@@ -1,11 +1,12 @@
 {{- $headers := findRE "<h[1-6].*?>(.|\n])+?</h[1-6]>" .Content -}}
 {{- $has_headers := ge (len $headers) 1 -}}
-<div class="panel">
-    <div>
+{{- if $has_headers -}}
+<div class="toc">
+    <div {{if (.Param "TocOpen") }} open{{ end }}>
         <!-- <summary accesskey="c" title="(Alt + C)">
             <span class="details">&nbsp;{{- i18n "toc" | default "Table of Contents" }}</span>
         </summary> -->
-        <p class="panel-title"><i class="fa-solid fa-bookmark"></i>&nbsp; 目录</p>
+        <p class="toc-title"><i class="fa-solid fa-bookmark"></i>&nbsp; 目录</p>
 
         <div class="inner">
             {{- if (.Param "UseHugoToc") }}
@@ -71,10 +72,10 @@
                 {{- end -}}
                 {{- end }}
                 <li>
-                    <a href="#{{- $cleanedID -}}" aria-label="{{- $header | plainify -}}">{{- $header | safeHTML -}}</a>
+                    <a href="#{{- $cleanedID -}}" aria-label="{{- $header | plainify -}}" class="none">{{- $header | safeHTML -}}</a>
                     {{- else }}
                 <li>
-                    <a href="#{{- $cleanedID -}}" aria-label="{{- $header | plainify -}}">{{- $header | safeHTML -}}</a>
+                    <a href="#{{- $cleanedID -}}" aria-label="{{- $header | plainify -}}" class="none">{{- $header | safeHTML -}}</a>
                     {{- end -}}
                     {{- end -}}
                     <!-- {{- $firstHeaderLevel := len (seq (index (findRE "[1-6]" (index $headers 0) 1) 0)) -}} -->
@@ -94,3 +95,46 @@
         </div>
     </div>
 </div>
+
+<script>
+    let activeElement;
+    let elements;
+    window.addEventListener('DOMContentLoaded', function (event) {
+
+        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+        // console.log(elements)
+         
+         activeElement = elements[0];
+         const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
+         document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+     }, false);
+
+    window.addEventListener('scroll', () => {
+        // console.log(elements)
+        activeElement = Array.from(elements).find((element) => {
+            if ((getOffsetTop(element) - window.pageYOffset) > 0 && 
+                (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
+                return element;
+            }
+        }) || activeElement
+
+        elements.forEach(element => {
+             const id = encodeURI(element.getAttribute('id')).toLowerCase();
+             if (element === activeElement){
+                 document.querySelector(`.inner ul li a[href="#${id}"]`)?.classList.add('active');
+             } else {
+                 document.querySelector(`.inner ul li a[href="#${id}"]`)?.classList.remove('active');
+             }
+         })
+     }, false);
+
+    function getOffsetTop(element) {
+        if (!element.getClientRects().length) {
+            return 0;
+        }
+        let rect = element.getBoundingClientRect();
+        let win = element.ownerDocument.defaultView;
+        return rect.top + win.pageYOffset;   
+    }
+</script>
+{{- end }}

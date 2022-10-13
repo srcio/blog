@@ -10,7 +10,6 @@
     padding: calc((var(--footer-height) - var(--gap)) / 2) var(--gap);
     text-align: center;
     line-height: 24px;
-    border-top: 1px solid var(--border);
 }
 
 .footer span {
@@ -48,22 +47,4 @@
 .top-link:focus,
 #theme-toggle:focus {
     outline: 0;
-}
-
-.footer-left{
-    float: left;
-    text-align: left;
-    width: 33%;
-}
-
-.footer-middle{
-    float: left;
-    text-align: center;
-    width: 33%;
-}
-
-.footer-right{
-    float: right;
-    width: 33%;
-    text-align: right;
 }

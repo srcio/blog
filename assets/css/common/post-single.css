@@ -6,7 +6,7 @@
 .post-title {
     margin: 10px;
     font-size: 32px;
-    text-align: center!important;
+    text-align: center !important;
 }
 
 .post-description {
@@ -18,11 +18,9 @@
 .breadcrumbs {
     color: var(--secondary);
     font-size: 14px;
-    /* display: inline;
-    flex-wrap: wrap; */
 }
 
-.post-meta{
+.post-meta {
     color: var(--secondary);
     font-size: 14px;
     flex-wrap: wrap;
@@ -253,55 +251,55 @@
     font-weight: normal;
 }
 
-.panel {
-    background: var(--code-bg);
-    border-radius: var(--radius);
+.toc {
     padding: 10px;
-    font-size: 16px;
+    font-size: 14px;
 }
 
-.dark .panel {
-    background: var(--code-bg);
-}
-
-.panel details summary {
+.toc details summary {
     cursor: zoom-in;
     margin-inline-start: 20px;
 }
 
-.panel details[open] summary {
+.toc details[open] summary {
     cursor: zoom-out;
 }
 
-.panel .details {
+.toc .details {
     display: inline;
     font-weight: 500;
 }
 
-.panel .inner {
+.toc .inner {
     margin: 0 20px;
     padding: 10px 20px;
 }
 
-.panel li ul {
+.toc li ul {
     margin-inline-start: var(--gap);
 }
 
-.panel summary:focus {
+.toc summary:focus {
     outline: 0;
 }
 
-.panel-title{
+.toc-title {
     font-weight: 500;
-    padding-left: 20px;
+    padding-left: 25px;
     color: var(--secondary);
+    font-size: 16px;
+}
+
+.toc a.active {
+    color:var(--primary);
+    font-weight: 500;
 }
 
 .post-footer {
     margin-top: 56px;
 }
 
-.post-tags{
+.post-tags {
     text-align: center;
 }
 

@@ -36,7 +36,7 @@ params:
   ShowWordCount: true
   ShowRssButtonInSectionTermList: false
   ShowAllPagesInArchive: true
-  UseHugoToc: true
+  UseHugoToc: false
   disableSpecial1stPost: false
   disableScrollToTop: false
   comments: true
