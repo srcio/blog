@@ -2,7 +2,6 @@ baseURL: "https://blog.srcio.cn/"
 languageCode: zh
 title: "博客"
 paginate: 10
-# theme: ""
 defaultContentLanguage: zh
 
 enableRobotsTXT: true
@@ -20,7 +19,7 @@ params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
   title: "博客"
   description: "博客 · 丁鹏"
-  keywords: [Blog, Portfolio]
+  keywords: ["丁鹏的博客", "srcio", "Kubernetes", "Golang", "云原生"]
   author: ["丁鹏"]
   images: ["cover.png"]
   DateFormat: "2006-1-2"
