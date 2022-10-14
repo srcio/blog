@@ -114,11 +114,6 @@ article.post-entry:hover {
     height: 100%;
 }
 
-.post-right-toc .empty-part{
-    height: 124px;
-    width: 100%;
-}
-
 .post-right-toc .toc-part{
     position: sticky;
     top: 20px;
@@ -126,6 +121,10 @@ article.post-entry:hover {
 
 .clear_float {
     clear: both;
+}
+
+pre{
+    tab-size: 4;
 }
 
 @media (max-width: 1068px) {
