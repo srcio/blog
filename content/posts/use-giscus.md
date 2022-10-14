@@ -71,8 +71,7 @@ tags:
 
 ## 🔗 链接
 
--   应用：https://github.com/apps/giscus
-
-- 源码：https://github.com/giscus/giscus
-- 使用：https://giscus.app/
+- 应用：[https://github.com/apps/giscus](https://github.com/apps/giscus)
+- 源码：[https://github.com/giscus/giscus](https://github.com/giscus/giscus)
+- 使用：[https://giscus.app](https://giscus.app)
 
