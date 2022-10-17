@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>tls on 博客 · 丁鹏</title>
-    <link>https://blog.srcio.cn/tags/tls/</link>
+    <link>https://srcio.cn/tags/tls/</link>
     <description>Recent content in tls on 博客 · 丁鹏</description>
     <image>
-      <url>https://blog.srcio.cn/cover.png</url>
-      <link>https://blog.srcio.cn/cover.png</link>
+      <url>https://srcio.cn/cover.png</url>
+      <link>https://srcio.cn/cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sun, 02 Oct 2022 01:49:13 +0800</lastBuildDate><atom:link href="https://blog.srcio.cn/tags/tls/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 02 Oct 2022 01:49:13 +0800</lastBuildDate><atom:link href="https://srcio.cn/tags/tls/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Golang 实现双向认证</title>
-      <link>https://blog.srcio.cn/series/programming-go/mtls/</link>
+      <link>https://srcio.cn/series/programming-go/mtls/</link>
       <pubDate>Sun, 02 Oct 2022 01:49:13 +0800</pubDate>
       
-      <guid>https://blog.srcio.cn/series/programming-go/mtls/</guid>
+      <guid>https://srcio.cn/series/programming-go/mtls/</guid>
       <description>TLS 传输层安全协议（TLS），在互联网上，通常是由服务器单向的向客户端提供证书，以证明其身份。
 mTLS 双向 TLS 认证，是指在客户端和服务器之间使用双行加密通道，mTLS 是云原生应用中常用的通信安全协议。
 使用双向TLS连接的主要目的是当服务器应该只接受来自有限的允许的客户端的 TLS 连接时。例如，一个组织希望将服务器的 TLS 连接限制为只来自该组织的合法合作伙伴或客户。显然，为客户端添加IP白名单不是一个好的安全实践，因为IP可能被欺骗。

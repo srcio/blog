@@ -19,16 +19,16 @@ mTLS 双向 TLS 认证，是指在客户端和服务器之间使用双行加密�
   代码实现 需要实现客户端验证服务端的公钥证书，服务端验证客户端的公钥证书。
 生成证书 echo '清理并生成目录' OUT=./certs DAYS=365 RSALEN=2048 CN=srcio rm -rf ${OUT}/* mkdir ${OUT} >> /dev/null 2>&1 cd ${OUT} echo '生成CA的私钥' openssl genrsa -out ca.key ${RSALEN} >> /dev/null 2>&1 echo '生成CA的签名证书' openssl req -new \ -x509 \ -key ca.">
 <meta name=author content="丁鹏">
-<link rel=canonical href=https://blog.srcio.cn/series/programming-go/mtls/>
+<link rel=canonical href=https://srcio.cn/series/programming-go/mtls/>
 <meta name=baidu-site-verification content="code-UKq1Ugo12Q">
 <meta name=google-site-verification content="qnXhMaPNdhaZ4A36ptMVUn-0o111dAsJqugH_0ZCYvM">
 <link crossorigin=anonymous href=/assets/css/stylesheet.e0df13915129c488d0978b527f4f809123449e0ce5f5a2ffe5cdd725b241ba96.css integrity="sha256-4N8TkVEpxIjQl4tSf0+AkSNEngzl9aL/5c3XJbJBupY=" rel="preload stylesheet" as=style>
 <script defer crossorigin=anonymous src=/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG+9vmJ0cTS+ovo0FeA=" onload=hljs.initHighlightingOnLoad()></script>
-<link rel=icon href=https://blog.srcio.cn/images/blog.png>
-<link rel=icon type=image/png sizes=16x16 href=https://blog.srcio.cn/images/blog.png>
-<link rel=icon type=image/png sizes=32x32 href=https://blog.srcio.cn/images/blog.png>
-<link rel=apple-touch-icon href=https://blog.srcio.cn/images/blog.png>
-<link rel=mask-icon href=https://blog.srcio.cn/images/blog.png>
+<link rel=icon href=https://srcio.cn/images/blog.png>
+<link rel=icon type=image/png sizes=16x16 href=https://srcio.cn/images/blog.png>
+<link rel=icon type=image/png sizes=32x32 href=https://srcio.cn/images/blog.png>
+<link rel=apple-touch-icon href=https://srcio.cn/images/blog.png>
+<link rel=mask-icon href=https://srcio.cn/images/blog.png>
 <meta name=theme-color content="#2e2e33">
 <meta name=msapplication-TileColor content="#2e2e33">
 <noscript>
@@ -49,11 +49,11 @@ mTLS 双向 TLS 认证，是指在客户端和服务器之间使用双行加密�
   代码实现 需要实现客户端验证服务端的公钥证书，服务端验证客户端的公钥证书。
 生成证书 echo '清理并生成目录' OUT=./certs DAYS=365 RSALEN=2048 CN=srcio rm -rf ${OUT}/* mkdir ${OUT} >> /dev/null 2>&1 cd ${OUT} echo '生成CA的私钥' openssl genrsa -out ca.key ${RSALEN} >> /dev/null 2>&1 echo '生成CA的签名证书' openssl req -new \ -x509 \ -key ca.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://blog.srcio.cn/series/programming-go/mtls/"><meta property="og:image" content="https://blog.srcio.cn/cover.png"><meta property="article:section" content="series">
+<meta property="og:url" content="https://srcio.cn/series/programming-go/mtls/"><meta property="og:image" content="https://srcio.cn/cover.png"><meta property="article:section" content="series">
 <meta property="article:published_time" content="2022-10-02T01:49:13+08:00">
 <meta property="article:modified_time" content="2022-10-02T01:49:13+08:00"><meta property="og:site_name" content="博客">
 <meta name=twitter:card content="summary_large_image">
-<meta name=twitter:image content="https://blog.srcio.cn/cover.png">
+<meta name=twitter:image content="https://srcio.cn/cover.png">
 <meta name=twitter:title content="Golang 实现双向认证">
 <meta name=twitter:description content="TLS 传输层安全协议（TLS），在互联网上，通常是由服务器单向的向客户端提供证书，以证明其身份。
 mTLS 双向 TLS 认证，是指在客户端和服务器之间使用双行加密通道，mTLS 是云原生应用中常用的通信安全协议。
@@ -67,16 +67,16 @@ mTLS 双向 TLS 认证，是指在客户端和服务器之间使用双行加密�
   如果成功，服务器将对受保护信息的访问权授予客户机。
   代码实现 需要实现客户端验证服务端的公钥证书，服务端验证客户端的公钥证书。
 生成证书 echo '清理并生成目录' OUT=./certs DAYS=365 RSALEN=2048 CN=srcio rm -rf ${OUT}/* mkdir ${OUT} >> /dev/null 2>&1 cd ${OUT} echo '生成CA的私钥' openssl genrsa -out ca.key ${RSALEN} >> /dev/null 2>&1 echo '生成CA的签名证书' openssl req -new \ -x509 \ -key ca.">
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"系列","item":"https://blog.srcio.cn/series/"},{"@type":"ListItem","position":2,"name":"Golang 编程","item":"https://blog.srcio.cn/series/programming-go/"},{"@type":"ListItem","position":3,"name":"Golang 实现双向认证","item":"https://blog.srcio.cn/series/programming-go/mtls/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Golang 实现双向认证","name":"Golang 实现双向认证","description":"TLS 传输层安全协议（TLS），在互联网上，通常是由服务器单向的向客户端提供证书，以证明其身份。\nmTLS 双向 TLS 认证，是指在客户端和服务器之间使用双行加密通道，mTLS 是云原生应用中常用的通信安全协议。\n使用双向TLS连接的主要目的是当服务器应该只接受来自有限的允许的客户端的 TLS 连接时。例如，一个组织希望将服务器的 TLS 连接限制为只来自该组织的合法合作伙伴或客户。显然，为客户端添加IP白名单不是一个好的安全实践，因为IP可能被欺骗。\n为了简化 mTLS 握手的过程，我们这样简单梳理：\n  客户端发送访问服务器上受保护信息的请求；\n  服务器向客户端提供公钥证书；\n  客户端通过使用 CA 的公钥来验证服务器公钥证书的数字签名，以验证服务器的证书；\n  如果步骤 3 成功，客户机将其客户端公钥证书发送到服务器；\n  服务器使用步骤 3 中相同的方法验证客户机的证书；\n  如果成功，服务器将对受保护信息的访问权授予客户机。\n  代码实现 需要实现客户端验证服务端的公钥证书，服务端验证客户端的公钥证书。\n生成证书 echo \u0026#39;清理并生成目录\u0026#39; OUT=./certs DAYS=365 RSALEN=2048 CN=srcio rm -rf ${OUT}/* mkdir ${OUT} \u0026gt;\u0026gt; /dev/null 2\u0026gt;\u0026amp;1 cd ${OUT} echo \u0026#39;生成CA的私钥\u0026#39; openssl genrsa -out ca.key ${RSALEN} \u0026gt;\u0026gt; /dev/null 2\u0026gt;\u0026amp;1 echo \u0026#39;生成CA的签名证书\u0026#39; openssl req -new \\ -x509 \\ -key ca.","keywords":["Golang","tls","mtls"],"articleBody":"TLS 传输层安全协议（TLS），在互联网上，通常是由服务器单向的向客户端提供证书，以证明其身份。\nmTLS 双向 TLS 认证，是指在客户端和服务器之间使用双行加密通道，mTLS 是云原生应用中常用的通信安全协议。\n使用双向TLS连接的主要目的是当服务器应该只接受来自有限的允许的客户端的 TLS 连接时。例如，一个组织希望将服务器的 TLS 连接限制为只来自该组织的合法合作伙伴或客户。显然，为客户端添加IP白名单不是一个好的安全实践，因为IP可能被欺骗。\n为了简化 mTLS 握手的过程，我们这样简单梳理：\n  客户端发送访问服务器上受保护信息的请求；\n  服务器向客户端提供公钥证书；\n  客户端通过使用 CA 的公钥来验证服务器公钥证书的数字签名，以验证服务器的证书；\n  如果步骤 3 成功，客户机将其客户端公钥证书发送到服务器；\n  服务器使用步骤 3 中相同的方法验证客户机的证书；\n  如果成功，服务器将对受保护信息的访问权授予客户机。\n  代码实现 需要实现客户端验证服务端的公钥证书，服务端验证客户端的公钥证书。\n生成证书 echo '清理并生成目录' OUT=./certs DAYS=365 RSALEN=2048 CN=srcio rm -rf ${OUT}/* mkdir ${OUT}  /dev/null 2\u00261 cd ${OUT} echo '生成CA的私钥' openssl genrsa -out ca.key ${RSALEN}  /dev/null 2\u00261 echo '生成CA的签名证书' openssl req -new \\ -x509 \\ -key ca.key \\ -subj \"/CN=${CN}\" \\ -out ca.crt echo '' echo '生成server端私钥' openssl genrsa -out server.key ${RSALEN}  /dev/null 2\u00261 echo '生成server端自签名' openssl req -new \\ -key server.key \\ -subj \"/CN=${CN}\" \\ -out server.csr echo '签发server端证书' openssl x509 -req -sha256 \\ -in server.csr \\ -CA ca.crt -CAkey ca.key -CAcreateserial \\ -out server.crt -text  /dev/null 2\u00261 echo '删除server端自签名证书' rm server.csr echo '' echo '生成client私钥' openssl genrsa -out client.key ${RSALEN}  /dev/null 2\u00261 echo '生成client自签名' openssl req -new \\  -subj \"/CN=${CN}\" \\  -key client.key \\  -out client.csr echo '签发client证书' openssl x509 -req -sha256\\  -CA ca.crt -CAkey ca.key -CAcreateserial\\  -days ${DAYS}\\  -in client.csr\\  -out client.crt\\  -text  /dev/null 2\u00261 echo '删除client端自签名' rm client.csr echo '' echo '删除临时文件' rm ca.srl echo '' echo '完成'% 服务端 package main import ( \"crypto/tls\" \"crypto/x509\" \"fmt\" \"log\" \"net/http\" \"os\" \"time\" ) var ( caCert = \"../../certs/ca.crt\" serverCert = \"../../certs/server.crt\" serverKey = \"../../certs/server.key\" ) type mtlsHandler struct { } func (m *mtlsHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) { fmt.Fprintln(w, \"Hello World! \", time.Now()) } func main() { pool := x509.NewCertPool() caCertBytes, err := os.ReadFile(caCert) if err != nil { panic(err) } pool.AppendCertsFromPEM(caCertBytes) server := \u0026http.Server{ Addr: \":8443\", Handler: \u0026mtlsHandler{}, TLSConfig: \u0026tls.Config{ ClientCAs: pool, ClientAuth: tls.RequireAndVerifyClientCert, // 需要客户端证书 \t}, } log.Println(\"server started...\") log.Fatalln(server.ListenAndServeTLS(serverCert, serverKey)) } 客户端 package main import ( \"crypto/tls\" \"crypto/x509\" \"fmt\" \"io\" \"net/http\" \"os\" ) var ( caCert = \"../../certs/ca.crt\" clientCert = \"../../certs/client.crt\" clientKey = \"../../certs/client.key\" ) func main() { pool := x509.NewCertPool() caCertBytes, err := os.ReadFile(caCert) if err != nil { panic(err) } pool.AppendCertsFromPEM(caCertBytes) clientCertBytes, err := tls.LoadX509KeyPair(clientCert, clientKey) if err != nil { panic(err) } tr := \u0026http.Transport{ TLSClientConfig: \u0026tls.Config{ RootCAs: pool, Certificates: []tls.Certificate{clientCertBytes}, InsecureSkipVerify: true, }, } client := http.Client{ Transport: tr, } r, err := client.Get(\"https://127.0.0.1:8443\") // server \tif err != nil { panic(err) } defer r.Body.Close() b, err := io.ReadAll(r.Body) if err != nil { panic(err) } fmt.Println(string(b)) } ","wordCount":"370","inLanguage":"zh","datePublished":"2022-10-02T01:49:13+08:00","dateModified":"2022-10-02T01:49:13+08:00","author":[{"@type":"Person","name":"丁鹏"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.srcio.cn/series/programming-go/mtls/"},"publisher":{"@type":"Organization","name":"博客 · 丁鹏","logo":{"@type":"ImageObject","url":"https://blog.srcio.cn/images/blog.png"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"系列","item":"https://srcio.cn/series/"},{"@type":"ListItem","position":2,"name":"Golang 编程","item":"https://srcio.cn/series/programming-go/"},{"@type":"ListItem","position":3,"name":"Golang 实现双向认证","item":"https://srcio.cn/series/programming-go/mtls/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Golang 实现双向认证","name":"Golang 实现双向认证","description":"TLS 传输层安全协议（TLS），在互联网上，通常是由服务器单向的向客户端提供证书，以证明其身份。\nmTLS 双向 TLS 认证，是指在客户端和服务器之间使用双行加密通道，mTLS 是云原生应用中常用的通信安全协议。\n使用双向TLS连接的主要目的是当服务器应该只接受来自有限的允许的客户端的 TLS 连接时。例如，一个组织希望将服务器的 TLS 连接限制为只来自该组织的合法合作伙伴或客户。显然，为客户端添加IP白名单不是一个好的安全实践，因为IP可能被欺骗。\n为了简化 mTLS 握手的过程，我们这样简单梳理：\n  客户端发送访问服务器上受保护信息的请求；\n  服务器向客户端提供公钥证书；\n  客户端通过使用 CA 的公钥来验证服务器公钥证书的数字签名，以验证服务器的证书；\n  如果步骤 3 成功，客户机将其客户端公钥证书发送到服务器；\n  服务器使用步骤 3 中相同的方法验证客户机的证书；\n  如果成功，服务器将对受保护信息的访问权授予客户机。\n  代码实现 需要实现客户端验证服务端的公钥证书，服务端验证客户端的公钥证书。\n生成证书 echo \u0026#39;清理并生成目录\u0026#39; OUT=./certs DAYS=365 RSALEN=2048 CN=srcio rm -rf ${OUT}/* mkdir ${OUT} \u0026gt;\u0026gt; /dev/null 2\u0026gt;\u0026amp;1 cd ${OUT} echo \u0026#39;生成CA的私钥\u0026#39; openssl genrsa -out ca.key ${RSALEN} \u0026gt;\u0026gt; /dev/null 2\u0026gt;\u0026amp;1 echo \u0026#39;生成CA的签名证书\u0026#39; openssl req -new \\ -x509 \\ -key ca.","keywords":["Golang","tls","mtls"],"articleBody":"TLS 传输层安全协议（TLS），在互联网上，通常是由服务器单向的向客户端提供证书，以证明其身份。\nmTLS 双向 TLS 认证，是指在客户端和服务器之间使用双行加密通道，mTLS 是云原生应用中常用的通信安全协议。\n使用双向TLS连接的主要目的是当服务器应该只接受来自有限的允许的客户端的 TLS 连接时。例如，一个组织希望将服务器的 TLS 连接限制为只来自该组织的合法合作伙伴或客户。显然，为客户端添加IP白名单不是一个好的安全实践，因为IP可能被欺骗。\n为了简化 mTLS 握手的过程，我们这样简单梳理：\n  客户端发送访问服务器上受保护信息的请求；\n  服务器向客户端提供公钥证书；\n  客户端通过使用 CA 的公钥来验证服务器公钥证书的数字签名，以验证服务器的证书；\n  如果步骤 3 成功，客户机将其客户端公钥证书发送到服务器；\n  服务器使用步骤 3 中相同的方法验证客户机的证书；\n  如果成功，服务器将对受保护信息的访问权授予客户机。\n  代码实现 需要实现客户端验证服务端的公钥证书，服务端验证客户端的公钥证书。\n生成证书 echo '清理并生成目录' OUT=./certs DAYS=365 RSALEN=2048 CN=srcio rm -rf ${OUT}/* mkdir ${OUT}  /dev/null 2\u00261 cd ${OUT} echo '生成CA的私钥' openssl genrsa -out ca.key ${RSALEN}  /dev/null 2\u00261 echo '生成CA的签名证书' openssl req -new \\ -x509 \\ -key ca.key \\ -subj \"/CN=${CN}\" \\ -out ca.crt echo '' echo '生成server端私钥' openssl genrsa -out server.key ${RSALEN}  /dev/null 2\u00261 echo '生成server端自签名' openssl req -new \\ -key server.key \\ -subj \"/CN=${CN}\" \\ -out server.csr echo '签发server端证书' openssl x509 -req -sha256 \\ -in server.csr \\ -CA ca.crt -CAkey ca.key -CAcreateserial \\ -out server.crt -text  /dev/null 2\u00261 echo '删除server端自签名证书' rm server.csr echo '' echo '生成client私钥' openssl genrsa -out client.key ${RSALEN}  /dev/null 2\u00261 echo '生成client自签名' openssl req -new \\  -subj \"/CN=${CN}\" \\  -key client.key \\  -out client.csr echo '签发client证书' openssl x509 -req -sha256\\  -CA ca.crt -CAkey ca.key -CAcreateserial\\  -days ${DAYS}\\  -in client.csr\\  -out client.crt\\  -text  /dev/null 2\u00261 echo '删除client端自签名' rm client.csr echo '' echo '删除临时文件' rm ca.srl echo '' echo '完成'% 服务端 package main import ( \"crypto/tls\" \"crypto/x509\" \"fmt\" \"log\" \"net/http\" \"os\" \"time\" ) var ( caCert = \"../../certs/ca.crt\" serverCert = \"../../certs/server.crt\" serverKey = \"../../certs/server.key\" ) type mtlsHandler struct { } func (m *mtlsHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) { fmt.Fprintln(w, \"Hello World! \", time.Now()) } func main() { pool := x509.NewCertPool() caCertBytes, err := os.ReadFile(caCert) if err != nil { panic(err) } pool.AppendCertsFromPEM(caCertBytes) server := \u0026http.Server{ Addr: \":8443\", Handler: \u0026mtlsHandler{}, TLSConfig: \u0026tls.Config{ ClientCAs: pool, ClientAuth: tls.RequireAndVerifyClientCert, // 需要客户端证书 \t}, } log.Println(\"server started...\") log.Fatalln(server.ListenAndServeTLS(serverCert, serverKey)) } 客户端 package main import ( \"crypto/tls\" \"crypto/x509\" \"fmt\" \"io\" \"net/http\" \"os\" ) var ( caCert = \"../../certs/ca.crt\" clientCert = \"../../certs/client.crt\" clientKey = \"../../certs/client.key\" ) func main() { pool := x509.NewCertPool() caCertBytes, err := os.ReadFile(caCert) if err != nil { panic(err) } pool.AppendCertsFromPEM(caCertBytes) clientCertBytes, err := tls.LoadX509KeyPair(clientCert, clientKey) if err != nil { panic(err) } tr := \u0026http.Transport{ TLSClientConfig: \u0026tls.Config{ RootCAs: pool, Certificates: []tls.Certificate{clientCertBytes}, InsecureSkipVerify: true, }, } client := http.Client{ Transport: tr, } r, err := client.Get(\"https://127.0.0.1:8443\") // server \tif err != nil { panic(err) } defer r.Body.Close() b, err := io.ReadAll(r.Body) if err != nil { panic(err) } fmt.Println(string(b)) } ","wordCount":"370","inLanguage":"zh","datePublished":"2022-10-02T01:49:13+08:00","dateModified":"2022-10-02T01:49:13+08:00","author":[{"@type":"Person","name":"丁鹏"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://srcio.cn/series/programming-go/mtls/"},"publisher":{"@type":"Organization","name":"博客 · 丁鹏","logo":{"@type":"ImageObject","url":"https://srcio.cn/images/blog.png"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
-<a href=https://blog.srcio.cn/ accesskey=h title="博客 (Alt + H)">
-<img src=https://blog.srcio.cn/images/blog.png alt aria-label=logo height=25>博客</a>
+<a href=https://srcio.cn/ accesskey=h title="博客 (Alt + H)">
+<img src=https://srcio.cn/images/blog.png alt aria-label=logo height=25>博客</a>
 <div class=logo-switches>
 <button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
@@ -84,37 +84,37 @@ mTLS 双向 TLS 认证，是指在客户端和服务器之间使用双行加密�
 </div>
 <ul id=menu>
 <li>
-<a href=https://blog.srcio.cn/ title=主页>
+<a href=https://srcio.cn/ title=主页>
 <span>
 <i class="fa-solid fa-home"></i>&nbsp;主页</span>
 </a>
 </li>
 <li>
-<a href=https://blog.srcio.cn/posts/ title=文章>
+<a href=https://srcio.cn/posts/ title=文章>
 <span>
 <i class="fa-solid fa-feather"></i>&nbsp;文章</span>
 </a>
 </li>
 <li>
-<a href=https://blog.srcio.cn/series/ title=系列>
+<a href=https://srcio.cn/series/ title=系列>
 <span>
 <i class="fa-solid fa-swatchbook"></i>&nbsp;系列</span>
 </a>
 </li>
 <li>
-<a href=https://blog.srcio.cn/tags/ title=标签>
+<a href=https://srcio.cn/tags/ title=标签>
 <span>
 <i class="fa-solid fa-tags"></i>&nbsp;标签</span>
 </a>
 </li>
 <li>
-<a href=https://blog.srcio.cn/archives/ title=归档>
+<a href=https://srcio.cn/archives/ title=归档>
 <span>
 <i class="fa-solid fa-folder-minus"></i>&nbsp;归档</span>
 </a>
 </li>
 <li>
-<a href=https://blog.srcio.cn/search/ title>
+<a href=https://srcio.cn/search/ title>
 <span>
 <i class="fa-solid fa-magnifying-glass"></i>&nbsp;</span>
 </a>
@@ -126,8 +126,8 @@ mTLS 双向 TLS 认证，是指在客户端和服务器之间使用双行加密�
 <div class=post-left-article>
 <header class=post-header>
 <div class=breadcrumbs><p><a href=/>主页</a>
-<a href=https://blog.srcio.cn/series/><i class="fa-solid fa-angle-right"></i>&nbsp;系列</a>
-<a href=https://blog.srcio.cn/series/programming-go/><i class="fa-solid fa-angle-right"></i>&nbsp;Golang 编程</a>&nbsp;<span><i class="fa-solid fa-angle-right"></i>&nbsp;Golang 实现双向认证</span></p>
+<a href=https://srcio.cn/series/><i class="fa-solid fa-angle-right"></i>&nbsp;系列</a>
+<a href=https://srcio.cn/series/programming-go/><i class="fa-solid fa-angle-right"></i>&nbsp;Golang 编程</a>&nbsp;<span><i class="fa-solid fa-angle-right"></i>&nbsp;Golang 实现双向认证</span></p>
 </div>
 <h1 class=post-title>
 Golang 实现双向认证
@@ -358,14 +358,14 @@ rm ca.srl
 </div>
 <footer class=post-footer>
 <ul class=post-tags>
-<li><a href=https://blog.srcio.cn/tags/golang/><i class="fa-solid fa-tag"></i>&nbsp;Golang</a></li>
-<li><a href=https://blog.srcio.cn/tags/tls/><i class="fa-solid fa-tag"></i>&nbsp;tls</a></li>
+<li><a href=https://srcio.cn/tags/golang/><i class="fa-solid fa-tag"></i>&nbsp;Golang</a></li>
+<li><a href=https://srcio.cn/tags/tls/><i class="fa-solid fa-tag"></i>&nbsp;tls</a></li>
 </ul>
 <nav class=paginav>
-<a class=prev href=https://blog.srcio.cn/series/programming-go/gen-cert/>
+<a class=prev href=https://srcio.cn/series/programming-go/gen-cert/>
 <strong class=title><i class="fa-solid fa-backward"></i>&nbsp;上一页</strong>
 <br>Golang 生成证书</a>
-<a class=next href=https://blog.srcio.cn/series/programming-kubernetes/rest-config/>
+<a class=next href=https://srcio.cn/series/programming-kubernetes/rest-config/>
 <strong class=title>下一页&nbsp;<i class="fa-solid fa-forward"></i></strong>
 <br>构造 rest.Config 实例</a>
 </nav>
@@ -407,7 +407,7 @@ rm ca.srl
 <p>
 🔥
 <span>2016 - 2022
-<a href=https://blog.srcio.cn/>博客 · 丁鹏 · 丁鹏</a>
+<a href=https://srcio.cn/>博客 · 丁鹏 · 丁鹏</a>
 </span>
 &nbsp;|&nbsp;
 <span>

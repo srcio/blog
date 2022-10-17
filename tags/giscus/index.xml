@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Giscus on 博客 · 丁鹏</title>
-    <link>https://blog.srcio.cn/tags/giscus/</link>
+    <link>https://srcio.cn/tags/giscus/</link>
     <description>Recent content in Giscus on 博客 · 丁鹏</description>
     <image>
-      <url>https://blog.srcio.cn/cover.png</url>
-      <link>https://blog.srcio.cn/cover.png</link>
+      <url>https://srcio.cn/cover.png</url>
+      <link>https://srcio.cn/cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Wed, 28 Sep 2022 09:02:43 +0800</lastBuildDate><atom:link href="https://blog.srcio.cn/tags/giscus/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 28 Sep 2022 09:02:43 +0800</lastBuildDate><atom:link href="https://srcio.cn/tags/giscus/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>使用 Giscus 作为博客评论系统</title>
-      <link>https://blog.srcio.cn/posts/use-giscus/</link>
+      <link>https://srcio.cn/posts/use-giscus/</link>
       <pubDate>Wed, 28 Sep 2022 09:02:43 +0800</pubDate>
       
-      <guid>https://blog.srcio.cn/posts/use-giscus/</guid>
+      <guid>https://srcio.cn/posts/use-giscus/</guid>
       <description>Giscus  开源、无广告、永久免费 支持多语言 支持表情反馈 支持懒加载  必要条件  你的博客所用的 GitHub 的仓库必须是 Public，并且开通了 Dicussion 功能； 安装 giscus.app，安装的时候，分配你的博客所用的 GitHub 仓库即可。   当然，如果你的博客没有托管在 Github 上，你也可以单独创建一个 Github 仓库作为开通 giscus 评论。
  使用姿势  在 giscus.app 做自定义配置，填入你的仓库名称，选择主题等，Giscus 会自动帮你生成 javascript 脚本； Hugo 博客目录下，创建 layouts/partials/comments.html 文件，写入获取的脚本：  &amp;lt;script src=&amp;#34;https://giscus.app/client.js&amp;#34; data-repo=&amp;#34;[在此输入仓库]&amp;#34; data-repo-id=&amp;#34;[在此输入仓库 ID]&amp;#34; data-category=&amp;#34;[在此输入分类名]&amp;#34; data-category-id=&amp;#34;[在此输入分类 ID]&amp;#34; data-mapping=&amp;#34;pathname&amp;#34; data-strict=&amp;#34;0&amp;#34; data-reactions-enabled=&amp;#34;1&amp;#34; data-emit-metadata=&amp;#34;0&amp;#34; data-input-position=&amp;#34;bottom&amp;#34; data-theme=&amp;#34;light&amp;#34; data-lang=&amp;#34;zh-CN&amp;#34; crossorigin=&amp;#34;anonymous&amp;#34; async&amp;gt; &amp;lt;/script&amp;gt;  ⚠️注意：为了使下面的 javascript 脚本生效，data-theme 选择 light；或者你可以根据你选择的主题修改下面的 javascript 脚本。
  自动主题  使用一个 div 作为评论区域的容器  &amp;lt;div class=&amp;#34;giscus_comments&amp;#34;&amp;gt; {{- partial &amp;#34;comments.</description>

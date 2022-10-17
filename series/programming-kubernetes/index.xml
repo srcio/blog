@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Kubernetes 编程 on 博客 · 丁鹏</title>
-    <link>https://blog.srcio.cn/series/programming-kubernetes/</link>
+    <link>https://srcio.cn/series/programming-kubernetes/</link>
     <description>Recent content in Kubernetes 编程 on 博客 · 丁鹏</description>
     <image>
-      <url>https://blog.srcio.cn/cover.png</url>
-      <link>https://blog.srcio.cn/cover.png</link>
+      <url>https://srcio.cn/cover.png</url>
+      <link>https://srcio.cn/cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Wed, 28 Sep 2022 18:24:19 +0800</lastBuildDate><atom:link href="https://blog.srcio.cn/series/programming-kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 28 Sep 2022 18:24:19 +0800</lastBuildDate><atom:link href="https://srcio.cn/series/programming-kubernetes/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CRD 简介</title>
-      <link>https://blog.srcio.cn/series/programming-kubernetes/crd/</link>
+      <link>https://srcio.cn/series/programming-kubernetes/crd/</link>
       <pubDate>Tue, 11 Oct 2022 23:50:34 +0800</pubDate>
       
-      <guid>https://blog.srcio.cn/series/programming-kubernetes/crd/</guid>
+      <guid>https://srcio.cn/series/programming-kubernetes/crd/</guid>
       <description>CRD 字段校验配置
 apiVersion:apiextensions.k8s.io/v1beta1kind:CustomResourceDefinitionmetadata:name:scalings.control.srcio.iospec:group:control.srcio.ioversions:- name:v1served:truestorage:truescope:Namespacednames:plural:scalingssingular:scalingkind:Scalingvalidation:openAPIV3Schema:properties:spec:required:- targetDeployment- minReplicas- maxReplicas- metricType- step- scaleUp- scaleDownproperties:targetDeployment:type:stringminReplicas:type:integerminimum:0maxReplicas:type:integerminimum:0metricType:type:stringenum:- CPU- MEMORY- REQUESTSstep:type:integerminimum:1scaleUp:type:integerscaleDown:type:integerminimum:0  是否必须 参数类型 枚举范围 数值最大最小   </description>
     </item>
     
     <item>
       <title>构造 rest.Config 实例</title>
-      <link>https://blog.srcio.cn/series/programming-kubernetes/rest-config/</link>
+      <link>https://srcio.cn/series/programming-kubernetes/rest-config/</link>
       <pubDate>Sat, 01 Oct 2022 23:28:02 +0800</pubDate>
       
-      <guid>https://blog.srcio.cn/series/programming-kubernetes/rest-config/</guid>
+      <guid>https://srcio.cn/series/programming-kubernetes/rest-config/</guid>
       <description>本节介绍几种构造 rest.Config 实例的场景或者方法。
 rest.Config 可以帮助我们构建各种类型的 Kubernetes 客户端实例，从而访问 Kubernetes APIServer。
 通过 kubeconfig 文件构造 程序通过读取 kubeconfig 文件来构造一个 rest.Config 对象。
@@ -38,10 +38,10 @@ package main import ( &amp;#34;k8s.io/client-go/rest&amp;#34; &amp;#34;k8s.io/cl
     
     <item>
       <title>构造 Kubernetes 客户端实例</title>
-      <link>https://blog.srcio.cn/series/programming-kubernetes/kube-client/</link>
+      <link>https://srcio.cn/series/programming-kubernetes/kube-client/</link>
       <pubDate>Sat, 01 Oct 2022 23:39:15 +0800</pubDate>
       
-      <guid>https://blog.srcio.cn/series/programming-kubernetes/kube-client/</guid>
+      <guid>https://srcio.cn/series/programming-kubernetes/kube-client/</guid>
       <description>本节介绍 Golang 程序如何通过 rest.Config 实例获取各种类型的 Kubernetes 客户端实例。 通过客户端访问 Kubernetes 中的 API 资源实例。
 Clientset  获取 *kubernetes.Clientset
 推荐使用该客户端实例去操作 K8s API 资源。  package main import ( &amp;#34;k8s.io/client-go/kubernetes&amp;#34; &amp;#34;k8s.io/client-go/rest&amp;#34; ) func Clientset(config *rest.Config) *kubernetes.Clientset { client, err := kubernetes.NewForConfig(config) if err != nil { panic(err) } return client } 获取 *rest.RESTClient
@@ -50,10 +50,10 @@ Clientset  获取 *kubernetes.Clientset
     
     <item>
       <title>Kubernetes API 设计</title>
-      <link>https://blog.srcio.cn/series/programming-kubernetes/api-design/</link>
+      <link>https://srcio.cn/series/programming-kubernetes/api-design/</link>
       <pubDate>Sun, 02 Oct 2022 01:28:03 +0800</pubDate>
       
-      <guid>https://blog.srcio.cn/series/programming-kubernetes/api-design/</guid>
+      <guid>https://srcio.cn/series/programming-kubernetes/api-design/</guid>
       <description>术语 Group
 API 资源置于某个分组下，组作为相关功能的集合。一个组包含一个或多个版本。
 Version
@@ -73,19 +73,19 @@ GVR
     
     <item>
       <title>Kuberentes Operator</title>
-      <link>https://blog.srcio.cn/series/programming-kubernetes/operator/</link>
+      <link>https://srcio.cn/series/programming-kubernetes/operator/</link>
       <pubDate>Sun, 02 Oct 2022 01:12:34 +0800</pubDate>
       
-      <guid>https://blog.srcio.cn/series/programming-kubernetes/operator/</guid>
+      <guid>https://srcio.cn/series/programming-kubernetes/operator/</guid>
       <description></description>
     </item>
     
     <item>
       <title>使用 client-gen 生成 clientset 代码</title>
-      <link>https://blog.srcio.cn/series/programming-kubernetes/client-gen-usage/</link>
+      <link>https://srcio.cn/series/programming-kubernetes/client-gen-usage/</link>
       <pubDate>Sat, 08 Oct 2022 17:37:07 +0800</pubDate>
       
-      <guid>https://blog.srcio.cn/series/programming-kubernetes/client-gen-usage/</guid>
+      <guid>https://srcio.cn/series/programming-kubernetes/client-gen-usage/</guid>
       <description>本页是这篇Kubernetes 文档中一些内容摘要。
 大致分为 3 个步骤：
  为 API 类型结构做 tag 标签 在 API 类型例如 pkg/apis/${Group}/${Version}/types.go 中的 Pod 结构体上打标签，支持的标签：   // +genclient：生成客户端函数（包括 Create, Update, Delete, DeleteCollection, Get, List, Update, Patch, Watch，如果 API 类型结构中包括 .Status 字段，还会额外生成 UpdateStatus 函数）； // +genclient:nonNamespaced：指定 API 类型是集群级别而不是命名空间级别的，生成的客户端函数都没有命名空间； // +genclient:onlyVerbs=create,get：只生成 Create, Get 客户端函数； // +genclient:skipVerbs=watch：生成除了 Watch 之外的所有其他客户端函数； // +genclient:noStatus：即使 API 类型结构包含 .Status 字段，也不生成 UpdateStatus 客户端函数； 有些情况下，可能你想要额外生成非标准的客户端函数，例如子资源函数，那么你需要使用下列这些 tag 标签： // +genclient:method=Scale,verb=update,subresource=scale,input=k8s.io/api/extensions/v1beta1.Scale,result=k8s.io/api/extensions/v1beta1.Scale：该例中使用标签，将会自动生成 Scale(string, *v1beta.Scale) *v1beta.Scale 客户端函数，里面配置了子资源函数的输入和输出参数。 另外，以下的 tag 标签也影响着客户端代码的生成： // +groupName=policy.</description>
