@@ -2,6 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://srcio.cn/posts/k8s-node-resource-config/</loc>
+    <lastmod>2022-10-17T20:21:58+08:00</lastmod>
+  </url><url>
+    <loc>https://srcio.cn/posts/kubelet-recycle-policy/</loc>
+    <lastmod>2022-10-17T19:21:58+08:00</lastmod>
+  </url><url>
     <loc>https://srcio.cn/series/programming-kubernetes/crd/</loc>
     <lastmod>2022-10-11T23:50:34+08:00</lastmod>
   </url><url>
@@ -9,12 +15,6 @@
     <lastmod>2022-10-11T14:19:02+08:00</lastmod>
   </url><url>
     <loc>https://srcio.cn/posts/docker-compose/</loc>
-    <lastmod>2022-10-10T19:21:58+08:00</lastmod>
-  </url><url>
-    <loc>https://srcio.cn/posts/k8s-node-resource-config/</loc>
-    <lastmod>2022-10-10T19:21:58+08:00</lastmod>
-  </url><url>
-    <loc>https://srcio.cn/posts/kubelet-recycle-policy/</loc>
     <lastmod>2022-10-10T19:21:58+08:00</lastmod>
   </url><url>
     <loc>https://srcio.cn/series/programming-go/gen-cert/</loc>
@@ -35,6 +35,9 @@
     <loc>https://srcio.cn/series/programming-go/</loc>
     <lastmod>2022-09-28T18:23:19+08:00</lastmod>
   </url><url>
+    <loc>https://srcio.cn/posts/use-giscus/</loc>
+    <lastmod>2022-09-28T09:02:43+08:00</lastmod>
+  </url><url>
     <loc>https://srcio.cn/series/programming-kubernetes/kube-client/</loc>
     <lastmod>2022-10-01T23:39:15+08:00</lastmod>
   </url><url>
@@ -47,16 +50,19 @@
     <loc>https://srcio.cn/series/programming-kubernetes/client-gen-usage/</loc>
     <lastmod>2022-10-08T17:37:07+08:00</lastmod>
   </url><url>
-    <loc>https://srcio.cn/tags/crd/</loc>
-    <lastmod>2022-10-11T23:50:34+08:00</lastmod>
-  </url><url>
     <loc>https://srcio.cn/tags/kubernetes/</loc>
-    <lastmod>2022-10-11T23:50:34+08:00</lastmod>
+    <lastmod>2022-10-17T20:21:58+08:00</lastmod>
   </url><url>
     <loc>https://srcio.cn/</loc>
-    <lastmod>2022-10-11T23:50:34+08:00</lastmod>
+    <lastmod>2022-10-17T20:21:58+08:00</lastmod>
+  </url><url>
+    <loc>https://srcio.cn/posts/</loc>
+    <lastmod>2022-10-17T20:21:58+08:00</lastmod>
   </url><url>
     <loc>https://srcio.cn/tags/</loc>
+    <lastmod>2022-10-17T20:21:58+08:00</lastmod>
+  </url><url>
+    <loc>https://srcio.cn/tags/crd/</loc>
     <lastmod>2022-10-11T23:50:34+08:00</lastmod>
   </url><url>
     <loc>https://srcio.cn/series/</loc>
@@ -71,16 +77,10 @@
     <loc>https://srcio.cn/tags/docker-compose/</loc>
     <lastmod>2022-10-10T19:21:58+08:00</lastmod>
   </url><url>
-    <loc>https://srcio.cn/posts/</loc>
-    <lastmod>2022-10-10T19:21:58+08:00</lastmod>
-  </url><url>
     <loc>https://srcio.cn/tags/tls/</loc>
     <lastmod>2022-10-02T01:49:13+08:00</lastmod>
   </url><url>
     <loc>https://srcio.cn/tags/giscus/</loc>
-    <lastmod>2022-09-28T09:02:43+08:00</lastmod>
-  </url><url>
-    <loc>https://srcio.cn/posts/use-giscus/</loc>
     <lastmod>2022-09-28T09:02:43+08:00</lastmod>
   </url><url>
     <loc>https://srcio.cn/archives/</loc>
