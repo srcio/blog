@@ -4,9 +4,10 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>CRD 简介 | 博客</title>
+<title>CRD 简介 | 博客 · 丁鹏</title>
 <meta name=keywords content="Kubernetes,CRD">
-<meta name=description content="Kubernetes CRD 简介">
+<meta name=description content="CRD 字段校验配置
+apiVersion:apiextensions.k8s.io/v1beta1kind:CustomResourceDefinitionmetadata:name:scalings.control.srcio.iospec:group:control.srcio.ioversions:- name:v1served:truestorage:truescope:Namespacednames:plural:scalingssingular:scalingkind:Scalingvalidation:openAPIV3Schema:properties:spec:required:- targetDeployment- minReplicas- maxReplicas- metricType- step- scaleUp- scaleDownproperties:targetDeployment:type:stringminReplicas:type:integerminimum:0maxReplicas:type:integerminimum:0metricType:type:stringenum:- CPU- MEMORY- REQUESTSstep:type:integerminimum:1scaleUp:type:integerscaleDown:type:integerminimum:0  是否必须 参数类型 枚举范围 数值最大最小   ">
 <meta name=author content="丁鹏">
 <link rel=canonical href=https://blog.srcio.cn/series/programming-kubernetes/crd/>
 <meta name=google-site-verification content="qnXhMaPNdhaZ4A36ptMVUn-0o111dAsJqugH_0ZCYvM">
@@ -24,7 +25,8 @@
 <style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
 </noscript><style>@media screen and (min-width:769px){.post-content input[type=checkbox]:checked~label>img{transform:scale(1.6);cursor:zoom-out;position:relative;z-index:999}.post-content img.zoomCheck{transition:transform .15s ease;z-index:999;cursor:zoom-in}}</style>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="CRD 简介">
-<meta property="og:description" content="Kubernetes CRD 简介">
+<meta property="og:description" content="CRD 字段校验配置
+apiVersion:apiextensions.k8s.io/v1beta1kind:CustomResourceDefinitionmetadata:name:scalings.control.srcio.iospec:group:control.srcio.ioversions:- name:v1served:truestorage:truescope:Namespacednames:plural:scalingssingular:scalingkind:Scalingvalidation:openAPIV3Schema:properties:spec:required:- targetDeployment- minReplicas- maxReplicas- metricType- step- scaleUp- scaleDownproperties:targetDeployment:type:stringminReplicas:type:integerminimum:0maxReplicas:type:integerminimum:0metricType:type:stringenum:- CPU- MEMORY- REQUESTSstep:type:integerminimum:1scaleUp:type:integerscaleDown:type:integerminimum:0  是否必须 参数类型 枚举范围 数值最大最小   ">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://blog.srcio.cn/series/programming-kubernetes/crd/"><meta property="og:image" content="https://blog.srcio.cn/cover.png"><meta property="article:section" content="series">
 <meta property="article:published_time" content="2022-10-11T23:50:34+08:00">
@@ -32,9 +34,10 @@
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://blog.srcio.cn/cover.png">
 <meta name=twitter:title content="CRD 简介">
-<meta name=twitter:description content="Kubernetes CRD 简介">
+<meta name=twitter:description content="CRD 字段校验配置
+apiVersion:apiextensions.k8s.io/v1beta1kind:CustomResourceDefinitionmetadata:name:scalings.control.srcio.iospec:group:control.srcio.ioversions:- name:v1served:truestorage:truescope:Namespacednames:plural:scalingssingular:scalingkind:Scalingvalidation:openAPIV3Schema:properties:spec:required:- targetDeployment- minReplicas- maxReplicas- metricType- step- scaleUp- scaleDownproperties:targetDeployment:type:stringminReplicas:type:integerminimum:0maxReplicas:type:integerminimum:0metricType:type:stringenum:- CPU- MEMORY- REQUESTSstep:type:integerminimum:1scaleUp:type:integerscaleDown:type:integerminimum:0  是否必须 参数类型 枚举范围 数值最大最小   ">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"系列","item":"https://blog.srcio.cn/series/"},{"@type":"ListItem","position":2,"name":"Kubernetes 编程","item":"https://blog.srcio.cn/series/programming-kubernetes/"},{"@type":"ListItem","position":3,"name":"CRD 简介","item":"https://blog.srcio.cn/series/programming-kubernetes/crd/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"CRD 简介","name":"CRD 简介","description":"Kubernetes CRD 简介","keywords":["Kubernetes","CRD"],"articleBody":"CRD 字段校验配置\napiVersion:apiextensions.k8s.io/v1beta1kind:CustomResourceDefinitionmetadata:name:scalings.control.srcio.iospec:group:control.srcio.ioversions:- name:v1served:truestorage:truescope:Namespacednames:plural:scalingssingular:scalingkind:Scalingvalidation:openAPIV3Schema:properties:spec:required:- targetDeployment- minReplicas- maxReplicas- metricType- step- scaleUp- scaleDownproperties:targetDeployment:type:stringminReplicas:type:integerminimum:0maxReplicas:type:integerminimum:0metricType:type:stringenum:- CPU- MEMORY- REQUESTSstep:type:integerminimum:1scaleUp:type:integerscaleDown:type:integerminimum:0  是否必须 参数类型 枚举范围 数值最大最小   ","wordCount":"18","inLanguage":"zh","datePublished":"2022-10-11T23:50:34+08:00","dateModified":"2022-10-11T23:50:34+08:00","author":[{"@type":"Person","name":"丁鹏"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.srcio.cn/series/programming-kubernetes/crd/"},"publisher":{"@type":"Organization","name":"博客","logo":{"@type":"ImageObject","url":"https://blog.srcio.cn/images/blog.png"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"CRD 简介","name":"CRD 简介","description":"CRD 字段校验配置\napiVersion:apiextensions.k8s.io/v1beta1kind:CustomResourceDefinitionmetadata:name:scalings.control.srcio.iospec:group:control.srcio.ioversions:- name:v1served:truestorage:truescope:Namespacednames:plural:scalingssingular:scalingkind:Scalingvalidation:openAPIV3Schema:properties:spec:required:- targetDeployment- minReplicas- maxReplicas- metricType- step- scaleUp- scaleDownproperties:targetDeployment:type:stringminReplicas:type:integerminimum:0maxReplicas:type:integerminimum:0metricType:type:stringenum:- CPU- MEMORY- REQUESTSstep:type:integerminimum:1scaleUp:type:integerscaleDown:type:integerminimum:0  是否必须 参数类型 枚举范围 数值最大最小   ","keywords":["Kubernetes","CRD"],"articleBody":"CRD 字段校验配置\napiVersion:apiextensions.k8s.io/v1beta1kind:CustomResourceDefinitionmetadata:name:scalings.control.srcio.iospec:group:control.srcio.ioversions:- name:v1served:truestorage:truescope:Namespacednames:plural:scalingssingular:scalingkind:Scalingvalidation:openAPIV3Schema:properties:spec:required:- targetDeployment- minReplicas- maxReplicas- metricType- step- scaleUp- scaleDownproperties:targetDeployment:type:stringminReplicas:type:integerminimum:0maxReplicas:type:integerminimum:0metricType:type:stringenum:- CPU- MEMORY- REQUESTSstep:type:integerminimum:1scaleUp:type:integerscaleDown:type:integerminimum:0  是否必须 参数类型 枚举范围 数值最大最小   ","wordCount":"18","inLanguage":"zh","datePublished":"2022-10-11T23:50:34+08:00","dateModified":"2022-10-11T23:50:34+08:00","author":[{"@type":"Person","name":"丁鹏"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.srcio.cn/series/programming-kubernetes/crd/"},"publisher":{"@type":"Organization","name":"博客 · 丁鹏","logo":{"@type":"ImageObject","url":"https://blog.srcio.cn/images/blog.png"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -98,9 +101,6 @@
 <h1 class=post-title>
 CRD 简介
 </h1>
-<div class=post-description>
-Kubernetes CRD 简介
-</div>
 <div class=post-meta><span class=meta-item>
 <span>
 <i class="fa-solid fa-calendar-day"></i>
@@ -208,7 +208,7 @@ Kubernetes CRD 简介
 <p>
 🔥
 <span>2016 - 2022
-<a href=https://blog.srcio.cn/>博客 · 丁鹏</a>
+<a href=https://blog.srcio.cn/>博客 · 丁鹏 · 丁鹏</a>
 </span>
 &nbsp;|&nbsp;
 <span>

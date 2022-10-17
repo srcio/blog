@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Kubernetes on 博客</title>
+    <title>Kubernetes on 博客 · 丁鹏</title>
     <link>https://blog.srcio.cn/tags/kubernetes/</link>
-    <description>Recent content in Kubernetes on 博客</description>
+    <description>Recent content in Kubernetes on 博客 · 丁鹏</description>
     <image>
       <url>https://blog.srcio.cn/cover.png</url>
       <link>https://blog.srcio.cn/cover.png</link>
@@ -17,7 +17,8 @@
       <pubDate>Tue, 11 Oct 2022 23:50:34 +0800</pubDate>
       
       <guid>https://blog.srcio.cn/series/programming-kubernetes/crd/</guid>
-      <description>Kubernetes CRD 简介</description>
+      <description>CRD 字段校验配置
+apiVersion:apiextensions.k8s.io/v1beta1kind:CustomResourceDefinitionmetadata:name:scalings.control.srcio.iospec:group:control.srcio.ioversions:- name:v1served:truestorage:truescope:Namespacednames:plural:scalingssingular:scalingkind:Scalingvalidation:openAPIV3Schema:properties:spec:required:- targetDeployment- minReplicas- maxReplicas- metricType- step- scaleUp- scaleDownproperties:targetDeployment:type:stringminReplicas:type:integerminimum:0maxReplicas:type:integerminimum:0metricType:type:stringenum:- CPU- MEMORY- REQUESTSstep:type:integerminimum:1scaleUp:type:integerscaleDown:type:integerminimum:0  是否必须 参数类型 枚举范围 数值最大最小   </description>
     </item>
     
     <item>
@@ -85,7 +86,9 @@ GVR
       <pubDate>Sat, 08 Oct 2022 17:37:07 +0800</pubDate>
       
       <guid>https://blog.srcio.cn/series/programming-kubernetes/client-gen-usage/</guid>
-      <description>使用 client-gen 生成 clientset 代码</description>
+      <description>本页是这篇Kubernetes 文档中一些内容摘要。
+大致分为 3 个步骤：
+ 为 API 类型结构做 tag 标签 在 API 类型例如 pkg/apis/${Group}/${Version}/types.go 中的 Pod 结构体上打标签，支持的标签：   // +genclient：生成客户端函数（包括 Create, Update, Delete, DeleteCollection, Get, List, Update, Patch, Watch，如果 API 类型结构中包括 .Status 字段，还会额外生成 UpdateStatus 函数）； // +genclient:nonNamespaced：指定 API 类型是集群级别而不是命名空间级别的，生成的客户端函数都没有命名空间； // +genclient:onlyVerbs=create,get：只生成 Create, Get 客户端函数； // +genclient:skipVerbs=watch：生成除了 Watch 之外的所有其他客户端函数； // +genclient:noStatus：即使 API 类型结构包含 .Status 字段，也不生成 UpdateStatus 客户端函数； 有些情况下，可能你想要额外生成非标准的客户端函数，例如子资源函数，那么你需要使用下列这些 tag 标签： // +genclient:method=Scale,verb=update,subresource=scale,input=k8s.io/api/extensions/v1beta1.Scale,result=k8s.io/api/extensions/v1beta1.Scale：该例中使用标签，将会自动生成 Scale(string, *v1beta.Scale) *v1beta.Scale 客户端函数，里面配置了子资源函数的输入和输出参数。 另外，以下的 tag 标签也影响着客户端代码的生成： // +groupName=policy.</description>
     </item>
     
   </channel>

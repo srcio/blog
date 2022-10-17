@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>博客</title>
+    <title>博客 · 丁鹏</title>
     <link>https://blog.srcio.cn/</link>
-    <description>Recent content on 博客</description>
+    <description>Recent content on 博客 · 丁鹏</description>
     <image>
       <url>https://blog.srcio.cn/cover.png</url>
       <link>https://blog.srcio.cn/cover.png</link>
@@ -17,7 +17,8 @@
       <pubDate>Tue, 11 Oct 2022 23:50:34 +0800</pubDate>
       
       <guid>https://blog.srcio.cn/series/programming-kubernetes/crd/</guid>
-      <description>Kubernetes CRD 简介</description>
+      <description>CRD 字段校验配置
+apiVersion:apiextensions.k8s.io/v1beta1kind:CustomResourceDefinitionmetadata:name:scalings.control.srcio.iospec:group:control.srcio.ioversions:- name:v1served:truestorage:truescope:Namespacednames:plural:scalingssingular:scalingkind:Scalingvalidation:openAPIV3Schema:properties:spec:required:- targetDeployment- minReplicas- maxReplicas- metricType- step- scaleUp- scaleDownproperties:targetDeployment:type:stringminReplicas:type:integerminimum:0maxReplicas:type:integerminimum:0metricType:type:stringenum:- CPU- MEMORY- REQUESTSstep:type:integerminimum:1scaleUp:type:integerscaleDown:type:integerminimum:0  是否必须 参数类型 枚举范围 数值最大最小   </description>
     </item>
     
     <item>
@@ -26,7 +27,8 @@
       <pubDate>Tue, 11 Oct 2022 14:19:02 +0800</pubDate>
       
       <guid>https://blog.srcio.cn/series/programming-go/slice-append/</guid>
-      <description>Golang 切片扩容</description>
+      <description>怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？
+ 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底层的数组发生了变化，不再是原来的数组结构。    </description>
     </item>
     
     <item>
@@ -35,7 +37,17 @@
       <pubDate>Mon, 10 Oct 2022 19:21:58 +0800</pubDate>
       
       <guid>https://blog.srcio.cn/posts/docker-compose/</guid>
-      <description>Docker Compose 实践</description>
+      <description>安装 如果你安装了 Docker Desktop，那么它已经帮你自动安装了 Docker Compose 插件。否则，需要额外安装插件。
+使用一下命令安装或升级 Docker Compose（linux）：
+ Ubuntu，Debian：  sudo apt update sudo apt install docker-compose-plugin  基于 RPM 发行版:  sudo yum update sudo yum install docker-compose-plugin 验证安装版本：
+docker-compose version 常用命令 运行
+docker-compose up 查看运行
+docker-compose ps 停止
+docker-compose stop 启动&amp;amp;重启
+docker-compose start docker-compose restart 退出
+docker-compose down 使用 docker-compose -h 查看更多命令及参数。
+实践 使用 Docker Compose 运行一个简单的 golang web 程序。
+ 程序初始化  mkdir docker-compose-go-demo cd docker-compose-go-demo go mod init docker-compose-go-demo 创建 main.</description>
     </item>
     
     <item>
@@ -44,7 +56,7 @@
       <pubDate>Sat, 08 Oct 2022 17:13:58 +0800</pubDate>
       
       <guid>https://blog.srcio.cn/series/programming-go/gen-cert/</guid>
-      <description>Golang 生成证书</description>
+      <description>代码实现 package certutil import ( &amp;#34;bytes&amp;#34; &amp;#34;crypto/rand&amp;#34; &amp;#34;crypto/rsa&amp;#34; &amp;#34;crypto/x509&amp;#34; &amp;#34;crypto/x509/pkix&amp;#34; &amp;#34;encoding/pem&amp;#34; &amp;#34;math/big&amp;#34; &amp;#34;net&amp;#34; &amp;#34;time&amp;#34; ) // CA ca type CA struct { caInfo *x509.Certificate caPrivKey *rsa.PrivateKey caPem, caKeyPem []byte } // GetCAPem get ca pem bytes func (c *CA) GetCAPem() ([]byte, error) { if c.caPem == nil { // create the CA 	caBytes, err := x509.CreateCertificate(rand.Reader, c.caInfo, c.caInfo, &amp;amp;c.caPrivKey.PublicKey, c.caPrivKey) if err != nil { return nil, err } // pem encode 	caPEM := new(bytes.</description>
     </item>
     
     <item>
@@ -88,7 +100,13 @@ package main import ( &amp;#34;k8s.io/client-go/rest&amp;#34; &amp;#34;k8s.io/cl
       <pubDate>Wed, 28 Sep 2022 18:25:05 +0800</pubDate>
       
       <guid>https://blog.srcio.cn/series/programming-go/go-work/</guid>
-      <description>Go1.18 - 工作区模式</description>
+      <description>安装的 Go1.18 或更新版本，它为你提供了工作区模式（Workspace mode），帮助你更好做 go 模块之间依赖的管理。
+例如，你开发一个新项目，分了两个 go module，分别为 service-a 和 service-b，service-a 依赖了service-b ，现在项目还处于开发阶段，我们都是这么处理的。
+创建项目目录：
+mkdir service cd service 创建 service-b 模块:
+mkdir service-b cd service-b go mod init github.com/srcio/service-b 编写 service-b 模块代码：
+mkdir greeting vim greeting/hello.go package greeting import &amp;#34;fmt&amp;#34; func Hello(name string){ fmt.Println(&amp;#34;Hello, &amp;#34; + name) } 继续创建 service-a 模块：
+cd .. mkdir service-a cd service-a go mod init github.com/srcio/service-a 因为 service-a 需要依赖本地开发的 service-b 类库，所以我们需要在 go.mod 中引入 service-a ：</description>
     </item>
     
     <item>
@@ -141,7 +159,9 @@ GVR
       <pubDate>Sat, 08 Oct 2022 17:37:07 +0800</pubDate>
       
       <guid>https://blog.srcio.cn/series/programming-kubernetes/client-gen-usage/</guid>
-      <description>使用 client-gen 生成 clientset 代码</description>
+      <description>本页是这篇Kubernetes 文档中一些内容摘要。
+大致分为 3 个步骤：
+ 为 API 类型结构做 tag 标签 在 API 类型例如 pkg/apis/${Group}/${Version}/types.go 中的 Pod 结构体上打标签，支持的标签：   // +genclient：生成客户端函数（包括 Create, Update, Delete, DeleteCollection, Get, List, Update, Patch, Watch，如果 API 类型结构中包括 .Status 字段，还会额外生成 UpdateStatus 函数）； // +genclient:nonNamespaced：指定 API 类型是集群级别而不是命名空间级别的，生成的客户端函数都没有命名空间； // +genclient:onlyVerbs=create,get：只生成 Create, Get 客户端函数； // +genclient:skipVerbs=watch：生成除了 Watch 之外的所有其他客户端函数； // +genclient:noStatus：即使 API 类型结构包含 .Status 字段，也不生成 UpdateStatus 客户端函数； 有些情况下，可能你想要额外生成非标准的客户端函数，例如子资源函数，那么你需要使用下列这些 tag 标签： // +genclient:method=Scale,verb=update,subresource=scale,input=k8s.io/api/extensions/v1beta1.Scale,result=k8s.io/api/extensions/v1beta1.Scale：该例中使用标签，将会自动生成 Scale(string, *v1beta.Scale) *v1beta.Scale 客户端函数，里面配置了子资源函数的输入和输出参数。 另外，以下的 tag 标签也影响着客户端代码的生成： // +groupName=policy.</description>
     </item>
     
     <item>

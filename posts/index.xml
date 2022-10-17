@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>文章 on 博客</title>
+    <title>文章 on 博客 · 丁鹏</title>
     <link>https://blog.srcio.cn/posts/</link>
-    <description>Recent content in 文章 on 博客</description>
+    <description>Recent content in 文章 on 博客 · 丁鹏</description>
     <image>
       <url>https://blog.srcio.cn/cover.png</url>
       <link>https://blog.srcio.cn/cover.png</link>
@@ -17,7 +17,17 @@
       <pubDate>Mon, 10 Oct 2022 19:21:58 +0800</pubDate>
       
       <guid>https://blog.srcio.cn/posts/docker-compose/</guid>
-      <description>Docker Compose 实践</description>
+      <description>安装 如果你安装了 Docker Desktop，那么它已经帮你自动安装了 Docker Compose 插件。否则，需要额外安装插件。
+使用一下命令安装或升级 Docker Compose（linux）：
+ Ubuntu，Debian：  sudo apt update sudo apt install docker-compose-plugin  基于 RPM 发行版:  sudo yum update sudo yum install docker-compose-plugin 验证安装版本：
+docker-compose version 常用命令 运行
+docker-compose up 查看运行
+docker-compose ps 停止
+docker-compose stop 启动&amp;amp;重启
+docker-compose start docker-compose restart 退出
+docker-compose down 使用 docker-compose -h 查看更多命令及参数。
+实践 使用 Docker Compose 运行一个简单的 golang web 程序。
+ 程序初始化  mkdir docker-compose-go-demo cd docker-compose-go-demo go mod init docker-compose-go-demo 创建 main.</description>
     </item>
     
     <item>
