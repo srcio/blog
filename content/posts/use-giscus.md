@@ -23,7 +23,7 @@ keywords:
 ## 使用姿势
 1. 在 [giscus.app](https://giscus.app/) 做自定义配置，填入你的仓库名称，选择主题等，Giscus 会自动帮你生成 javascript 脚本；
 2. Hugo 博客目录下，创建 `layouts/partials/comments.html` 文件，写入获取的脚本：
-```javascript
+```html
 <script src="https://giscus.app/client.js"
         data-repo="[在此输入仓库]"
         data-repo-id="[在此输入仓库 ID]"
@@ -52,7 +52,7 @@ keywords:
 </div>
 ```
 2. 在该容器下方写入主题自动切换的语句
-```javascript
+```html
 <script>
     document.querySelector("div.giscus_comments > script")
         .setAttribute(
