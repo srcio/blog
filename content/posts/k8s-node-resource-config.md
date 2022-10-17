@@ -1,6 +1,6 @@
 ---
 title: "K8s 集群规划之节点资源配置"
-date: 2022-10-10T19:21:58+08:00
+date: 2022-10-17T20:21:58+08:00
 draft: false
 tags: 
   - Kubernetes
@@ -9,7 +9,6 @@ keywords:
   - docker image
   - 镜像回收
 weight: 1
-
 ---
 
 

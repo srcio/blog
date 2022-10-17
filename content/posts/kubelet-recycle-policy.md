@@ -1,6 +1,6 @@
 ---
 title: "Kubelet 垃圾回收原理剖析"
-date: 2022-10-10T19:21:58+08:00
+date: 2022-10-17T19:21:58+08:00
 draft: false
 tags: 
   - Kubernetes
@@ -33,12 +33,9 @@ Kubernetes 对节点上的所有镜像提供生命周期管理服务，这里的
 
 通过上面的分析，我们知道影响镜像垃圾回收的关键参数有：
 
-```
-image-gc-high-threshold`：磁盘使用率上限，有效范围 [0-100]，默认 `85
-image-gc-low-threshold`：磁盘使用率下限，有效范围 [0-100]，默认 `80
-```
-
-`minimum-image-ttl-duration`：镜像最短应该生存的年龄，默认 `2` 分钟
+1. `image-gc-high-threshold`：磁盘使用率上限，有效范围 [0-100]，默认 `85`
+2. `image-gc-low-threshold`：磁盘使用率下限，有效范围 [0-100]，默认 `80`
+3. `minimum-image-ttl-duration`：镜像最短应该生存的年龄，默认 `2` 分钟
 
 ### 实验环节
 
@@ -226,11 +223,11 @@ k8s.gcr.io/pause                     3.1                 da86e6ba6ca1        19 
 
 与容器垃圾回收相关的控制参数主要有 3 个：
 
-`MinAge`：容器可以被执行垃圾回收的最小年龄
+1.   `MinAge`：容器可以被执行垃圾回收的最小年龄
 
-`MaxPerPodContainer`：每个 pod 内允许存在的死亡容器的最大数量
+2.   `MaxPerPodContainer`：每个 pod 内允许存在的死亡容器的最大数量
 
-`MaxContainers`：节点上全部死亡容器的最大数量
+3.   `MaxContainers`：节点上全部死亡容器的最大数量
 
 >   注意：当 `MaxPerPodContainer` 与 `MaxContainers` 发生冲突时，Kubelet 会自动调整 `MaxPerPodContainer` 的取值以满足 `MaxContainers` 要求。
 

@@ -7,6 +7,7 @@ tags:
 keywords:
   - Giscus
   - 评论系统
+weight: 1
 ---
 
 ## Giscus
