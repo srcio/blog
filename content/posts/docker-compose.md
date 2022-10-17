@@ -7,7 +7,6 @@ tags:
   - docker-compose
 keywords:
   - docker-compose
-description: "Docker Compose 实践"
 weight: 1
 ---
 

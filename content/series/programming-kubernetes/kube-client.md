@@ -4,6 +4,10 @@ date: 2022-10-01T23:39:15+08:00
 draft: false
 tags: 
   - Kubernetes
+keywords:
+  - Kubernetes
+  - kubeclient
+  - clientset
 weight: 10
 ---
 

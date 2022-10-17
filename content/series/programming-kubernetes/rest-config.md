@@ -4,6 +4,9 @@ date: 2022-10-01T23:28:02+08:00
 draft: false
 tags: 
   - Kubernetes
+keywords:
+  - Kubernetes
+  - kubeconfig
 weight: 1
 ---
 

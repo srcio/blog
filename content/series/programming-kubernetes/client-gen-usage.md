@@ -7,7 +7,6 @@ tags:
 keywords:
   - Kubernetes
   - client-gen
-description: "使用 client-gen 生成 clientset 代码"
 weight: 40
 ---
 

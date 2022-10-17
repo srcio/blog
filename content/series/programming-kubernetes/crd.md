@@ -8,7 +8,6 @@ tags:
 keywords:
   - Kubernetes
   - CRD
-description: "Kubernetes CRD 简介"
 weight: 1
 ---
 

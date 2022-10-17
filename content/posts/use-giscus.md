@@ -4,7 +4,9 @@ date: 2022-09-28T09:02:43+08:00
 draft: false
 tags:
   - Giscus
-  - Blog
+keywords:
+  - Giscus
+  - 评论系统
 ---
 
 ## Giscus
