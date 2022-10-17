@@ -12,7 +12,7 @@ Clientset  获取 *kubernetes.Clientset
 可以通过该客户端实例获取内置的以及自定义的 K8s API 资源。  package main import &#34;k8s.io/client-go/rest&#34; func RESTClient(config *rest.Config) *rest.RESTClient { client, err := rest.RESTClientFor(config) if err != nil { panic(err) } return client } DiscoveryClient DiscoveryClient 动态客户端，通过动态指定 GVR 来操作任意的 Kubernetes 资源（内置资源 + CR）">
 <meta name=author content="丁鹏">
 <link rel=canonical href=https://srcio.cn/series/programming-kubernetes/kube-client/>
-<meta name=baidu-site-verification content="code-UKq1Ugo12Q">
+<meta name=baidu-site-verification content="code-yW1u8Rg4sz">
 <meta name=google-site-verification content="qnXhMaPNdhaZ4A36ptMVUn-0o111dAsJqugH_0ZCYvM">
 <link crossorigin=anonymous href=/assets/css/stylesheet.e0df13915129c488d0978b527f4f809123449e0ce5f5a2ffe5cdd725b241ba96.css integrity="sha256-4N8TkVEpxIjQl4tSf0+AkSNEngzl9aL/5c3XJbJBupY=" rel="preload stylesheet" as=style>
 <script defer crossorigin=anonymous src=/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG+9vmJ0cTS+ovo0FeA=" onload=hljs.initHighlightingOnLoad()></script>
