@@ -128,6 +128,42 @@ docker-compose down 使用 docker-compose -h 查看更多命令及参数。
 </article>
 <article class=post-entry>
 <header class=entry-header>
+<h2>Kubelet 垃圾回收原理剖析
+</h2>
+</header>
+<div class=entry-content>
+<p>文章转载自：https://sataqiu.github.io/2019/07/15/k8s-kubelet-gc/index.html
+Kubelet 垃圾回收（Garbage Collection）是一个非常有用的功能，它负责自动清理节点上的无用镜像和容器。Kubelet 每隔 1 分钟进行一次容器清理，每隔 5 分钟进行一次镜像清理（截止到 v1.15 版本，垃圾回收间隔时间还都是在源码中固化的，不可自定义配置）。如果节点上已经运行了 Kubelet，不建议再额外运行其它的垃圾回收工具，因为这些工具可能错误地清理掉 Kubelet 认为本应保留的镜像或容器，从而可能造成不可预知的问题。
+镜像回收 Kubernetes 对节点上的所有镜像提供生命周期管理服务，这里的『所有镜像』是真正意义上的所有镜像，而不仅仅是通过 Kubelet 拉取的镜像。当磁盘使用率超过设定上限（HighThresholdPercent）时，Kubelet 就会按照 LRU 清除策略逐个清理掉那些没有被任何 Pod 容器（包括那些已经死亡的容器）所使用的镜像，直到磁盘使用率降到设定下限（LowThresholdPercent）或没有空闲镜像可以清理。此外，在进行镜像清理时，会考虑镜像的生存年龄，对于年龄没有达到最短生存年龄（MinAge）要求的镜像，暂不予以清理。
+主体流程 如上图所示，Kubelet 对于节点上镜像的回收流程还是比较简单的，在磁盘使用率超出设定上限后：首先，通过 CRI 容器运行时接口读取节点上的所有镜像以及 Pod 容器；然后，根据现有容器列表过滤出那些已经不被任何容器所使用的镜像；接着，按照镜像最近被使用时间排序，越久被用到的镜像越会被排在前面，优先清理；最后，就按照排好的顺序逐个清理镜像，直到磁盘使用率降到设定下限（或者已经没有空闲镜像可以清理）。
+需要注意的是，Kubelet 读取到的镜像列表是节点镜像列表，而读取到的容器列表却仅包括由其管理的容器（即 Pod 容器，包括 Pod 内的死亡容器）。因此，那些用户手动 run 起来的容器，对于 Kubelet 垃圾回收来说就是不可见的，也就不能阻止对相关镜像的垃圾回收。当然，Kubelet 的镜像回收不是 force 类型的回收，虽然会对用户手动下载的镜像进行回收动作，但如果确实有运行的（或者停止的任何）容器与该镜像关联的话，删除操作就会失败（被底层容器运行时阻止删除）。
+用户配置 通过上面的分析，我们知道影响镜像垃圾回收的关键参数有：
+image-gc-high-threshold`：磁盘使用率上限，有效范围 [0-100]，默认 `85 image-gc-low-threshold`：磁盘使用率下限，有效范围 [0-100]，默认 `80 minimum-image-ttl-duration：镜像最短应该生存的年龄，默认 2 分钟
+实验环节 本节我们通过实验来验证镜像垃圾回收（基于 Kubelet 1.15 版本）。
+实验前，需要配置 Kubelet 启动参数，降低磁盘使用率上限，以便能够直接触发镜像回收。
+# vim /etc/systemd/system/kubelet.service.d/10-kubeadm.conf ....</p>
+</div>
+<footer class=entry-footer><span class=meta-item>
+<span>
+<i class="fa-solid fa-calendar-day"></i>
+2022-10-10
+</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-clock"></i>&nbsp;7 分钟</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-chart-simple"></i></i>&nbsp;1377 字</span>
+</span>
+<span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-user"></i></i>&nbsp;丁鹏
+</span>
+</span></footer>
+<a class=entry-link aria-label="post link to Kubelet 垃圾回收原理剖析" href=https://srcio.cn/posts/kubelet-recycle-policy/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
 <h2>使用 Giscus 作为博客评论系统
 </h2>
 </header>
