@@ -72,6 +72,8 @@ params:
       url: "mailto:me@srcio.cn"
 
   analytics:
+    baidu:
+      SiteVerificationTag: "code-UKq1Ugo12Q"
     google:
       SiteVerificationTag: "qnXhMaPNdhaZ4A36ptMVUn-0o111dAsJqugH_0ZCYvM"
     # bing:
