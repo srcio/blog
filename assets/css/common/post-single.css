@@ -199,7 +199,7 @@
     font-size: 85%;
     line-height: 1.5;
     background: var(--code-bg);
-    border-radius: 8px;
+    border-radius: var(--radius);
 }
 
 .post-content pre code {
@@ -213,11 +213,20 @@
     word-break: break-all;
 }
 
+.post-content blockquote p{
+    margin: 0;
+}
+
+.post-content blockquote code{
+    background-color: var(--border);
+}
+
 .post-content blockquote {
     margin: 20px 0;
-    padding: 0 14px;
+    padding: 12px 14px;
     border-inline-start: 3px solid var(--secondary);
     color: var(--secondary);
+    background-color: var(--code-bg);
 }
 
 .post-content hr {
@@ -232,7 +241,7 @@
 }
 
 .post-content img {
-    border-radius: 4px;
+    border-radius: var(--radius);
     margin: 1rem 0;
 }
 
