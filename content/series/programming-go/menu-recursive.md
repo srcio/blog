@@ -20,17 +20,17 @@ weight: 1
 数据库取出的初始数据：
 
 ```go
-raw := []*Menu{
-		{Name: "一级菜单 1", ID: 1, PID: 0},
-		{Name: "一级菜单 2", ID: 2, PID: 0},
-		{Name: "一级菜单 3", ID: 3, PID: 0},
-		{Name: "二级菜单 1-1", ID: 11, PID: 1},
-		{Name: "二级菜单 1-2", ID: 12, PID: 1},
-		{Name: "二级菜单 1-3", ID: 13, PID: 1},
-		{Name: "二级菜单 2-1", ID: 21, PID: 2},
-		{Name: "二级菜单 2-2", ID: 22, PID: 2},
-		{Name: "二级菜单 2-3", ID: 23, PID: 2},
-	}
+raw := []Menu{
+	{Name: "一级菜单 1", ID: 1, PID: 0},
+	{Name: "一级菜单 2", ID: 2, PID: 0},
+	{Name: "一级菜单 3", ID: 3, PID: 0},
+	{Name: "二级菜单 1-1", ID: 11, PID: 1},
+	{Name: "二级菜单 1-2", ID: 12, PID: 1},
+	{Name: "二级菜单 1-3", ID: 13, PID: 1},
+	{Name: "二级菜单 2-1", ID: 21, PID: 2},
+	{Name: "二级菜单 2-2", ID: 22, PID: 2},
+	{Name: "二级菜单 2-3", ID: 23, PID: 2},
+}
 ```
 
 需要得到的目标数据：
@@ -106,7 +106,7 @@ import (
 
 func main() {
 	// 数据库里存储的菜单
-	rawMenus := []*Menu{
+	rawMenus := []Menu{
 		{Name: "一级菜单 1", ID: 1, PID: 0},
 		{Name: "一级菜单 2", ID: 2, PID: 0},
 		{Name: "一级菜单 3", ID: 3, PID: 0},
@@ -132,22 +132,27 @@ func main() {
 }
 
 type Menu struct {
-	Name     string  `json:"name"`
-	ID       int     `json:"id"`
-	PID      int     `json:"pid"`
-	SubMenus []*Menu `json:",omitempty"`
+	Name     string `json:"name"`
+	ID       int    `json:"id"`
+	PID      int    `json:"pid"`
+	SubMenus []Menu `json:",omitempty"`
 }
 
-func (m *Menu) setSubMenus(menu *Menu) bool {
+func (m *Menu) setSubMenus(menu Menu) bool {
 	if menu.PID == m.ID {
 		m.SubMenus = append(m.SubMenus, menu)
 		return true
 	}
-	for _, v := range m.SubMenus {
-		if v.setSubMenus(menu) {
+	for i := range m.SubMenus {
+		if m.SubMenus[i].setSubMenus(menu) {
 			return true
 		}
 	}
 	return false
 }
 ```
+## 注意事项
+
+Golang for 遍历使用 `for _, item := range slice` 时，item 是一份遍历元素的复制，而使用 `for i := range slice` 时，`slice[i]` 则是遍历元素本身，使用时需要注意切片扩容带来的地址变化问题。
+
+可以参考这篇来理解：👉🏻[Golang 切片扩容](../slice-append.md)
