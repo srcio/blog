@@ -2,19 +2,22 @@
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <footer class="footer">
     <p>
-        🔥
-        <span>2016 - {{ now.Year }}
+        <span>
+            <i class="fi fi-copyright-solid">&#x2b;</i>
+            {{ now.Year }}
             <a href="{{ `` | absLangURL }}">{{ site.Title }}</a>
         </span>
         &nbsp;|&nbsp;
-        
+
         <span>
+            <i class="fi fi-shield-solid">&#x2c;</i>
             <a href="https://beian.miit.gov.cn/">湘ICP备2022019990号</a>
         </span>
     </p>
     <p>
-        📈
-        <span>本站共计
+        <span>
+            <i class="fi fi-fire-solid">&#x29;</i>
+            本站共计
             <a id="busuanzi_value_site_pv">0</a> 次访问 & <a id="busuanzi_value_site_uv">0</a> 位访客
         </span>
     </p>
@@ -99,12 +102,12 @@
 
         const copybutton = document.createElement('button');
         copybutton.classList.add('copy-code');
-        copybutton.innerHTML = '<i class="fa-regular fa-copy"></i>';
+        copybutton.innerHTML = '<i class="fi fi-clone-regular">&#x2a;</i>';
 
         function copyingDone() {
-            copybutton.innerHTML = '<i class="fa-solid fa-check"></i>';
+            copybutton.innerHTML = '<i class="fi fi-check-solid">&#x32;</i>';
             setTimeout(() => {
-                copybutton.innerHTML = '<i class="fa-regular fa-copy"></i>'
+                copybutton.innerHTML = '<i class="fi fi-clone-regular">&#x2a;</i>';
             }, 2000);
         }
 

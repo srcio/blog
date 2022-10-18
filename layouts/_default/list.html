@@ -86,7 +86,7 @@
   <nav class="pagination">
     {{- if $paginator.HasPrev }}
     <a class="prev" href="{{ $paginator.Prev.URL | absURL }}">
-      <i class="fa-solid fa-backward"></i>&nbsp;{{ i18n "prev_page" }}&nbsp;
+      <i class="fi fi-backward-solid">&#x26;</i>&nbsp;{{ i18n "prev_page" }}&nbsp;
       {{- if (.Param "ShowPageNums") }}
       {{- sub $paginator.PageNumber 1 }}/{{ $paginator.TotalPages }}
       {{- end }}
@@ -97,7 +97,7 @@
       {{- i18n "next_page" }}&nbsp;
       {{- if (.Param "ShowPageNums") }}
       {{- add 1 $paginator.PageNumber }}/{{ $paginator.TotalPages }}
-      {{- end }}&nbsp;<i class="fa-solid fa-forward"></i>
+      {{- end }}&nbsp;<i class="fi fi-forward-solid">&#x28;</i>
     </a>
     {{- end }}
   </nav>

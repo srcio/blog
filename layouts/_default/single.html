@@ -17,7 +17,7 @@
             <div class="post-meta">
                 {{- partial "post_meta.html" . -}}
                 <span class="meta-item">
-                    &nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-book-open-reader"></i>&nbsp;<span
+                    &nbsp;·&nbsp;&nbsp;<i class="fi fi-book-open-reader-solid">&#x30;</i>&nbsp;<span
                         id="busuanzi_value_page_pv"></span>
                 </span>
                 {{- partial "translation_list.html" . -}}
@@ -42,7 +42,7 @@
             {{- $tags := .Language.Params.Taxonomies.tag | default "tags" }}
             <ul class="post-tags">
                 {{- range ($.GetTerms $tags) }}
-                <li><a href="{{ .Permalink }}"><i class="fa-solid fa-tag"></i>&nbsp;{{ .LinkTitle }}</a></li>
+                <li><a href="{{ .Permalink }}"><i class="fi fi-tag-solid">&#x22;</i>&nbsp;{{ .LinkTitle }}</a></li>
                 {{- end }}
             </ul>
             {{- if (.Param "ShowPostNavLinks") }}

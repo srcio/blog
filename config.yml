@@ -106,32 +106,32 @@ menu:
   main:
     - identifier: search
       # name: 搜索
-      pre: magnifying-glass
+      pre: 21
       url: /search/
       weight: 40
     - identifier: home
       name: 主页
-      pre: home
+      pre: 36
       url: /
       weight: 1
     - identifier: posts
       name: 文章
-      pre: feather
+      pre: 37
       url: /posts/
       weight: 2
     - identifier: series
       name: 系列
-      pre: swatchbook
+      pre: 35
       url: /series/
       weight: 3
     - identifier: tags
       name: 标签
-      pre: tags
+      pre: 23
       url: /tags/
       weight: 20
     - identifier: archives
       name: 归档
-      pre: folder-minus
+      pre: 34
       url: /archives/
       weight: 30
 
