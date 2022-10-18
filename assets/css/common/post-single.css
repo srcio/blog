@@ -213,7 +213,7 @@
     word-break: break-all;
 }
 
-.post-content blockquote p{
+.post-content blockquote *{
     margin: 0;
 }
 
