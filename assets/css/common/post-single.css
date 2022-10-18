@@ -224,7 +224,7 @@
 .post-content blockquote {
     margin: 20px 0;
     padding: 12px 14px;
-    border-inline-start: 3px solid var(--secondary);
+    border-inline-start: 5px solid var(--secondary);
     color: var(--secondary);
     background-color: var(--code-bg);
 }
