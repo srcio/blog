@@ -153,6 +153,6 @@ func (m *Menu) setSubMenus(menu Menu) bool {
 ```
 ## 注意事项
 
-Golang for 遍历使用 `for _, item := range slice` 时，item 是一份遍历元素的复制，而使用 `for i := range slice` 时，`slice[i]` 则是遍历元素本身，使用时需要注意切片扩容带来的地址变化问题。
+Golang for 遍历使用 `for _, item := range slice` 时，`item` 是一份遍历元素的复制，而使用 `for i := range slice` 时，`slice[i]` 则是遍历元素本身，使用时需要注意切片扩容带来的地址变化问题。
 
-可以参考这篇来理解：👉🏻[Golang 切片扩容](../slice-append.md)
+可以参考这篇来理解：👉🏻[Golang 切片扩容](../slice-append)
