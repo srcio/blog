@@ -6,7 +6,10 @@
         <!-- <summary accesskey="c" title="(Alt + C)">
             <span class="details">&nbsp;{{- i18n "toc" | default "Table of Contents" }}</span>
         </summary> -->
-        <p class="toc-title"><i class="fa-solid fa-bookmark"></i>&nbsp; 目录</p>
+        <!-- <ul>
+            <li> <p class="toc-title">目录</p></li>
+        </ul> -->
+        <p class="toc-title"><i class="fa-solid fa-bookmark"></i><a href="#post-title">&nbsp; 目录</a></p>
 
         <div class="inner">
             {{- if (.Param "UseHugoToc") }}
@@ -72,10 +75,10 @@
                 {{- end -}}
                 {{- end }}
                 <li>
-                    <a href="#{{- $cleanedID -}}" aria-label="{{- $header | plainify -}}" class="none">{{- $header | safeHTML -}}</a>
+                    <a href="#{{- $cleanedID -}}" aria-label="{{- $header | plainify -}}">{{- $header | safeHTML -}}</a>
                     {{- else }}
                 <li>
-                    <a href="#{{- $cleanedID -}}" aria-label="{{- $header | plainify -}}" class="none">{{- $header | safeHTML -}}</a>
+                    <a href="#{{- $cleanedID -}}" aria-label="{{- $header | plainify -}}">{{- $header | safeHTML -}}</a>
                     {{- end -}}
                     {{- end -}}
                     <!-- {{- $firstHeaderLevel := len (seq (index (findRE "[1-6]" (index $headers 0) 1) 0)) -}} -->

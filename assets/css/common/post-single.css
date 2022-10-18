@@ -273,32 +273,19 @@
     top:20px;
 }
 
-.toc details summary {
-    cursor: zoom-in;
-    margin-inline-start: 20px;
-}
-
-.toc details[open] summary {
-    cursor: zoom-out;
-}
-
-.toc .details {
-    display: inline;
-    font-weight: 500;
-}
-
 .toc .inner {
     margin: 0 20px;
     padding: 10px 18px;
 }
 
-.toc li ul {
-    margin-inline-start: 16px;
-    list-style: none;
+.toc .inner ul * {
+    color:var(--secondary)
 }
 
-.toc summary:focus {
-    outline: 0;
+.toc li ul {
+    margin-inline-start: 16px;
+    color: var(--secondary);
+    list-style: none;
 }
 
 .toc-title {
@@ -308,7 +295,12 @@
     font-size: 16px;
 }
 
-.toc a.active {
+.toc ul li a.active {
+    color: var(--primary);
+    font-weight: 500;
+}
+
+.toc ul li:has(> a.active) {
     color: var(--primary);
     font-weight: 500;
 }
