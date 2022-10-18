@@ -103,6 +103,35 @@
 </article>
 <article class=post-entry>
 <header class=entry-header>
+<h2>数组递归构造具有父子层级关系的对象
+</h2>
+</header>
+<div class=entry-content>
+<p>场景介绍 从数据库获取到了菜单列表数据，这些菜单数据通过字段 ParentID 表示父子层级关系，现在需要将菜单列表数据转成树状的实例对象。
+数据库取出的初始数据：
+raw := []*Menu{ {Name: "一级菜单 1", ID: 1, PID: 0}, {Name: "一级菜单 2", ID: 2, PID: 0}, {Name: "一级菜单 3", ID: 3, PID: 0}, {Name: "二级菜单 1-1", ID: 11, PID: 1}, {Name: "二级菜单 1-2", ID: 12, PID: 1}, {Name: "二级菜单 1-3", ID: 13, PID: 1}, {Name: "二级菜单 2-1", ID: 21, PID: 2}, {Name: "二级菜单 2-2", ID: 22, PID: 2}, {Name: "二级菜单 2-3", ID: 23, PID: 2}, } 需要得到的目标数据：...</p>
+</div>
+<footer class=entry-footer><span class=meta-item>
+<span>
+<i class="fa-solid fa-calendar-day"></i>
+2022-10-18
+</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-clock"></i>&nbsp;2 分钟</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-chart-simple"></i></i>&nbsp;296 字</span>
+</span>
+<span class=meta-item>
+<span>
+&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-user"></i></i>&nbsp;丁鹏
+</span>
+</span></footer>
+<a class=entry-link aria-label="post link to 数组递归构造具有父子层级关系的对象" href=https://srcio.cn/series/programming-go/menu-recursive/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
 <h2>K8s 集群规划之节点资源配置
 </h2>
 </header>
@@ -402,35 +431,6 @@ cd .. mkdir service-a cd service-a go mod init github.com/srcio/service-a 因为
 </span>
 </span></footer>
 <a class=entry-link aria-label="post link to Go1.18 - 工作区模式" href=https://srcio.cn/series/programming-go/go-work/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>使用 Giscus 作为博客评论系统
-</h2>
-</header>
-<div class=entry-content>
-<p>Giscus 开源、无广告、永久免费 支持多语言 支持表情反馈 支持懒加载 必要条件 你的博客所用的 GitHub 的仓库必须是 Public，并且开通了 Dicussion 功能； 安装 giscus.app，安装的时候，分配你的博客所用的 GitHub 仓库即可。 当然，如果你的博客没有托管在 Github 上，你也可以单独创建一个 Github 仓库作为开通 giscus 评论。
-使用姿势 在 giscus.app 做自定义配置，填入你的仓库名称，选择主题等，Giscus 会自动帮你生成 javascript 脚本； Hugo 博客目录下，创建 layouts/partials/comments.html 文件，写入获取的脚本： &lt;script src="https://giscus.app/client.js" data-repo="[在此输入仓库]" data-repo-id="[在此输入仓库 ID]" data-category="[在此输入分类名]" data-category-id="[在此输入分类 ID]" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="zh-CN" crossorigin="anonymous" async> &lt;/script> ⚠️注意：为了使下面的 javascript 脚本生效，data-theme 选择 light；或者你可以根据你选择的主题修改下面的 javascript 脚本。
-自动主题 使用一个 div 作为评论区域的容器 &lt;div class="giscus_comments"> {{- partial "comments....</p>
-</div>
-<footer class=entry-footer><span class=meta-item>
-<span>
-<i class="fa-solid fa-calendar-day"></i>
-2022-9-28
-</span>
-</span><span class=meta-item>
-<span>
-&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-clock"></i>&nbsp;1 分钟</span>
-</span><span class=meta-item>
-<span>
-&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-chart-simple"></i></i>&nbsp;130 字</span>
-</span>
-<span class=meta-item>
-<span>
-&nbsp;·&nbsp;&nbsp;<i class="fa-solid fa-user"></i></i>&nbsp;丁鹏
-</span>
-</span></footer>
-<a class=entry-link aria-label="post link to 使用 Giscus 作为博客评论系统" href=https://srcio.cn/posts/use-giscus/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>
