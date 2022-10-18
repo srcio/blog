@@ -19,7 +19,7 @@
 <link rel=canonical href=https://srcio.cn/posts/kubelet-recycle-policy/>
 <meta name=baidu-site-verification content="code-yW1u8Rg4sz">
 <meta name=google-site-verification content="qnXhMaPNdhaZ4A36ptMVUn-0o111dAsJqugH_0ZCYvM">
-<link crossorigin=anonymous href=/assets/css/stylesheet.774e4b7c3cf2eb92d93d0d93d39dc866f088532d03b010e23452d2dc0558bab3.css integrity="sha256-d05LfDzy65LZPQ2T053IZvCIUy0DsBDiNFLS3AVYurM=" rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.da53450bd98e0263c39b02bc198d8b16f6c311038c0e7d51eb5975031919c346.css integrity="sha256-2lNFC9mOAmPDmwK8GY2LFvbDEQOMDn1R61l1AxkZw0Y=" rel="preload stylesheet" as=style>
 <script defer crossorigin=anonymous src=/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG+9vmJ0cTS+ovo0FeA=" onload=hljs.initHighlightingOnLoad()></script>
 <link rel=icon href=https://srcio.cn/images/blog.png>
 <link rel=icon type=image/png sizes=16x16 href=https://srcio.cn/images/blog.png>
@@ -119,7 +119,7 @@
 <div class=breadcrumbs><p><a href=/>主页</a>
 <a href=https://srcio.cn/posts/><i class="fa-solid fa-angle-right"></i>&nbsp;文章</a>&nbsp;<span><i class="fa-solid fa-angle-right"></i>&nbsp;Kubelet 垃圾回收原理剖析</span></p>
 </div>
-<h1 class=post-title>
+<h1 id=post-title class=post-title>
 Kubelet 垃圾回收原理剖析
 </h1>
 <div class=post-meta><span class=meta-item>
@@ -409,28 +409,28 @@ root@shida-machine:~# docker ps -a | grep nginx
 </div>
 <div class=post-right-toc><div class=toc>
 <div open>
-<p class=toc-title><i class="fa-solid fa-bookmark"></i>&nbsp; 目录</p>
+<p class=toc-title><i class="fa-solid fa-bookmark"></i><a href=#post-title>&nbsp; 目录</a></p>
 <div class=inner><ul>
 <li>
-<a href=#%e9%95%9c%e5%83%8f%e5%9b%9e%e6%94%b6 aria-label=镜像回收 class=none>镜像回收</a><ul>
+<a href=#%e9%95%9c%e5%83%8f%e5%9b%9e%e6%94%b6 aria-label=镜像回收>镜像回收</a><ul>
 <li>
-<a href=#%e4%b8%bb%e4%bd%93%e6%b5%81%e7%a8%8b aria-label=主体流程 class=none>主体流程</a></li>
+<a href=#%e4%b8%bb%e4%bd%93%e6%b5%81%e7%a8%8b aria-label=主体流程>主体流程</a></li>
 <li>
-<a href=#%e7%94%a8%e6%88%b7%e9%85%8d%e7%bd%ae aria-label=用户配置 class=none>用户配置</a></li>
+<a href=#%e7%94%a8%e6%88%b7%e9%85%8d%e7%bd%ae aria-label=用户配置>用户配置</a></li>
 <li>
-<a href=#%e5%ae%9e%e9%aa%8c%e7%8e%af%e8%8a%82 aria-label=实验环节 class=none>实验环节</a></li></ul>
+<a href=#%e5%ae%9e%e9%aa%8c%e7%8e%af%e8%8a%82 aria-label=实验环节>实验环节</a></li></ul>
 </li>
 <li>
-<a href=#%e5%ae%b9%e5%99%a8%e5%9b%9e%e6%94%b6 aria-label=容器回收 class=none>容器回收</a><ul>
+<a href=#%e5%ae%b9%e5%99%a8%e5%9b%9e%e6%94%b6 aria-label=容器回收>容器回收</a><ul>
 <li>
-<a href=#%e4%b8%bb%e4%bd%93%e6%b5%81%e7%a8%8b-1 aria-label=主体流程 class=none>主体流程</a></li>
+<a href=#%e4%b8%bb%e4%bd%93%e6%b5%81%e7%a8%8b-1 aria-label=主体流程>主体流程</a></li>
 <li>
-<a href=#%e7%94%a8%e6%88%b7%e9%85%8d%e7%bd%ae-1 aria-label=用户配置 class=none>用户配置</a></li>
+<a href=#%e7%94%a8%e6%88%b7%e9%85%8d%e7%bd%ae-1 aria-label=用户配置>用户配置</a></li>
 <li>
-<a href=#%e5%ae%9e%e9%aa%8c%e7%8e%af%e8%8a%82-1 aria-label=实验环节 class=none>实验环节</a></li></ul>
+<a href=#%e5%ae%9e%e9%aa%8c%e7%8e%af%e8%8a%82-1 aria-label=实验环节>实验环节</a></li></ul>
 </li>
 <li>
-<a href=#%e5%b0%8f%e7%bb%93 aria-label=小结 class=none>小结</a>
+<a href=#%e5%b0%8f%e7%bb%93 aria-label=小结>小结</a>
 </li>
 </ul>
 </div>

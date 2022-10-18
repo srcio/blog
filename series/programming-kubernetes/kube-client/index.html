@@ -14,7 +14,7 @@ Clientset  获取 *kubernetes.Clientset
 <link rel=canonical href=https://srcio.cn/series/programming-kubernetes/kube-client/>
 <meta name=baidu-site-verification content="code-yW1u8Rg4sz">
 <meta name=google-site-verification content="qnXhMaPNdhaZ4A36ptMVUn-0o111dAsJqugH_0ZCYvM">
-<link crossorigin=anonymous href=/assets/css/stylesheet.774e4b7c3cf2eb92d93d0d93d39dc866f088532d03b010e23452d2dc0558bab3.css integrity="sha256-d05LfDzy65LZPQ2T053IZvCIUy0DsBDiNFLS3AVYurM=" rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.da53450bd98e0263c39b02bc198d8b16f6c311038c0e7d51eb5975031919c346.css integrity="sha256-2lNFC9mOAmPDmwK8GY2LFvbDEQOMDn1R61l1AxkZw0Y=" rel="preload stylesheet" as=style>
 <script defer crossorigin=anonymous src=/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG+9vmJ0cTS+ovo0FeA=" onload=hljs.initHighlightingOnLoad()></script>
 <link rel=icon href=https://srcio.cn/images/blog.png>
 <link rel=icon type=image/png sizes=16x16 href=https://srcio.cn/images/blog.png>
@@ -105,7 +105,7 @@ Clientset  获取 *kubernetes.Clientset
 <a href=https://srcio.cn/series/><i class="fa-solid fa-angle-right"></i>&nbsp;系列</a>
 <a href=https://srcio.cn/series/programming-kubernetes/><i class="fa-solid fa-angle-right"></i>&nbsp;Kubernetes 编程</a>&nbsp;<span><i class="fa-solid fa-angle-right"></i>&nbsp;构造 Kubernetes 客户端实例</span></p>
 </div>
-<h1 class=post-title>
+<h1 id=post-title class=post-title>
 构造 Kubernetes 客户端实例
 </h1>
 <div class=post-meta><span class=meta-item>
@@ -287,21 +287,21 @@ Clientset  获取 *kubernetes.Clientset
 </div>
 <div class=post-right-toc><div class=toc>
 <div open>
-<p class=toc-title><i class="fa-solid fa-bookmark"></i>&nbsp; 目录</p>
+<p class=toc-title><i class="fa-solid fa-bookmark"></i><a href=#post-title>&nbsp; 目录</a></p>
 <div class=inner><ul>
 <li>
-<a href=#clientset aria-label=Clientset class=none>Clientset</a></li>
+<a href=#clientset aria-label=Clientset>Clientset</a></li>
 <li>
-<a href=#discoveryclient aria-label=DiscoveryClient class=none>DiscoveryClient</a><ul>
+<a href=#discoveryclient aria-label=DiscoveryClient>DiscoveryClient</a><ul>
 <li>
-<a href=#%e8%8e%b7%e5%8f%96-discoveryclient aria-label="获取 DiscoveryClient" class=none>获取 DiscoveryClient</a></li>
+<a href=#%e8%8e%b7%e5%8f%96-discoveryclient aria-label="获取 DiscoveryClient">获取 DiscoveryClient</a></li>
 <li>
-<a href=#%e4%bd%bf%e7%94%a8-discoveryclient aria-label="使用 DiscoveryClient" class=none>使用 DiscoveryClient</a></li></ul>
+<a href=#%e4%bd%bf%e7%94%a8-discoveryclient aria-label="使用 DiscoveryClient">使用 DiscoveryClient</a></li></ul>
 </li>
 <li>
-<a href=#dynamicclient aria-label=DynamicClient class=none>DynamicClient</a></li>
+<a href=#dynamicclient aria-label=DynamicClient>DynamicClient</a></li>
 <li>
-<a href=#%e6%80%bb%e7%bb%93 aria-label=总结 class=none>总结</a>
+<a href=#%e6%80%bb%e7%bb%93 aria-label=总结>总结</a>
 </li>
 </ul>
 </div>
