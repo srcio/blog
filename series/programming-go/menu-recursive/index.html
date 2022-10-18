@@ -253,8 +253,8 @@ raw := []Menu{ {Name: &#34;一级菜单 1&#34;, ID: 1, PID: 0}, {Name: &#34;一�
 	<span class=k>return</span> <span class=kc>false</span>
 <span class=p>}</span>
 </code></pre></div><h2 id=注意事项>注意事项<a hidden class=anchor aria-hidden=true href=#注意事项>#</a></h2>
-<p>Golang for 遍历使用 <code>for _, item := range slice</code> 时，item 是一份遍历元素的复制，而使用 <code>for i := range slice</code> 时，<code>slice[i]</code> 则是遍历元素本身，使用时需要注意切片扩容带来的地址变化问题。</p>
-<p>可以参考这篇来理解：👉🏻<a href=../slice-append.md>Golang 切片扩容</a></p>
+<p>Golang for 遍历使用 <code>for _, item := range slice</code> 时，<code>item</code> 是一份遍历元素的复制，而使用 <code>for i := range slice</code> 时，<code>slice[i]</code> 则是遍历元素本身，使用时需要注意切片扩容带来的地址变化问题。</p>
+<p>可以参考这篇来理解：👉🏻<a href=../slice-append>Golang 切片扩容</a></p>
 </div>
 <footer class=post-footer>
 <ul class=post-tags>
