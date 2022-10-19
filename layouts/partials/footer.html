@@ -3,21 +3,18 @@
 <footer class="footer">
     <p>
         <span>
-            <i class="fi fi-copyright-solid">&#x2b;</i>
-            {{ now.Year }}
+            <i class="fi fi-copyright"></i>{{ now.Year }}
             <a href="{{ `` | absLangURL }}">{{ site.Title }}</a>
         </span>
         &nbsp;|&nbsp;
 
         <span>
-            <i class="fi fi-shield-solid">&#x2c;</i>
-            <a href="https://beian.miit.gov.cn/">湘ICP备2022019990号</a>
+            <a href="https://beian.miit.gov.cn/"><i class="fi fi-shield"></i>湘ICP备2022019990号</a>
         </span>
     </p>
     <p>
         <span>
-            <i class="fi fi-fire-solid">&#x29;</i>
-            本站共计
+            <i class="fi fi-fire"></i>本站共计
             <a id="busuanzi_value_site_pv">0</a> 次访问 & <a id="busuanzi_value_site_uv">0</a> 位访客
         </span>
     </p>
@@ -102,12 +99,12 @@
 
         const copybutton = document.createElement('button');
         copybutton.classList.add('copy-code');
-        copybutton.innerHTML = '<i class="fi fi-clone-regular">&#x2a;</i>';
+        copybutton.innerHTML = '<i class="fi fi-copy"></i>';
 
         function copyingDone() {
-            copybutton.innerHTML = '<i class="fi fi-check-solid">&#x32;</i>';
+            copybutton.innerHTML = '<i class="fi fi-check"></i>';
             setTimeout(() => {
-                copybutton.innerHTML = '<i class="fi fi-clone-regular">&#x2a;</i>';
+                copybutton.innerHTML = '<i class="fi fi-copy"></i>';
             }, 2000);
         }
 

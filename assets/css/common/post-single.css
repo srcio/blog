@@ -79,7 +79,7 @@
     font-size: 12px;
 }
 
-.post-content a{
+.post-content a {
     color: var(--link);
 }
 
@@ -87,7 +87,7 @@
     color: var(--link) !important;
 }
 
-.post-content a code:hover{
+.post-content a code:hover {
     color: var(--link) !important;
 }
 
@@ -220,11 +220,11 @@
     word-break: break-all;
 }
 
-.post-content blockquote *{
+.post-content blockquote * {
     margin: 0;
 }
 
-.post-content blockquote code{
+.post-content blockquote code {
     background-color: var(--border);
 }
 
@@ -275,18 +275,18 @@
 
 .toc {
     font-size: 14px;
-    margin-top: 145px;
+    margin-top: 140px;
     position: sticky;
-    top:20px;
+    top: 20px;
 }
 
 .toc .inner {
     margin: 0 20px;
-    padding: 10px 18px;
+    padding: 5px 10px;
 }
 
 .toc .inner ul * {
-    color:var(--secondary)
+    color: var(--secondary)
 }
 
 .toc li ul {
@@ -296,9 +296,18 @@
 }
 
 .toc-title {
-    padding-left: 22px ;
     color: var(--secondary);
     font-size: 16px;
+    list-style: none;
+}
+
+.toc-title li:before {
+    content: "\e803";
+    text-align: center;
+    font-family: "fi";
+    display: inline-block;
+    margin-left: -1.3em;
+    width: 1.3em;
 }
 
 .toc ul li a.active {

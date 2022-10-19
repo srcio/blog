@@ -123,7 +123,7 @@
             <li>
                 <a href="{{ .URL | absLangURL }}" title="{{ .Title | default .Name }}">
                     <span {{- if eq $menu_item_url $page_url }} class="active" {{- end }}>
-                        <i class="fi">&#x{{ .Pre }};</i>&nbsp;
+                        <i class="fi fi-{{ .Pre }}"></i>&nbsp;
                         {{- .Name -}}
                         {{ .Post -}}
                     </span>
