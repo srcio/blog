@@ -3,6 +3,7 @@ languageCode: zh
 title: "博客 · 丁鹏"
 paginate: 10
 defaultContentLanguage: zh
+hasCJKLanguage: true
 
 enableRobotsTXT: true
 buildDrafts: false
