@@ -6,8 +6,7 @@
 <meta name=robots content="index, follow">
 <title>Golang 切片扩容 | 博客 · 丁鹏</title>
 <meta name=keywords content="Golang,slice,切片">
-<meta name=description content="怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？
- 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底层的数组发生了变化，不再是原来的数组结构。    ">
+<meta name=description content="怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？ 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底">
 <meta name=author content="丁鹏">
 <link rel=canonical href=https://srcio.cn/series/programming-go/slice-append/>
 <meta name=baidu-site-verification content="code-yW1u8Rg4sz">
@@ -26,8 +25,7 @@
 <style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
 </noscript><style>@media screen and (min-width:769px){.post-content input[type=checkbox]:checked~label>img{transform:scale(1.6);cursor:zoom-out;position:relative;z-index:999}.post-content img.zoomCheck{transition:transform .15s ease;z-index:999;cursor:zoom-in}}</style>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="Golang 切片扩容">
-<meta property="og:description" content="怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？
- 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底层的数组发生了变化，不再是原来的数组结构。    ">
+<meta property="og:description" content="怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？ 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://srcio.cn/series/programming-go/slice-append/"><meta property="og:image" content="https://srcio.cn/cover.png"><meta property="article:section" content="series">
 <meta property="article:published_time" content="2022-10-11T14:19:02+08:00">
@@ -35,10 +33,9 @@
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://srcio.cn/cover.png">
 <meta name=twitter:title content="Golang 切片扩容">
-<meta name=twitter:description content="怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？
- 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底层的数组发生了变化，不再是原来的数组结构。    ">
+<meta name=twitter:description content="怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？ 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"系列","item":"https://srcio.cn/series/"},{"@type":"ListItem","position":2,"name":"Golang 编程","item":"https://srcio.cn/series/programming-go/"},{"@type":"ListItem","position":3,"name":"Golang 切片扩容","item":"https://srcio.cn/series/programming-go/slice-append/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Golang 切片扩容","name":"Golang 切片扩容","description":"怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？\n 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底层的数组发生了变化，不再是原来的数组结构。    ","keywords":["Golang","slice","切片"],"articleBody":"怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？\n 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底层的数组发生了变化，不再是原来的数组结构。    ","wordCount":"12","inLanguage":"zh","datePublished":"2022-10-11T14:19:02+08:00","dateModified":"2022-10-11T14:19:02+08:00","author":[{"@type":"Person","name":"丁鹏"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://srcio.cn/series/programming-go/slice-append/"},"publisher":{"@type":"Organization","name":"博客 · 丁鹏","logo":{"@type":"ImageObject","url":"https://srcio.cn/images/blog.png"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Golang 切片扩容","name":"Golang 切片扩容","description":"怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？ 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底","keywords":["Golang","slice","切片"],"articleBody":"怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？\n 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底层的数组发生了变化，不再是原来的数组结构。    ","wordCount":"91","inLanguage":"zh","datePublished":"2022-10-11T14:19:02+08:00","dateModified":"2022-10-11T14:19:02+08:00","author":[{"@type":"Person","name":"丁鹏"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://srcio.cn/series/programming-go/slice-append/"},"publisher":{"@type":"Organization","name":"博客 · 丁鹏","logo":{"@type":"ImageObject","url":"https://srcio.cn/images/blog.png"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -112,7 +109,7 @@ Golang 切片扩容
 &nbsp;·&nbsp;<i class="fi fi-clock"></i>1 分钟</span>
 </span><span class=meta-item>
 <span>
-&nbsp;·&nbsp;<i class="fi fi-chart"></i>12 字</span>
+&nbsp;·&nbsp;<i class="fi fi-chart"></i>91 字</span>
 </span>
 <span class=meta-item>
 <span>

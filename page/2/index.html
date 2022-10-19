@@ -94,9 +94,7 @@
 </h2>
 </header>
 <div class=entry-content>
-<p>Giscus 开源、无广告、永久免费 支持多语言 支持表情反馈 支持懒加载 必要条件 你的博客所用的 GitHub 的仓库必须是 Public，并且开通了 Dicussion 功能； 安装 giscus.app，安装的时候，分配你的博客所用的 GitHub 仓库即可。 当然，如果你的博客没有托管在 Github 上，你也可以单独创建一个 Github 仓库作为开通 giscus 评论。
-使用姿势 在 giscus.app 做自定义配置，填入你的仓库名称，选择主题等，Giscus 会自动帮你生成 javascript 脚本； Hugo 博客目录下，创建 layouts/partials/comments.html 文件，写入获取的脚本： &lt;script src="https://giscus.app/client.js" data-repo="[在此输入仓库]" data-repo-id="[在此输入仓库 ID]" data-category="[在此输入分类名]" data-category-id="[在此输入分类 ID]" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="zh-CN" crossorigin="anonymous" async> &lt;/script> ⚠️注意：为了使下面的 javascript 脚本生效，data-theme 选择 light；或者你可以根据你选择的主题修改下面的 javascript 脚本。
-自动主题 使用一个 div 作为评论区域的容器 &lt;div class="giscus_comments"> {{- partial "comments....</p>
+<p>Giscus 开源、无广告、永久免费 支持多语言 支持表情反馈 支持懒加载 必要条件 你的博客所用的 GitHub 的仓库必须是 Public，并且开通了 Dicussion 功能； 安装 giscus...</p>
 </div>
 <footer class=entry-footer><span class=meta-item>
 <span>
@@ -105,10 +103,10 @@
 </span>
 </span><span class=meta-item>
 <span>
-&nbsp;·&nbsp;<i class="fi fi-clock"></i>1 分钟</span>
+&nbsp;·&nbsp;<i class="fi fi-clock"></i>2 分钟</span>
 </span><span class=meta-item>
 <span>
-&nbsp;·&nbsp;<i class="fi fi-chart"></i>130 字</span>
+&nbsp;·&nbsp;<i class="fi fi-chart"></i>574 字</span>
 </span>
 <span class=meta-item>
 <span>
@@ -123,10 +121,7 @@
 </h2>
 </header>
 <div class=entry-content>
-<p>本节介绍 Golang 程序如何通过 rest.Config 实例获取各种类型的 Kubernetes 客户端实例。 通过客户端访问 Kubernetes 中的 API 资源实例。
-Clientset 获取 *kubernetes.Clientset
-推荐使用该客户端实例去操作 K8s API 资源。 package main import ( "k8s.io/client-go/kubernetes" "k8s.io/client-go/rest" ) func Clientset(config *rest.Config) *kubernetes.Clientset { client, err := kubernetes.NewForConfig(config) if err != nil { panic(err) } return client } 获取 *rest.RESTClient
-可以通过该客户端实例获取内置的以及自定义的 K8s API 资源。 package main import "k8s.io/client-go/rest" func RESTClient(config *rest.Config) *rest.RESTClient { client, err := rest.RESTClientFor(config) if err != nil { panic(err) } return client } DiscoveryClient DiscoveryClient 动态客户端，通过动态指定 GVR 来操作任意的 Kubernetes 资源（内置资源 + CR）...</p>
+<p>本节介绍 Golang 程序如何通过 rest.Config 实例获取各种类型的 Kubernetes 客户端实例。 通过客户端访问 Kubernetes 中的 API 资源实例。 Clientset 获取 *kubernetes.Clientset 推荐使用该客户端实例去操作 K8s API 资源。 package main import (...</p>
 </div>
 <footer class=entry-footer><span class=meta-item>
 <span>
@@ -138,7 +133,7 @@ Clientset 获取 *kubernetes.Clientset
 &nbsp;·&nbsp;<i class="fi fi-clock"></i>2 分钟</span>
 </span><span class=meta-item>
 <span>
-&nbsp;·&nbsp;<i class="fi fi-chart"></i>284 字</span>
+&nbsp;·&nbsp;<i class="fi fi-chart"></i>623 字</span>
 </span>
 <span class=meta-item>
 <span>
@@ -153,21 +148,7 @@ Clientset 获取 *kubernetes.Clientset
 </h2>
 </header>
 <div class=entry-content>
-<p>术语 Group
-API 资源置于某个分组下，组作为相关功能的集合。一个组包含一个或多个版本。
-Version
-API 资源的版本，API 资源版本是会不断迭代的。
-Kind
-API 资源的的类型，用于存储 API 资源的描述信息或状态等。同一个 Kind 的 API 资源可以有多个版本，随着版本的不断迭代，Kind 代表的资源的会有字段内容的更改。
-GVK
-Group/Version/Kind，例如 Deployment：
-apiVersion:apps/v1kind:Deploymentmetadata:- name:deploy-1... 上面的代码示例描述了一个 API 资源对象，这个资源对象：
-Group 是 apps Version 是 v1 Kind 是 Deployment。 Resource
-代表 API 资源，与 GVK 一对一的关系。
-GVR
-可以将 GVK 比作是一个类，GVR 就是这个 GVK 类的实例。
-当我们以 REST 的方式向发起 API 资源的请求是，请求 URL 格式一般类似这样：/api/apps/v1/deployments，里面就包含了三个上面提到的术语概念：
-/apps：请求资源所在的组（Group） /v1：请求资源的版本（Version） /deployments：请求的资源的名称（Resource） </p>
+<p>术语 Group API 资源置于某个分组下，组作为相关功能的集合。一个组包含一个或多个版本。 Version API 资源的版本，API 资源版本是会不断迭代的。 Kind API 资源的的类型，...</p>
 </div>
 <footer class=entry-footer><span class=meta-item>
 <span>
@@ -179,7 +160,7 @@ GVR
 &nbsp;·&nbsp;<i class="fi fi-clock"></i>1 分钟</span>
 </span><span class=meta-item>
 <span>
-&nbsp;·&nbsp;<i class="fi fi-chart"></i>58 字</span>
+&nbsp;·&nbsp;<i class="fi fi-chart"></i>399 字</span>
 </span>
 <span class=meta-item>
 <span>
@@ -221,9 +202,7 @@ GVR
 </h2>
 </header>
 <div class=entry-content>
-<p>本页是这篇Kubernetes 文档中一些内容摘要。
-大致分为 3 个步骤：
-为 API 类型结构做 tag 标签 在 API 类型例如 pkg/apis/${Group}/${Version}/types.go 中的 Pod 结构体上打标签，支持的标签： // +genclient：生成客户端函数（包括 Create, Update, Delete, DeleteCollection, Get, List, Update, Patch, Watch，如果 API 类型结构中包括 .Status 字段，还会额外生成 UpdateStatus 函数）； // +genclient:nonNamespaced：指定 API 类型是集群级别而不是命名空间级别的，生成的客户端函数都没有命名空间； // +genclient:onlyVerbs=create,get：只生成 Create, Get 客户端函数； // +genclient:skipVerbs=watch：生成除了 Watch 之外的所有其他客户端函数； // +genclient:noStatus：即使 API 类型结构包含 .Status 字段，也不生成 UpdateStatus 客户端函数； 有些情况下，可能你想要额外生成非标准的客户端函数，例如子资源函数，那么你需要使用下列这些 tag 标签： // +genclient:method=Scale,verb=update,subresource=scale,input=k8s.io/api/extensions/v1beta1.Scale,result=k8s.io/api/extensions/v1beta1.Scale：该例中使用标签，将会自动生成 Scale(string, *v1beta.Scale) *v1beta.Scale 客户端函数，里面配置了子资源函数的输入和输出参数。 另外，以下的 tag 标签也影响着客户端代码的生成： // +groupName=policy....</p>
+<p>本页是这篇Kubernetes 文档中一些内容摘要。 大致分为 3 个步骤： 为 API 类型结构做 tag 标签 在 API 类型例如 pkg/apis/${Group}/${Version}/types.go 中的 Pod 结构体上打标签，支持的标签： // +...</p>
 </div>
 <footer class=entry-footer><span class=meta-item>
 <span>
@@ -232,10 +211,10 @@ GVR
 </span>
 </span><span class=meta-item>
 <span>
-&nbsp;·&nbsp;<i class="fi fi-clock"></i>1 分钟</span>
+&nbsp;·&nbsp;<i class="fi fi-clock"></i>2 分钟</span>
 </span><span class=meta-item>
 <span>
-&nbsp;·&nbsp;<i class="fi fi-chart"></i>103 字</span>
+&nbsp;·&nbsp;<i class="fi fi-chart"></i>831 字</span>
 </span>
 <span class=meta-item>
 <span>

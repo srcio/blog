@@ -17,9 +17,7 @@
       <pubDate>Tue, 18 Oct 2022 18:00:26 +0800</pubDate>
       
       <guid>https://srcio.cn/series/programming-go/menu-recursive/</guid>
-      <description>场景介绍 从数据库获取到了菜单列表数据，这些菜单数据通过字段 ParentID 表示父子层级关系，现在需要将菜单列表数据转成树状的实例对象。
-数据库取出的初始数据：
-raw := []Menu{ {Name: &amp;#34;一级菜单 1&amp;#34;, ID: 1, PID: 0}, {Name: &amp;#34;一级菜单 2&amp;#34;, ID: 2, PID: 0}, {Name: &amp;#34;一级菜单 3&amp;#34;, ID: 3, PID: 0}, {Name: &amp;#34;二级菜单 1-1&amp;#34;, ID: 11, PID: 1}, {Name: &amp;#34;二级菜单 1-2&amp;#34;, ID: 12, PID: 1}, {Name: &amp;#34;二级菜单 1-3&amp;#34;, ID: 13, PID: 1}, {Name: &amp;#34;二级菜单 2-1&amp;#34;, ID: 21, PID: 2}, {Name: &amp;#34;二级菜单 2-2&amp;#34;, ID: 22, PID: 2}, {Name: &amp;#34;二级菜单 2-3&amp;#34;, ID: 23, PID: 2}, } 需要得到的目标数据：</description>
+      <description>场景介绍 从数据库获取到了菜单列表数据，这些菜单数据通过字段 ParentID 表示父子层级关系，现在需要将菜单列表数据转成树状的实例对象。 数据库取出的初始数据</description>
     </item>
     
     <item>
@@ -28,8 +26,7 @@ raw := []Menu{ {Name: &amp;#34;一级菜单 1&amp;#34;, ID: 1, PID: 0}, {Name: &
       <pubDate>Tue, 11 Oct 2022 14:19:02 +0800</pubDate>
       
       <guid>https://srcio.cn/series/programming-go/slice-append/</guid>
-      <description>怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？
- 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底层的数组发生了变化，不再是原来的数组结构。    </description>
+      <description>怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？ 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底</description>
     </item>
     
     <item>
@@ -38,7 +35,7 @@ raw := []Menu{ {Name: &amp;#34;一级菜单 1&amp;#34;, ID: 1, PID: 0}, {Name: &
       <pubDate>Sat, 08 Oct 2022 17:13:58 +0800</pubDate>
       
       <guid>https://srcio.cn/series/programming-go/gen-cert/</guid>
-      <description>代码实现 package certutil import ( &amp;#34;bytes&amp;#34; &amp;#34;crypto/rand&amp;#34; &amp;#34;crypto/rsa&amp;#34; &amp;#34;crypto/x509&amp;#34; &amp;#34;crypto/x509/pkix&amp;#34; &amp;#34;encoding/pem&amp;#34; &amp;#34;math/big&amp;#34; &amp;#34;net&amp;#34; &amp;#34;time&amp;#34; ) // CA ca type CA struct { caInfo *x509.Certificate caPrivKey *rsa.PrivateKey caPem, caKeyPem []byte } // GetCAPem get ca pem bytes func (c *CA) GetCAPem() ([]byte, error) { if c.caPem == nil { // create the CA 	caBytes, err := x509.CreateCertificate(rand.Reader, c.caInfo, c.caInfo, &amp;amp;c.caPrivKey.PublicKey, c.caPrivKey) if err != nil { return nil, err } // pem encode 	caPEM := new(bytes.</description>
+      <description>代码实现 package certutil import ( &amp;#34;bytes&amp;#34; &amp;#34;crypto/rand&amp;#34; &amp;#34;crypto/rsa&amp;#34; &amp;#34;crypto/x509&amp;#34; &amp;#34;crypto/x509/pkix&amp;#34; &amp;#34;encoding/pem&amp;#34; &amp;#34;math/big&amp;#34; &amp;#34;net&amp;#34; &amp;#34;time&amp;#34; ) // CA ca type CA struct { caInfo *x509.Certificate caPrivKey *rsa.PrivateKey caPem, caKeyPem []byte } // GetCAPem get ca pem bytes func (c *CA) GetCAPem() ([]byte, error) { if c.caPem == nil { // create the CA caBytes, err := x509.CreateCertificate(rand.Reader, c.caInfo, c.caInfo, &amp;amp;c.caPrivKey.PublicKey, c.caPrivKey) if err != nil { return nil,</description>
     </item>
     
     <item>
@@ -47,18 +44,7 @@ raw := []Menu{ {Name: &amp;#34;一级菜单 1&amp;#34;, ID: 1, PID: 0}, {Name: &
       <pubDate>Sun, 02 Oct 2022 01:49:13 +0800</pubDate>
       
       <guid>https://srcio.cn/series/programming-go/mtls/</guid>
-      <description>TLS 传输层安全协议（TLS），在互联网上，通常是由服务器单向的向客户端提供证书，以证明其身份。
-mTLS 双向 TLS 认证，是指在客户端和服务器之间使用双行加密通道，mTLS 是云原生应用中常用的通信安全协议。
-使用双向TLS连接的主要目的是当服务器应该只接受来自有限的允许的客户端的 TLS 连接时。例如，一个组织希望将服务器的 TLS 连接限制为只来自该组织的合法合作伙伴或客户。显然，为客户端添加IP白名单不是一个好的安全实践，因为IP可能被欺骗。
-为了简化 mTLS 握手的过程，我们这样简单梳理：
-  客户端发送访问服务器上受保护信息的请求；
-  服务器向客户端提供公钥证书；
-  客户端通过使用 CA 的公钥来验证服务器公钥证书的数字签名，以验证服务器的证书；
-  如果步骤 3 成功，客户机将其客户端公钥证书发送到服务器；
-  服务器使用步骤 3 中相同的方法验证客户机的证书；
-  如果成功，服务器将对受保护信息的访问权授予客户机。
-  代码实现 需要实现客户端验证服务端的公钥证书，服务端验证客户端的公钥证书。
-生成证书 echo &amp;#39;清理并生成目录&amp;#39; OUT=./certs DAYS=365 RSALEN=2048 CN=srcio rm -rf ${OUT}/* mkdir ${OUT} &amp;gt;&amp;gt; /dev/null 2&amp;gt;&amp;amp;1 cd ${OUT} echo &amp;#39;生成CA的私钥&amp;#39; openssl genrsa -out ca.key ${RSALEN} &amp;gt;&amp;gt; /dev/null 2&amp;gt;&amp;amp;1 echo &amp;#39;生成CA的签名证书&amp;#39; openssl req -new \ -x509 \ -key ca.</description>
+      <description>TLS 传输层安全协议（TLS），在互联网上，通常是由服务器单向的向客户端提供证书，以证明其身份。 mTLS 双向 TLS 认证，是指在客户端和服务器之间使用双行加</description>
     </item>
     
     <item>
@@ -67,13 +53,7 @@ mTLS 双向 TLS 认证，是指在客户端和服务器之间使用双行加密�
       <pubDate>Wed, 28 Sep 2022 18:25:05 +0800</pubDate>
       
       <guid>https://srcio.cn/series/programming-go/go-work/</guid>
-      <description>安装的 Go1.18 或更新版本，它为你提供了工作区模式（Workspace mode），帮助你更好做 go 模块之间依赖的管理。
-例如，你开发一个新项目，分了两个 go module，分别为 service-a 和 service-b，service-a 依赖了service-b ，现在项目还处于开发阶段，我们都是这么处理的。
-创建项目目录：
-mkdir service cd service 创建 service-b 模块:
-mkdir service-b cd service-b go mod init github.com/srcio/service-b 编写 service-b 模块代码：
-mkdir greeting vim greeting/hello.go package greeting import &amp;#34;fmt&amp;#34; func Hello(name string){ fmt.Println(&amp;#34;Hello, &amp;#34; + name) } 继续创建 service-a 模块：
-cd .. mkdir service-a cd service-a go mod init github.com/srcio/service-a 因为 service-a 需要依赖本地开发的 service-b 类库，所以我们需要在 go.mod 中引入 service-a ：</description>
+      <description>安装的 Go1.18 或更新版本，它为你提供了工作区模式（Workspace mode），帮助你更好做 go 模块之间依赖的管理。 例如，你开发一个新项目，分了两个</description>
     </item>
     
   </channel>

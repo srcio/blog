@@ -97,8 +97,7 @@
 </h2>
 </header>
 <div class=entry-content>
-<p>CRD 字段校验配置
-apiVersion:apiextensions.k8s.io/v1beta1kind:CustomResourceDefinitionmetadata:name:scalings.control.srcio.iospec:group:control.srcio.ioversions:- name:v1served:truestorage:truescope:Namespacednames:plural:scalingssingular:scalingkind:Scalingvalidation:openAPIV3Schema:properties:spec:required:- targetDeployment- minReplicas- maxReplicas- metricType- step- scaleUp- scaleDownproperties:targetDeployment:type:stringminReplicas:type:integerminimum:0maxReplicas:type:integerminimum:0metricType:type:stringenum:- CPU- MEMORY- REQUESTSstep:type:integerminimum:1scaleUp:type:integerscaleDown:type:integerminimum:0 是否必须 参数类型 枚举范围 数值最大最小 </p>
+<p>CRD 字段校验配置 apiVersion:apiextensions.k8s.io/v1beta1kind:CustomResourceDefinitionmetadata:name:scalings.control.srcio.iospec:group:control.srcio.ioversions:- name:v1served:truestorage:truescope:Namespacednames:plural:scalingssingular:scalingkind:Scalingvalidation:openAPIV3Schema:properties:spec:required:- targetDeployment- minReplicas- maxReplicas- metricType- step- scaleUp- scaleDownproperties:targetDeployment:type:stringminReplicas:type:integerminimum:0maxReplicas:type:integerminimum:0metricType:type:stringenum:- CPU- MEMORY- REQUESTSstep:type:integerminimum:1scaleUp:type:integerscaleDown:type:integerminimum:0 是否必须 参数类型 枚举范围 数值最大最小</p>
 </div>
 <footer class=entry-footer><span class=meta-item>
 <span>
@@ -110,7 +109,7 @@ apiVersion:apiextensions.k8s.io/v1beta1kind:CustomResourceDefinitionmetadata:nam
 &nbsp;·&nbsp;<i class="fi fi-clock"></i>1 分钟</span>
 </span><span class=meta-item>
 <span>
-&nbsp;·&nbsp;<i class="fi fi-chart"></i>18 字</span>
+&nbsp;·&nbsp;<i class="fi fi-chart"></i>37 字</span>
 </span>
 <span class=meta-item>
 <span>
@@ -125,13 +124,7 @@ apiVersion:apiextensions.k8s.io/v1beta1kind:CustomResourceDefinitionmetadata:nam
 </h2>
 </header>
 <div class=entry-content>
-<p>本节介绍几种构造 rest.Config 实例的场景或者方法。
-rest.Config 可以帮助我们构建各种类型的 Kubernetes 客户端实例，从而访问 Kubernetes APIServer。
-通过 kubeconfig 文件构造 程序通过读取 kubeconfig 文件来构造一个 rest.Config 对象。
-package main import ( "k8s.io/client-go/rest" "k8s.io/client-go/tools/clientcmd" ) func KubeConfig() *rest.Config { config, err := clientcmd.BuildConfigFromFlags("", clientcmd.RecommendedHomeFile) if err != nil { panic(err) } return config } 通过 Secret 资源构造 通过将程序部署在 Kubernetes 集群中，使用 Pod 所配置的 ServiceAccount（默认：default）账号构造 rest.Config 对象。
-运行的 Pod 内都会存储一个
-每个 ServiceAccount 都有一个对应的 Secret，这个 Secret 包含了对集群的操作权限。
-package main import ( "k8s.io/client-go/rest" ) func KubeConfig() *rest....</p>
+<p>本节介绍几种构造 rest.Config 实例的场景或者方法。 rest.Config 可以帮助我们构建各种类型的 Kubernetes 客户端实例，从而访问 Kubernetes APIServer。 通过 kubeconfig 文件构造 程序通过读取 kubeconfig 文...</p>
 </div>
 <footer class=entry-footer><span class=meta-item>
 <span>
@@ -140,10 +133,10 @@ package main import ( "k8s.io/client-go/rest" ) func KubeConfig() *rest....</p>
 </span>
 </span><span class=meta-item>
 <span>
-&nbsp;·&nbsp;<i class="fi fi-clock"></i>2 分钟</span>
+&nbsp;·&nbsp;<i class="fi fi-clock"></i>1 分钟</span>
 </span><span class=meta-item>
 <span>
-&nbsp;·&nbsp;<i class="fi fi-chart"></i>221 字</span>
+&nbsp;·&nbsp;<i class="fi fi-chart"></i>470 字</span>
 </span>
 <span class=meta-item>
 <span>
@@ -158,10 +151,7 @@ package main import ( "k8s.io/client-go/rest" ) func KubeConfig() *rest....</p>
 </h2>
 </header>
 <div class=entry-content>
-<p>本节介绍 Golang 程序如何通过 rest.Config 实例获取各种类型的 Kubernetes 客户端实例。 通过客户端访问 Kubernetes 中的 API 资源实例。
-Clientset 获取 *kubernetes.Clientset
-推荐使用该客户端实例去操作 K8s API 资源。 package main import ( "k8s.io/client-go/kubernetes" "k8s.io/client-go/rest" ) func Clientset(config *rest.Config) *kubernetes.Clientset { client, err := kubernetes.NewForConfig(config) if err != nil { panic(err) } return client } 获取 *rest.RESTClient
-可以通过该客户端实例获取内置的以及自定义的 K8s API 资源。 package main import "k8s.io/client-go/rest" func RESTClient(config *rest.Config) *rest.RESTClient { client, err := rest.RESTClientFor(config) if err != nil { panic(err) } return client } DiscoveryClient DiscoveryClient 动态客户端，通过动态指定 GVR 来操作任意的 Kubernetes 资源（内置资源 + CR）...</p>
+<p>本节介绍 Golang 程序如何通过 rest.Config 实例获取各种类型的 Kubernetes 客户端实例。 通过客户端访问 Kubernetes 中的 API 资源实例。 Clientset 获取 *kubernetes.Clientset 推荐使用该客户端实例去操作 K8s API 资源。 package main import (...</p>
 </div>
 <footer class=entry-footer><span class=meta-item>
 <span>
@@ -173,7 +163,7 @@ Clientset 获取 *kubernetes.Clientset
 &nbsp;·&nbsp;<i class="fi fi-clock"></i>2 分钟</span>
 </span><span class=meta-item>
 <span>
-&nbsp;·&nbsp;<i class="fi fi-chart"></i>284 字</span>
+&nbsp;·&nbsp;<i class="fi fi-chart"></i>623 字</span>
 </span>
 <span class=meta-item>
 <span>
@@ -188,21 +178,7 @@ Clientset 获取 *kubernetes.Clientset
 </h2>
 </header>
 <div class=entry-content>
-<p>术语 Group
-API 资源置于某个分组下，组作为相关功能的集合。一个组包含一个或多个版本。
-Version
-API 资源的版本，API 资源版本是会不断迭代的。
-Kind
-API 资源的的类型，用于存储 API 资源的描述信息或状态等。同一个 Kind 的 API 资源可以有多个版本，随着版本的不断迭代，Kind 代表的资源的会有字段内容的更改。
-GVK
-Group/Version/Kind，例如 Deployment：
-apiVersion:apps/v1kind:Deploymentmetadata:- name:deploy-1... 上面的代码示例描述了一个 API 资源对象，这个资源对象：
-Group 是 apps Version 是 v1 Kind 是 Deployment。 Resource
-代表 API 资源，与 GVK 一对一的关系。
-GVR
-可以将 GVK 比作是一个类，GVR 就是这个 GVK 类的实例。
-当我们以 REST 的方式向发起 API 资源的请求是，请求 URL 格式一般类似这样：/api/apps/v1/deployments，里面就包含了三个上面提到的术语概念：
-/apps：请求资源所在的组（Group） /v1：请求资源的版本（Version） /deployments：请求的资源的名称（Resource） </p>
+<p>术语 Group API 资源置于某个分组下，组作为相关功能的集合。一个组包含一个或多个版本。 Version API 资源的版本，API 资源版本是会不断迭代的。 Kind API 资源的的类型，...</p>
 </div>
 <footer class=entry-footer><span class=meta-item>
 <span>
@@ -214,7 +190,7 @@ GVR
 &nbsp;·&nbsp;<i class="fi fi-clock"></i>1 分钟</span>
 </span><span class=meta-item>
 <span>
-&nbsp;·&nbsp;<i class="fi fi-chart"></i>58 字</span>
+&nbsp;·&nbsp;<i class="fi fi-chart"></i>399 字</span>
 </span>
 <span class=meta-item>
 <span>
@@ -256,9 +232,7 @@ GVR
 </h2>
 </header>
 <div class=entry-content>
-<p>本页是这篇Kubernetes 文档中一些内容摘要。
-大致分为 3 个步骤：
-为 API 类型结构做 tag 标签 在 API 类型例如 pkg/apis/${Group}/${Version}/types.go 中的 Pod 结构体上打标签，支持的标签： // +genclient：生成客户端函数（包括 Create, Update, Delete, DeleteCollection, Get, List, Update, Patch, Watch，如果 API 类型结构中包括 .Status 字段，还会额外生成 UpdateStatus 函数）； // +genclient:nonNamespaced：指定 API 类型是集群级别而不是命名空间级别的，生成的客户端函数都没有命名空间； // +genclient:onlyVerbs=create,get：只生成 Create, Get 客户端函数； // +genclient:skipVerbs=watch：生成除了 Watch 之外的所有其他客户端函数； // +genclient:noStatus：即使 API 类型结构包含 .Status 字段，也不生成 UpdateStatus 客户端函数； 有些情况下，可能你想要额外生成非标准的客户端函数，例如子资源函数，那么你需要使用下列这些 tag 标签： // +genclient:method=Scale,verb=update,subresource=scale,input=k8s.io/api/extensions/v1beta1.Scale,result=k8s.io/api/extensions/v1beta1.Scale：该例中使用标签，将会自动生成 Scale(string, *v1beta.Scale) *v1beta.Scale 客户端函数，里面配置了子资源函数的输入和输出参数。 另外，以下的 tag 标签也影响着客户端代码的生成： // +groupName=policy....</p>
+<p>本页是这篇Kubernetes 文档中一些内容摘要。 大致分为 3 个步骤： 为 API 类型结构做 tag 标签 在 API 类型例如 pkg/apis/${Group}/${Version}/types.go 中的 Pod 结构体上打标签，支持的标签： // +...</p>
 </div>
 <footer class=entry-footer><span class=meta-item>
 <span>
@@ -267,10 +241,10 @@ GVR
 </span>
 </span><span class=meta-item>
 <span>
-&nbsp;·&nbsp;<i class="fi fi-clock"></i>1 分钟</span>
+&nbsp;·&nbsp;<i class="fi fi-clock"></i>2 分钟</span>
 </span><span class=meta-item>
 <span>
-&nbsp;·&nbsp;<i class="fi fi-chart"></i>103 字</span>
+&nbsp;·&nbsp;<i class="fi fi-chart"></i>831 字</span>
 </span>
 <span class=meta-item>
 <span>

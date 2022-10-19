@@ -6,21 +6,7 @@
 <meta name=robots content="index, follow">
 <title>Kubernetes API 设计 | 博客 · 丁鹏</title>
 <meta name=keywords content="Kubernetes,GVK,GVR">
-<meta name=description content="术语 Group
-API 资源置于某个分组下，组作为相关功能的集合。一个组包含一个或多个版本。
-Version
-API 资源的版本，API 资源版本是会不断迭代的。
-Kind
-API 资源的的类型，用于存储 API 资源的描述信息或状态等。同一个 Kind 的 API 资源可以有多个版本，随着版本的不断迭代，Kind 代表的资源的会有字段内容的更改。
-GVK
-Group/Version/Kind，例如 Deployment：
-apiVersion:apps/v1kind:Deploymentmetadata:- name:deploy-1... 上面的代码示例描述了一个 API 资源对象，这个资源对象：
- Group 是 apps Version 是 v1 Kind 是 Deployment。   Resource
-代表 API 资源，与 GVK 一对一的关系。
-GVR
-可以将 GVK 比作是一个类，GVR 就是这个 GVK 类的实例。
-当我们以 REST 的方式向发起 API 资源的请求是，请求 URL 格式一般类似这样：/api/apps/v1/deployments，里面就包含了三个上面提到的术语概念：
- /apps：请求资源所在的组（Group） /v1：请求资源的版本（Version） /deployments：请求的资源的名称（Resource）  ">
+<meta name=description content="术语 Group API 资源置于某个分组下，组作为相关功能的集合。一个组包含一个或多个版本。 Version API 资源的版本，API 资源版本是会不断迭代的。 Kind API 资源的的类型，">
 <meta name=author content="丁鹏">
 <link rel=canonical href=https://srcio.cn/series/programming-kubernetes/api-design/>
 <meta name=baidu-site-verification content="code-yW1u8Rg4sz">
@@ -39,21 +25,7 @@ GVR
 <style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
 </noscript><style>@media screen and (min-width:769px){.post-content input[type=checkbox]:checked~label>img{transform:scale(1.6);cursor:zoom-out;position:relative;z-index:999}.post-content img.zoomCheck{transition:transform .15s ease;z-index:999;cursor:zoom-in}}</style>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="Kubernetes API 设计">
-<meta property="og:description" content="术语 Group
-API 资源置于某个分组下，组作为相关功能的集合。一个组包含一个或多个版本。
-Version
-API 资源的版本，API 资源版本是会不断迭代的。
-Kind
-API 资源的的类型，用于存储 API 资源的描述信息或状态等。同一个 Kind 的 API 资源可以有多个版本，随着版本的不断迭代，Kind 代表的资源的会有字段内容的更改。
-GVK
-Group/Version/Kind，例如 Deployment：
-apiVersion:apps/v1kind:Deploymentmetadata:- name:deploy-1... 上面的代码示例描述了一个 API 资源对象，这个资源对象：
- Group 是 apps Version 是 v1 Kind 是 Deployment。   Resource
-代表 API 资源，与 GVK 一对一的关系。
-GVR
-可以将 GVK 比作是一个类，GVR 就是这个 GVK 类的实例。
-当我们以 REST 的方式向发起 API 资源的请求是，请求 URL 格式一般类似这样：/api/apps/v1/deployments，里面就包含了三个上面提到的术语概念：
- /apps：请求资源所在的组（Group） /v1：请求资源的版本（Version） /deployments：请求的资源的名称（Resource）  ">
+<meta property="og:description" content="术语 Group API 资源置于某个分组下，组作为相关功能的集合。一个组包含一个或多个版本。 Version API 资源的版本，API 资源版本是会不断迭代的。 Kind API 资源的的类型，">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://srcio.cn/series/programming-kubernetes/api-design/"><meta property="og:image" content="https://srcio.cn/cover.png"><meta property="article:section" content="series">
 <meta property="article:published_time" content="2022-10-02T01:28:03+08:00">
@@ -61,23 +33,9 @@ GVR
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://srcio.cn/cover.png">
 <meta name=twitter:title content="Kubernetes API 设计">
-<meta name=twitter:description content="术语 Group
-API 资源置于某个分组下，组作为相关功能的集合。一个组包含一个或多个版本。
-Version
-API 资源的版本，API 资源版本是会不断迭代的。
-Kind
-API 资源的的类型，用于存储 API 资源的描述信息或状态等。同一个 Kind 的 API 资源可以有多个版本，随着版本的不断迭代，Kind 代表的资源的会有字段内容的更改。
-GVK
-Group/Version/Kind，例如 Deployment：
-apiVersion:apps/v1kind:Deploymentmetadata:- name:deploy-1... 上面的代码示例描述了一个 API 资源对象，这个资源对象：
- Group 是 apps Version 是 v1 Kind 是 Deployment。   Resource
-代表 API 资源，与 GVK 一对一的关系。
-GVR
-可以将 GVK 比作是一个类，GVR 就是这个 GVK 类的实例。
-当我们以 REST 的方式向发起 API 资源的请求是，请求 URL 格式一般类似这样：/api/apps/v1/deployments，里面就包含了三个上面提到的术语概念：
- /apps：请求资源所在的组（Group） /v1：请求资源的版本（Version） /deployments：请求的资源的名称（Resource）  ">
+<meta name=twitter:description content="术语 Group API 资源置于某个分组下，组作为相关功能的集合。一个组包含一个或多个版本。 Version API 资源的版本，API 资源版本是会不断迭代的。 Kind API 资源的的类型，">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"系列","item":"https://srcio.cn/series/"},{"@type":"ListItem","position":2,"name":"Kubernetes 编程","item":"https://srcio.cn/series/programming-kubernetes/"},{"@type":"ListItem","position":3,"name":"Kubernetes API 设计","item":"https://srcio.cn/series/programming-kubernetes/api-design/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Kubernetes API 设计","name":"Kubernetes API 设计","description":"术语 Group\nAPI 资源置于某个分组下，组作为相关功能的集合。一个组包含一个或多个版本。\nVersion\nAPI 资源的版本，API 资源版本是会不断迭代的。\nKind\nAPI 资源的的类型，用于存储 API 资源的描述信息或状态等。同一个 Kind 的 API 资源可以有多个版本，随着版本的不断迭代，Kind 代表的资源的会有字段内容的更改。\nGVK\nGroup/Version/Kind，例如 Deployment：\napiVersion:apps/v1kind:Deploymentmetadata:- name:deploy-1... 上面的代码示例描述了一个 API 资源对象，这个资源对象：\n Group 是 apps Version 是 v1 Kind 是 Deployment。   Resource\n代表 API 资源，与 GVK 一对一的关系。\nGVR\n可以将 GVK 比作是一个类，GVR 就是这个 GVK 类的实例。\n当我们以 REST 的方式向发起 API 资源的请求是，请求 URL 格式一般类似这样：/api/apps/v1/deployments，里面就包含了三个上面提到的术语概念：\n /apps：请求资源所在的组（Group） /v1：请求资源的版本（Version） /deployments：请求的资源的名称（Resource）  ","keywords":["Kubernetes","GVK","GVR"],"articleBody":"术语 Group\nAPI 资源置于某个分组下，组作为相关功能的集合。一个组包含一个或多个版本。\nVersion\nAPI 资源的版本，API 资源版本是会不断迭代的。\nKind\nAPI 资源的的类型，用于存储 API 资源的描述信息或状态等。同一个 Kind 的 API 资源可以有多个版本，随着版本的不断迭代，Kind 代表的资源的会有字段内容的更改。\nGVK\nGroup/Version/Kind，例如 Deployment：\napiVersion:apps/v1kind:Deploymentmetadata:- name:deploy-1... 上面的代码示例描述了一个 API 资源对象，这个资源对象：\n Group 是 apps Version 是 v1 Kind 是 Deployment。   Resource\n代表 API 资源，与 GVK 一对一的关系。\nGVR\n可以将 GVK 比作是一个类，GVR 就是这个 GVK 类的实例。\n当我们以 REST 的方式向发起 API 资源的请求是，请求 URL 格式一般类似这样：/api/apps/v1/deployments，里面就包含了三个上面提到的术语概念：\n /apps：请求资源所在的组（Group） /v1：请求资源的版本（Version） /deployments：请求的资源的名称（Resource）  ","wordCount":"58","inLanguage":"zh","datePublished":"2022-10-02T01:28:03+08:00","dateModified":"2022-10-02T01:28:03+08:00","author":[{"@type":"Person","name":"丁鹏"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://srcio.cn/series/programming-kubernetes/api-design/"},"publisher":{"@type":"Organization","name":"博客 · 丁鹏","logo":{"@type":"ImageObject","url":"https://srcio.cn/images/blog.png"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Kubernetes API 设计","name":"Kubernetes API 设计","description":"术语 Group API 资源置于某个分组下，组作为相关功能的集合。一个组包含一个或多个版本。 Version API 资源的版本，API 资源版本是会不断迭代的。 Kind API 资源的的类型，","keywords":["Kubernetes","GVK","GVR"],"articleBody":"术语 Group\nAPI 资源置于某个分组下，组作为相关功能的集合。一个组包含一个或多个版本。\nVersion\nAPI 资源的版本，API 资源版本是会不断迭代的。\nKind\nAPI 资源的的类型，用于存储 API 资源的描述信息或状态等。同一个 Kind 的 API 资源可以有多个版本，随着版本的不断迭代，Kind 代表的资源的会有字段内容的更改。\nGVK\nGroup/Version/Kind，例如 Deployment：\napiVersion:apps/v1kind:Deploymentmetadata:- name:deploy-1... 上面的代码示例描述了一个 API 资源对象，这个资源对象：\n Group 是 apps Version 是 v1 Kind 是 Deployment。   Resource\n代表 API 资源，与 GVK 一对一的关系。\nGVR\n可以将 GVK 比作是一个类，GVR 就是这个 GVK 类的实例。\n当我们以 REST 的方式向发起 API 资源的请求是，请求 URL 格式一般类似这样：/api/apps/v1/deployments，里面就包含了三个上面提到的术语概念：\n /apps：请求资源所在的组（Group） /v1：请求资源的版本（Version） /deployments：请求的资源的名称（Resource）  ","wordCount":"399","inLanguage":"zh","datePublished":"2022-10-02T01:28:03+08:00","dateModified":"2022-10-02T01:28:03+08:00","author":[{"@type":"Person","name":"丁鹏"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://srcio.cn/series/programming-kubernetes/api-design/"},"publisher":{"@type":"Organization","name":"博客 · 丁鹏","logo":{"@type":"ImageObject","url":"https://srcio.cn/images/blog.png"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -151,7 +109,7 @@ Kubernetes API 设计
 &nbsp;·&nbsp;<i class="fi fi-clock"></i>1 分钟</span>
 </span><span class=meta-item>
 <span>
-&nbsp;·&nbsp;<i class="fi fi-chart"></i>58 字</span>
+&nbsp;·&nbsp;<i class="fi fi-chart"></i>399 字</span>
 </span>
 <span class=meta-item>
 <span>
