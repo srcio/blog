@@ -1,8 +1,7 @@
 {{- if not .Date.IsZero -}}
 <span class="meta-item">
     <span>
-        <i class="fi fi-calendar"></i>
-        {{ .Date | time.Format (default "January 2, 2006" site.Params.DateFormat) }}
+        <i class="fi fi-calendar"></i>{{ .Date | time.Format (default "January 2, 2006" site.Params.DateFormat) }}
     </span>
 </span>
 {{- end }}
@@ -19,7 +18,7 @@
 {{- if (.Param "ShowWordCount") -}}
 <span class="meta-item">
     <span>
-        &nbsp;·&nbsp;<i class="fi fi-chart"></i>
+        &nbsp;·&nbsp;<i class="fi fi-word"></i>
         {{- i18n "words" .WordCount | default (printf "%d words" .WordCount) -}}
     </span>
 </span>

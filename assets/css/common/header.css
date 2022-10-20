@@ -11,7 +11,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    max-width: calc(var(--nav-width) + var(--gap) * 6);
+    max-width: calc(var(--nav-width) + var(--gap)*2);
     margin-inline-start: auto;
     margin-inline-end: auto;
     line-height: var(--header-height);
@@ -32,8 +32,8 @@
 }
 
 .logo a {
-    font-size: 24px;
-    font-weight: 700;
+    font-size: 20px;
+    font-weight: 500;
 }
 
 .logo a img,
@@ -73,7 +73,7 @@ body:not(.dark) #sun {
 }
 
 #menu li+li {
-    margin-inline-start: var(--gap);
+    margin-inline-start: 16px;
 }
 
 #menu a {

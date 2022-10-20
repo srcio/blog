@@ -106,16 +106,6 @@ params:
     keys:  ["title", "permalink", "summary", "content"]
 menu:
   main:
-    - identifier: search
-      # name: 搜索
-      pre: search
-      url: /search/
-      weight: 40
-    - identifier: home
-      name: 主页
-      pre: home
-      url: /
-      weight: 1
     - identifier: posts
       name: 文章
       pre: book
@@ -123,7 +113,7 @@ menu:
       weight: 2
     - identifier: series
       name: 系列
-      pre: books
+      pre: series
       url: /series/
       weight: 3
     - identifier: tags

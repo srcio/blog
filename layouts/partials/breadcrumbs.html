@@ -3,7 +3,7 @@
     {{- $url := replace .Parent.Permalink (printf "%s" site.BaseURL) "" }}
     {{- $lang_url := strings.TrimPrefix (printf "%s/" .Lang) $url -}}
     <p>
-        <span><a href="/">主页</a></span>
+        <span><a href="/"><i class="fi fi-home"></i>&nbsp;主页</a></span>
         {{- $scratch := newScratch }}
         {{- range $index, $element := split $lang_url "/" }}
         {{- $scratch.Add "path" (printf "%s/" $element )}}
