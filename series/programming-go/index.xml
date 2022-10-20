@@ -12,6 +12,15 @@
     <language>zh</language>
     <lastBuildDate>Wed, 28 Sep 2022 18:23:19 +0800</lastBuildDate><atom:link href="https://srcio.cn/series/programming-go/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Go 错误处理</title>
+      <link>https://srcio.cn/series/programming-go/gopkg-errors/</link>
+      <pubDate>Wed, 19 Oct 2022 14:44:06 +0800</pubDate>
+      
+      <guid>https://srcio.cn/series/programming-go/gopkg-errors/</guid>
+      <description>errors 包为你的 Go 程序提供一种对程序员调试、查看日志更友好的错误处理方式。 Go 程序中传统的错误处理方法： if err != nil { return err } 递归的向上传递错误，这种方式</description>
+    </item>
+    
+    <item>
       <title>数组递归构造具有父子层级关系的对象</title>
       <link>https://srcio.cn/series/programming-go/menu-recursive/</link>
       <pubDate>Tue, 18 Oct 2022 18:00:26 +0800</pubDate>

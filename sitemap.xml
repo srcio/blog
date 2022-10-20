@@ -2,6 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://srcio.cn/series/programming-go/gopkg-errors/</loc>
+    <lastmod>2022-10-19T14:44:06+08:00</lastmod>
+  </url><url>
     <loc>https://srcio.cn/series/programming-go/menu-recursive/</loc>
     <lastmod>2022-10-18T18:00:26+08:00</lastmod>
   </url><url>
@@ -54,16 +57,16 @@
     <lastmod>2022-10-08T17:37:07+08:00</lastmod>
   </url><url>
     <loc>https://srcio.cn/tags/golang/</loc>
-    <lastmod>2022-10-18T18:00:26+08:00</lastmod>
+    <lastmod>2022-10-19T14:44:06+08:00</lastmod>
   </url><url>
     <loc>https://srcio.cn/</loc>
-    <lastmod>2022-10-18T18:00:26+08:00</lastmod>
+    <lastmod>2022-10-19T14:44:06+08:00</lastmod>
   </url><url>
     <loc>https://srcio.cn/tags/</loc>
-    <lastmod>2022-10-18T18:00:26+08:00</lastmod>
+    <lastmod>2022-10-19T14:44:06+08:00</lastmod>
   </url><url>
     <loc>https://srcio.cn/series/</loc>
-    <lastmod>2022-10-18T18:00:26+08:00</lastmod>
+    <lastmod>2022-10-19T14:44:06+08:00</lastmod>
   </url><url>
     <loc>https://srcio.cn/tags/kubernetes/</loc>
     <lastmod>2022-10-17T20:21:58+08:00</lastmod>
