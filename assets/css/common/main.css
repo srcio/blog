@@ -16,10 +16,9 @@
 }
 
 .pagination a {
-    color: var(--theme);
     font-size: 13px;
     line-height: 32px;
-    background: var(--thirdly);
+    background: var(--code-bg);
     border-radius: var(--radius);
     padding: 0 8px;
 }
@@ -58,8 +57,8 @@ pre {
     color: rgba(255, 255, 255, 0.8);
     background: rgba(78, 78, 78, 0.8);
     border-radius: var(--radius);
-    padding: 0 5px;
-    font-size: 16px;
+    padding: 4px;
+    font-size: 14px;
     user-select: none;
 }
 
@@ -133,10 +132,15 @@ pre {
 }
 
 @media (max-width: 1068px) {
+    .nav{
+        width: 100%;
+        padding-right: 10px;
+        padding-left: 10px;
+    }
     .main {
         width: 100%;
         padding-right: 10px;
-        padding-left: 10px
+        padding-left: 10px;
     }
 
     .post-right-toc {

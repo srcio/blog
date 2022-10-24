@@ -9,6 +9,8 @@ keywords:
   - docker image
   - 镜像回收
 weight: 1
+cover:
+    image: "https://srcio.oss-cn-hangzhou.aliyuncs.com/images/cluster-design.svg"
 ---
 
 

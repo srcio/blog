@@ -6,10 +6,11 @@
 
 .footer {
     max-width: calc(var(--nav-width) + var(--gap) * 8);
-    margin: auto;
-    padding: calc((var(--footer-height) - var(--gap)) / 2) var(--gap);
+    margin: 0 auto;
+    padding: 10px;
     text-align: center;
-    line-height: 24px;
+    line-height: 20px;
+    height: var(--footer-height);
 }
 
 .footer span {

@@ -102,11 +102,33 @@
 .entry-cover img {
     border-radius: var(--radius);
     pointer-events: none;
-    width: 100%;
-    height: auto;
+    width: auto;
+    max-height: 100px;
+    clear: both;
+    display: block;
+    margin: auto;
 }
 
 .entry-cover a {
     color: var(--secondary);
     box-shadow: 0 1px 0 var(--primary);
+}
+
+.post-entry {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.entry-cover {
+    overflow: hidden;
+    height: 100%;
+    width: 50%;
+    margin-bottom: unset;
+}
+
+.post-info {
+    display: inline-block;
+    overflow: hidden;
+    width: 90%;
 }

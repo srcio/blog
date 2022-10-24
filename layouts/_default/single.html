@@ -29,7 +29,7 @@
         {{- $isHidden := .Params.cover.hidden | default site.Params.cover.hiddenInSingle | default
         site.Params.cover.hidden
         }}
-        {{- partial "cover.html" (dict "cxt" . "IsHome" false "isHidden" $isHidden) }}
+        {{- partial "post-single-cover.html" (dict "cxt" . "IsHome" false "isHidden" $isHidden) }}
         {{- if .Content }}
         <div class="post-content">
             {{- if not (.Param "disableAnchoredHeadings") }}
