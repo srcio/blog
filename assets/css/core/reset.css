@@ -108,11 +108,11 @@ textarea:-webkit-autofill {
 img {
     display: block;
     max-width: 100%;
-    background-color: var(--theme);
 }
 
 img:active{
     position: relative;
     transform: scale(1.2);
     z-index: 999;
+    background-color: var(--theme);
 }

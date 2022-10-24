@@ -7,5 +7,5 @@ weight: 1
 showReadingTime: false
 ShowWordCount: false
 cover:
-  image: https://srcio.oss-cn-hangzhou.aliyuncs.com/images/kubernetes.svg
+  image: https://srcio.oss-cn-hangzhou.aliyuncs.com/images/20221025000510.png
 ---
