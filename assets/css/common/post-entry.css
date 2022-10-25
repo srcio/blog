@@ -45,7 +45,7 @@
 .post-entry {
     position: relative;
     margin-bottom: var(--gap);
-    padding: var(--gap);
+    padding: 12px;
     background: var(--code-bg);
     border-radius: var(--radius);
     transition: transform 0.1s;
@@ -103,6 +103,7 @@
     border-radius: var(--radius);
     pointer-events: none;
     width: auto;
+    height: auto;
     max-height: 100px;
     clear: both;
     display: block;
@@ -123,11 +124,12 @@
 .entry-cover {
     overflow: hidden;
     height: 100%;
-    width: 50%;
+    width: 30%;
     margin-bottom: unset;
 }
 
 .post-info {
+    padding: 6px 8px;
     display: inline-block;
     overflow: hidden;
     width: 90%;
