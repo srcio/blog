@@ -8,10 +8,10 @@
         {{- range $index, $element := split $lang_url "/" }}
         {{- $scratch.Add "path" (printf "%s/" $element )}}
         {{- $bc_pg := site.GetPage ($scratch.Get "path") -}}
-        {{- if (and ($bc_pg) (gt (len . ) 0))}}<span><a href="{{ $bc_pg.Permalink }}"><i class="fi fi-angle-right"></i>{{ $bc_pg.Name }}</a></span>
+        {{- if (and ($bc_pg) (gt (len . ) 0))}}<span><i class="fi fi-angle-right"></i><a href="{{ $bc_pg.Permalink }}">{{ $bc_pg.Name }}</a></span>
         {{- end }}
         {{- end -}}
-        <span><i class="fi fi-angle-right"></i>{{.Title}}</span>
+        <i class="fi fi-angle-right"></i><span>{{.Title}}</span>
     </p>
 </div>
 {{- end -}}
