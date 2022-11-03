@@ -23,7 +23,7 @@ params:
   keywords: ["丁鹏", "丁鹏的博客", "dingpeng", "dp", "srcio", "srcio.cn", "Kubernetes", "Golang", "云原生"]
   author: ["丁鹏"]
   images: ["cover.png"]
-  DateFormat: "2006-1-2"
+  DateFormat: "2006-01-02"
   timeZone: "CN"
   defaultTheme: auto # dark, light
   disableThemeToggle: false

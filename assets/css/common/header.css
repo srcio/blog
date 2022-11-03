@@ -53,7 +53,7 @@ button#theme-toggle {
 }
 
 button#theme-toggle:hover {
-    color: var(--primary);
+    color: var(--link-color);
 }
 
 body.dark #moon {
@@ -83,6 +83,7 @@ body:not(.dark) #sun {
 
 #menu .active {
     font-weight: 500;
+    color: var(--link-color);
 }
 
 .lang-switch li,

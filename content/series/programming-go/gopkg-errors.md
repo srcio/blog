@@ -1,16 +1,16 @@
 ---
-title: "Go 错误处理"
+title: Go 包 - errors
 date: 2022-10-19T14:44:06+08:00
-draft: false
-tags: 
+lastmod: 2022-11-03T03:32:31.646Z
+tags:
   - Golang
+  - gopkg
 keywords:
   - Golang
+  - gopkg
   - errors
 weight: 1
 ---
-
-
 
 `errors` 包为你的 Go 程序提供一种对程序员调试、查看日志更友好的错误处理方式。
 
@@ -35,21 +35,26 @@ go get github.com/pkg/errors
 ## 错误添加上下文
 
 The errors.Wrap function returns a new error that adds context to the original error. For example
+
 ```go
 _, err := ioutil.ReadAll(r)
 if err != nil {
     return errors.Wrap(err, "read failed")
 }
 ```
+
 ## Retrieving the cause of an error
 
 Using `errors.Wrap` constructs a stack of errors, adding context to the preceding error. Depending on the nature of the error it may be necessary to reverse the operation of errors.Wrap to retrieve the original error for inspection. Any error value which implements this interface can be inspected by `errors.Cause`.
+
 ```go
 type causer interface {
     Cause() error
 }
 ```
+
 `errors.Cause` will recursively retrieve the topmost error which does not implement `causer`, which is assumed to be the original cause. For example:
+
 ```go
 switch err := errors.Cause(err).(type) {
 case *MyError:

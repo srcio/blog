@@ -7,8 +7,9 @@
     border-radius: var(--radius);
 }
 
-#searchbox input:focus {
-    border-color: var(--secondary);
+#searchbox input:focus{
+    border-color: var(--link-color);
+    background: var(--active-bg);
 }
 
 #searchResults li {
@@ -41,5 +42,7 @@
 
 #searchResults .focus {
     transform: scale(0.98);
-    border: 2px solid var(--tertiary);
+    border: var(--link-color);
+    background-color: var(--active-bg);
+    border: 1px solid var(--link-color);
 }

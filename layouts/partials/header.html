@@ -120,7 +120,7 @@
             {{- $is_search := eq (site.GetPage .KeyName).Layout `search` }}
             <li>
                 <a href="{{ .URL | absLangURL }}" title="{{ .Title | default .Name }}">
-                    <span {{- if eq $menu_item_url $page_url }} class="active" {{- end }}>
+                    <span {{- if hasPrefix $page_url $menu_item_url }} class="active" {{- end }}>
                         <i class="fi fi-{{ .Pre }}"></i>&nbsp;
                         {{- .Name -}}
                         {{ .Post -}}

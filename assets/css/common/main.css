@@ -84,7 +84,7 @@ a {
 
 a:hover,
 a:hover * {
-    color: var(--primary) !important;
+    color: var(--link-color) !important; 
 }
 
 main {
@@ -93,13 +93,12 @@ main {
 }
 
 article.post-entry {
-    transition: transform .1s ease-in-out, box-shadow .1s cubic-bezier(.47, 0, .745, .715), border .1s linear .1s;
+    border: 1px solid var(--code-bg);
 }
 
 article.post-entry:hover {
-    -webkit-transform: translateY(-4px);
-    -moz-transform: translateY(-4px);
-    transform: translateY(-4px);
+    border: 1px solid var(--link-color);
+    background-color: var(--active-bg);
 }
 
 .terms-tags {

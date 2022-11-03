@@ -15,7 +15,8 @@
     --code-bg: rgb(235, 235, 235);
     --border: rgb(208, 208, 208);
     --header-bg: rgba(255, 255, 255,.9);
-    --link:#409EFF;
+    --link-color: rgb(54,123,153);
+    --active-bg:rgba(54,123,153,.1);
 }
 
 .dark {
@@ -29,4 +30,6 @@
     --code-bg: rgb(55, 56, 62);
     --border: rgb(81, 81, 81);
     --header-bg: rgba(29, 30, 32,.8);
+    --link-color: rgb(54,123,153);
+    --active-bg:rgba(54,123,153,.1);
 }

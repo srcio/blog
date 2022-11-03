@@ -1,8 +1,8 @@
 ---
-title: "Golang 程序 SOLID 设计原则"
+title: Golang 程序 SOLID 设计原则
 date: 2022-10-25T18:13:58+08:00
 draft: false
-tags: 
+tags:
   - Golang
   - SOLID
 keywords:
@@ -10,6 +10,9 @@ keywords:
   - SOLID
   - 设计原则
 weight: 1
+cover:
+  image: https://srcio.oss-cn-hangzhou.aliyuncs.com/images/20221031154811.png
+lastmod: 2022-11-03T03:31:11.961Z
 ---
 
 可重用软件设计的五个原则，**SOLID** 原则：
@@ -20,7 +23,7 @@ weight: 1
 -   接口隔离原则（Interface Segregation Principle）
 -   依赖倒置原则（Dependency Inversion Principle）
 
-## S：单一职责原则
+## 单一职责原则
 
 SOLID 的第一个原则，S，是单一责任原则。
 
@@ -67,7 +70,7 @@ SOLID 的第一个原则，S，是单一责任原则。
 
 我认为 Go package 体现了 Unix 哲学的精神。实际上，每个 Go package 本身就是一个小的 Go 程序，一个单一的变更单元，具有单一的责任。
 
-## O：开放 / 封闭原则
+## 开放 / 封闭原则
 
 第二个原则，即 O，是 Bertrand Meyer 的开放 / 封闭原则，他在 1988 年写道：
 
@@ -152,7 +155,7 @@ func PrintLegs(c Cat) {
 
 接收器正是你传入它的函数，函数的第一个参数，并且因为 Go 不支持函数重载，OctoCat 不能替代普通的 Cat 。 这让我想到了下一个原则。
 
-## L：里氏替换原则
+## 里氏替换原则
 
 由 Barbara Liskov 提出的里氏替换原则粗略地指出，如果两种类型表现出的行为使得调用者无法区分，则这两种类型是可替代的。
 
@@ -187,7 +190,7 @@ type Reader interface {
 
 >   Require no more, promise no less. `– Jim Weirich`
 
-## I：接口隔离原则
+## 接口隔离原则
 
 第四个原则是接口隔离原则，其内容如下：
 
@@ -260,7 +263,7 @@ func Save(w io.Writer, doc *Document) error
 
 这个推特大小的版本缺乏细节，这不是 Jack 的错，但我认为它代表了第一个正当有理的 Go 设计传统
 
-## D：依赖倒置原则
+## 依赖倒置原则
 
 最后一个 SOLID 原则是依赖倒置原则，该原则指出：
 
