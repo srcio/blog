@@ -4,11 +4,11 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>Golang 切片扩容 | 博客 · 丁鹏</title>
-<meta name=keywords content="Golang,slice,切片">
-<meta name=description content="怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？ 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底">
+<title>Golang 资源 | 博客 · 丁鹏</title>
+<meta name=keywords content="Golang">
+<meta name=description content="Golang 资源">
 <meta name=author content="丁鹏">
-<link rel=canonical href=https://srcio.cn/series/programming-go/slice-append/>
+<link rel=canonical href=https://srcio.cn/series/programming-go/golang-%E8%B5%84%E6%BA%90/>
 <meta name=baidu-site-verification content="code-yW1u8Rg4sz">
 <meta name=google-site-verification content="qnXhMaPNdhaZ4A36ptMVUn-0o111dAsJqugH_0ZCYvM">
 <link crossorigin=anonymous href=/assets/css/stylesheet.e885a03929d345922e032bc3e661c94c00cedb52c10d75afe2642bd4071375a8.css integrity="sha256-6IWgOSnTRZIuAyvD5mHJTADO21LBDXWv4mQr1AcTdag=" rel="preload stylesheet" as=style>
@@ -24,18 +24,18 @@
 <style>#theme-toggle,.top-link{display:none}</style>
 <style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
 </noscript>
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="Golang 切片扩容">
-<meta property="og:description" content="怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？ 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底">
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="Golang 资源">
+<meta property="og:description" content="Golang 资源">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://srcio.cn/series/programming-go/slice-append/"><meta property="og:image" content="https://srcio.cn/cover.png"><meta property="article:section" content="series">
-<meta property="article:published_time" content="2022-10-11T14:19:02+08:00">
-<meta property="article:modified_time" content="2022-10-11T14:19:02+08:00"><meta property="og:site_name" content="博客">
+<meta property="og:url" content="https://srcio.cn/series/programming-go/golang-%E8%B5%84%E6%BA%90/"><meta property="og:image" content="https://srcio.cn/cover.png"><meta property="article:section" content="series">
+<meta property="article:published_time" content="2022-11-16T10:05:39+00:00">
+<meta property="article:modified_time" content="2022-11-17T05:57:45+00:00"><meta property="og:site_name" content="博客">
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://srcio.cn/cover.png">
-<meta name=twitter:title content="Golang 切片扩容">
-<meta name=twitter:description content="怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？ 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底">
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"系列","item":"https://srcio.cn/series/"},{"@type":"ListItem","position":2,"name":"Golang 编程","item":"https://srcio.cn/series/programming-go/"},{"@type":"ListItem","position":3,"name":"Golang 切片扩容","item":"https://srcio.cn/series/programming-go/slice-append/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Golang 切片扩容","name":"Golang 切片扩容","description":"怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？ 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底","keywords":["Golang","slice","切片"],"articleBody":"怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？\n 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底层的数组发生了变化，不再是原来的数组结构。   ","wordCount":"91","inLanguage":"zh","datePublished":"2022-10-11T14:19:02+08:00","dateModified":"2022-10-11T14:19:02+08:00","author":[{"@type":"Person","name":"丁鹏"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://srcio.cn/series/programming-go/slice-append/"},"publisher":{"@type":"Organization","name":"博客 · 丁鹏","logo":{"@type":"ImageObject","url":"https://srcio.cn/images/blog.png"}}}</script>
+<meta name=twitter:title content="Golang 资源">
+<meta name=twitter:description content="Golang 资源">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"系列","item":"https://srcio.cn/series/"},{"@type":"ListItem","position":2,"name":"Golang 编程","item":"https://srcio.cn/series/programming-go/"},{"@type":"ListItem","position":3,"name":"Golang 资源","item":"https://srcio.cn/series/programming-go/golang-%E8%B5%84%E6%BA%90/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Golang 资源","name":"Golang 资源","description":"Golang 资源","keywords":["Golang"],"articleBody":"本页收集了一些 Golang 相关的资源，用作学习和参考，以及工作实践等。\nGo 路线图   👉🏻 GOLANG ROADMAP 站点\n  👉🏻 Go 开发者路线图\n  Awesome Go 你可以在里面找到各种 Go 框架，库以及软件等。\n  👉🏻 awesome-go\n  👉🏻 awesome-go-cn\n  ","wordCount":"78","inLanguage":"zh","datePublished":"2022-11-16T10:05:39.213Z","dateModified":"2022-11-17T05:57:45.53Z","author":[{"@type":"Person","name":"丁鹏"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://srcio.cn/series/programming-go/golang-%E8%B5%84%E6%BA%90/"},"publisher":{"@type":"Organization","name":"博客 · 丁鹏","logo":{"@type":"ImageObject","url":"https://srcio.cn/images/blog.png"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -102,22 +102,25 @@
 <div class=post-left-article>
 <header class=post-header>
 <div class=breadcrumbs><p>
-<span><a href=/><i class="fi fi-home"></i>&nbsp;主页</a></span><span><i class="fi fi-angle-right"></i><a href=https://srcio.cn/series/>系列</a></span><span><i class="fi fi-angle-right"></i><a href=https://srcio.cn/series/programming-go/>Golang 编程</a></span><i class="fi fi-angle-right"></i><span>Golang 切片扩容</span>
+<span><a href=/><i class="fi fi-home"></i>&nbsp;主页</a></span><span><i class="fi fi-angle-right"></i><a href=https://srcio.cn/series/>系列</a></span><span><i class="fi fi-angle-right"></i><a href=https://srcio.cn/series/programming-go/>Golang 编程</a></span><i class="fi fi-angle-right"></i><span>Golang 资源</span>
 </p>
 </div>
 <h1 id=post-title class=post-title>
-Golang 切片扩容
+Golang 资源
 </h1>
+<div class=post-description>
+Golang 资源
+</div>
 <div class=post-meta><span class=meta-item>
 <span>
-<i class="fi fi-calendar"></i>2022-10-11
+<i class="fi fi-calendar"></i>2022-11-16
 </span>
 </span><span class=meta-item>
 <span>
 &nbsp;·&nbsp;<i class="fi fi-clock"></i>1 分钟</span>
 </span><span class=meta-item>
 <span>
-&nbsp;·&nbsp;<i class="fi fi-word"></i>91 字</span>
+&nbsp;·&nbsp;<i class="fi fi-word"></i>78 字</span>
 </span>
 <span class=meta-item>
 <span>
@@ -125,36 +128,58 @@ Golang 切片扩容
 </span>
 </span><span class=meta-item>
 &nbsp;·&nbsp;<i class="fi fi-eye"></i>&nbsp;<span id=busuanzi_value_page_pv></span>
-</span>&nbsp;|&nbsp;<a href=https://github.com/srcio/blog/edit/master/content/series/programming-go/slice-append.md rel="noopener noreferrer" target=_blank>
+</span>&nbsp;|&nbsp;<a href=https://github.com/srcio/blog/edit/master/content/series/programming-go/Golang-%e8%b5%84%e6%ba%90.md rel="noopener noreferrer" target=_blank>
 <i class="fi fi-edit"></i>&nbsp;编辑</a>
 </div>
 </header>
-<div class=post-content><p>怎么理解切片 <code>s = append(s, item)</code> 需要使用 <code>s</code> 重新接收呢？</p>
+<div class=post-content><p>本页收集了一些 Golang 相关的资源，用作学习和参考，以及工作实践等。</p>
+<h2 id=go-路线图>Go 路线图<a hidden class=anchor aria-hidden=true href=#go-路线图>#</a></h2>
 <ol>
-<li>在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递；</li>
-<li>切片发生扩容后，底层的数组发生了变化，不再是原来的数组结构。</li>
+<li>
+<p>👉🏻 <a href=https://www.golangroadmap.com/>GOLANG ROADMAP 站点</a></p>
+</li>
+<li>
+<p>👉🏻 <a href=https://github.com/Alikhll/golang-developer-roadmap/blob/master/i18n/zh-CN/ReadMe-zh-CN.md>Go 开发者路线图</a></p>
+</li>
 </ol>
-<p>
-<img loading=lazy decoding=async src=https://srcio.oss-cn-hangzhou.aliyuncs.com/images/image-20221011234826356.png alt=image-20221011234826356></p>
+<h2 id=awesome-go>Awesome Go<a hidden class=anchor aria-hidden=true href=#awesome-go>#</a></h2>
+<p>你可以在里面找到各种 Go 框架，库以及软件等。</p>
+<ol>
+<li>
+<p>👉🏻 <a href=https://awesome-go.com>awesome-go</a></p>
+</li>
+<li>
+<p>👉🏻 <a href=https://github.com/jobbole/awesome-go-cn>awesome-go-cn</a></p>
+</li>
+</ol>
 </div>
 <footer class=post-footer>
 <ul class=post-tags>
 <li><a href=https://srcio.cn/tags/golang/><i class="fi fi-tag"></i>&nbsp;Golang</a></li>
 </ul>
 <nav class=paginav>
-<a class=prev href=https://srcio.cn/series/programming-kubernetes/crd/>
+<a class=prev href=https://srcio.cn/posts/acme-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/>
 <strong class=title><i class="fi fi-backward"></i>&nbsp;上一页</strong>
-<br>CRD 简介</a>
-<a class=next href=https://srcio.cn/posts/docker-compose/>
-<strong class=title>下一页&nbsp;<i class="fi fi-forward"></i></strong>
-<br>Docker Compose 实践</a>
+<br>ACME 工作原理</a>
 </nav>
 </footer>
 <div class=giscus_comments><script src=https://giscus.app/client.js data-repo=srcio/blog data-repo-id=R_kgDOIFWX7A data-category=General data-category-id=DIC_kwDOIFWX7M4CRrSg data-mapping=pathname data-strict=0 data-reactions-enabled=1 data-emit-metadata=0 data-input-position=top data-theme=light data-lang=zh-CN crossorigin=anonymous async></script>
 </div>
 <script>document.querySelector("div.giscus_comments > script").setAttribute("data-theme",localStorage.getItem("pref-theme")?localStorage.getItem("pref-theme"):window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"),document.querySelector("#theme-toggle").addEventListener("click",()=>{let a=document.querySelector("iframe.giscus-frame");a&&a.contentWindow.postMessage({giscus:{setConfig:{theme:localStorage.getItem("pref-theme")?localStorage.getItem("pref-theme")==="dark"?"light":"dark":document.body.className.includes("dark")?"light":"dark"}}},"https://giscus.app")})</script>
 </div>
-<div class=post-right-toc>
+<div class=post-right-toc><div class=toc>
+<div open>
+<div class=inner><ul>
+<li>
+<a href=#go-%e8%b7%af%e7%ba%bf%e5%9b%be aria-label="Go 路线图">Go 路线图</a></li>
+<li>
+<a href=#awesome-go aria-label="Awesome Go">Awesome Go</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<script>let activeElement,elements;window.addEventListener('DOMContentLoaded',function(b){elements=document.querySelectorAll('h1[id],h2[id],h3[id],h4[id]'),activeElement=elements[0];const a=encodeURI(activeElement.getAttribute('id')).toLowerCase();document.querySelector(`.inner ul li a[href="#${a}"]`).classList.add('active')},!1),window.addEventListener('scroll',()=>{activeElement=Array.from(elements).find(a=>{if(getOffsetTop(a)-window.pageYOffset>0&&getOffsetTop(a)-window.pageYOffset<window.innerHeight/2)return a})||activeElement,elements.forEach(a=>{const b=encodeURI(a.getAttribute('id')).toLowerCase();a===activeElement?document.querySelector(`.inner ul li a[href="#${b}"]`)?.classList.add('active'):document.querySelector(`.inner ul li a[href="#${b}"]`)?.classList.remove('active')})},!1);function getOffsetTop(a){if(!a.getClientRects().length)return 0;let b=a.getBoundingClientRect(),c=a.ownerDocument.defaultView;return b.top+c.pageYOffset}</script>
 </div>
 <div class=clear_float></div>
 </article>

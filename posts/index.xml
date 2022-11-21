@@ -10,7 +10,7 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Mon, 17 Oct 2022 20:21:58 +0800</lastBuildDate><atom:link href="https://srcio.cn/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 21 Nov 2022 10:03:43 +0000</lastBuildDate><atom:link href="https://srcio.cn/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>K8s 集群规划之节点资源配置</title>
       <link>https://srcio.cn/posts/k8s-node-resource-config/</link>
@@ -45,6 +45,15 @@
       
       <guid>https://srcio.cn/posts/use-giscus/</guid>
       <description>Giscus 开源、无广告、永久免费 支持多语言 支持表情反馈 支持懒加载 必要条件 你的博客所用的 GitHub 的仓库必须是 Public，并且开通了 Dicussion 功能； 安装 giscus</description>
+    </item>
+    
+    <item>
+      <title>ACME 工作原理</title>
+      <link>https://srcio.cn/posts/acme-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Mon, 21 Nov 2022 10:03:43 +0000</pubDate>
+      
+      <guid>https://srcio.cn/posts/acme-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</guid>
+      <description>转载自：https://baijiahao.baidu.com/s?id=1718543569967913534 不知道小伙伴们注意到没有，现</description>
     </item>
     
   </channel>
