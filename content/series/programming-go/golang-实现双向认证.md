@@ -1,8 +1,8 @@
 ---
-title: "Golang 实现双向认证"
+title: Golang 实现双向认证
 date: 2022-10-02T01:49:13+08:00
 draft: false
-tags: 
+tags:
   - Golang
   - tls
 keywords:
@@ -10,6 +10,7 @@ keywords:
   - tls
   - mtls
 weight: 1
+lastmod: 2022-11-17T06:50:37.545Z
 ---
 
 ## TLS

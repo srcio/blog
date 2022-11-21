@@ -32,7 +32,8 @@
         {
           "title": "Tags",
           "name": "tags",
-          "type": "tags"
+          "type": "tags",
+          "default": []
         },
         {
           "title": "Weight",

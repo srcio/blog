@@ -1,13 +1,14 @@
 ---
-title: "Go1.18 - 工作区模式"
+title: Go1.18 - 工作区模式
 date: 2022-09-28T18:25:05+08:00
 draft: false
-tags: 
+tags:
   - Golang
 keywords:
   - Golang
   - 工作区模式
 weight: 1
+lastmod: 2022-11-17T06:49:04.133Z
 ---
 
 安装的 Go1.18 或更新版本，它为你提供了工作区模式（Workspace mode），帮助你更好做 go 模块之间依赖的管理。

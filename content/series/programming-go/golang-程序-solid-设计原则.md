@@ -12,7 +12,7 @@ keywords:
 weight: 1
 cover:
   image: https://srcio.oss-cn-hangzhou.aliyuncs.com/images/20221031154811.png
-lastmod: 2022-11-03T03:31:11.961Z
+lastmod: 2022-11-17T06:48:56.609Z
 ---
 
 可重用软件设计的五个原则，**SOLID** 原则：
